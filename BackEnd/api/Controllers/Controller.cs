@@ -14,9 +14,9 @@ public class Controller : ControllerBase
     }
 
     [HttpGet]
-    [Route "/object"]
+    [Route ("/object")]
     public object Get()
     {
-       return
+        return "hi";
     }
 }
