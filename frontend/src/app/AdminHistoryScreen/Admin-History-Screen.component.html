@@ -1,0 +1,51 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="with=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>WackDonald's Orders</title>
+  <link rel="stylesheet" href="AdminScreenHistoryStyle.css">
+  <link rel="icon" href="images/favicon.ico">
+  <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+<div class="header">
+  <div class="inner_header">
+    <div class="logocontainer">
+      <img src="images/mcdlogo.png" alt="">
+    </div>
+    <ul class="navigation">
+      <a onclick="openUsers()"><li>Users</li></a>
+      <a onclick="openAdmin()"><li>Main Screen</li></a>
+      <a onclick="logout()"><li>Log out</li></a>
+    </ul>
+  </div>
+</div>
+<h1 class="">Receipts Of Orders</h1>
+<input type="text" placeholder="Search.." oninput="searchItems(this.value)">
+<div id="container">
+  <div class="hisContainer">
+    <div class="recieptContainer">
+      <ul id="hisList">
+
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="getFull">
+  <button onclick="closeReciept()"><i class="fa-solid fa-xmark"></i></button>
+  <h1>Receipt ID: </h1>
+  <h3>Contents</h3>
+  <div class="contentPane">
+    <ul class="contents">
+
+    </ul>
+  </div>
+  <p class="time">18:47 21/11/2023</p>
+</div>
+</body>
+</html>

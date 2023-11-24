@@ -1,0 +1,322 @@
+﻿*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+
+  background: linear-gradient(75deg, #26221c, #120e07) fixed;
+  min-height: 100vh;
+  overflow: hidden;
+
+
+}
+#header{
+  width: 100%;
+  height: 10vh;
+  background-color: #4f473b;
+}
+.container{
+  padding: 5px 5%;
+
+}
+nav{
+
+  align-items: center;
+  justify-content: space-between;
+
+
+
+}
+nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 0.75vh 3.9%;
+  position: relative;
+  font-size: 18px;
+}
+.container nav ul li button{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.container nav ul li button img{
+  width: 75px;
+  height: 75px;
+  border-radius: 50px;
+
+
+}
+#headerMenu{
+  filter: drop-shadow(0 0 0.7rem #0a0c10);
+
+}
+#order{
+  position: absolute;
+  right: 0;
+  height: 90vh;
+  width: 25%;
+  background-color: #5f574a;
+
+}
+.ordercontainer{
+  padding: 30px 10%;
+
+}
+.ordercontainer h1{
+  text-align: center;
+  padding: 0 0 20px 0;
+  border-bottom: 2px solid silver;
+}
+#scrollorder{
+
+  background-color: #312e28;
+  width: 100%;
+  height:70vh;
+  border-bottom: 2px solid silver;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.btn{
+  display: block;
+  margin: 35px auto;
+  width: 100%;
+  border: 1px solid #3B3C36;
+  padding: 14px 50px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 18px;
+  background-color: #5f725d;
+  color: silver;
+  transition: background 0.6s;
+}
+.btn:hover{
+  background: #2e4b36;
+}
+.scrollorder{
+
+  padding-bottom: 0px;
+
+}
+.scrollorder ul{
+  width: 80%;
+  text-decoration: none;
+  font-size: 22px;
+  color: silver;
+  margin: 10px 0;
+  padding: 30px 30px 30px 30px;
+
+}
+ol li{
+
+
+}
+#menu{
+  width: 70%;
+  height: 90vh;
+  overflow: auto;
+  max-height: 90vh;
+  position: relative;
+
+
+}
+#menu::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+.containerscroll{
+  padding: 5px 7.5%;
+  position: absolute;
+  left: 2.8%;
+  margin: auto;
+  transform: translateX(100%);
+  transition: 0.3s;
+}
+.containerscroll nav ul li button{
+  background-color: #312e28;
+  border-radius: 50px;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+.containerscroll nav ul li button img{
+  padding: 5px 5px 0px 5px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50px;
+  object-fit: contain;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  transition: transform 0.6s;
+}
+.containerscroll nav ul li button img:hover{
+  transform: scale(1.1);
+}
+
+.containerscroll nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 2vh 2.5%;
+  position: relative;
+  font-size: 18px;
+}
+#menucontent{
+  transform: translateX(0px);
+}
+
+#optionspane{
+  position: absolute;
+  left: 10%;
+  top: 12.5%;
+  bottom: 2.5%;
+  width: 51.5%;
+  background-color: #3B3C36;
+  border-radius: 25px;
+  border-style: solid;
+  border-color: #5f725d;
+  transform: translateY(-150%);
+  opacity: 0;
+
+}
+.optionspane button{
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  width: 30px;
+  height: 30px;
+  border-style: none;
+  border-radius: 10px;
+  background-color: #5f725d;
+  color: silver;
+  cursor: pointer;
+}
+.optionspane h1{
+  text-align: center;
+  padding: 20px 0 20px 0;
+  border-bottom: 2px solid silver;
+
+}
+.alloptions a{
+  display: block;
+  margin: 35px auto;
+  border: 2px solid #3B3C36;
+  padding: 14px 50px;
+  border-radius: 12px;
+  background-color: #5f725d;
+  color: silver;
+  cursor: pointer;
+  width: 250px;
+  height: 30px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  transition: 0.3s;
+}
+.alloptions a:hover{
+  background: #2e4b36;
+}
+.options h2{
+  position: sticky;
+  text-align: center;
+  padding: 50px 0 20px 0;
+  text-decoration: underline;
+  font-size: 29px;
+  color: silver;
+}
+.optionspane p{
+  text-align: center;
+
+  font-size: 22px;
+  color: silver;
+}
+.optionspane img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  width: 250px;
+  height: 250px;
+
+  object-fit: contain;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.btn2{
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}
+.anoption{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+
+
+  font-size: 24px;
+  color: silver;
+  max-width: 100%;
+  max-height: 100%;
+}
+.radio{
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 15px;
+  margin: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+.radio__input{
+  display: none;
+}
+.radio__label{
+  padding: 8px 14px;
+  font-size: 22px;
+  font-weight: 300;
+  color: silver;
+  background: #5f725d;
+  cursor: pointer;
+  transition: background 0.1s;
+
+}
+.radio__label:not(:last-of-type){
+  border-right: 1px solid #006b56;
+}
+.radio__input:checked + .radio__label{
+  background: #2e4b36;
+}
+.radio__label img{
+  height: 40px;
+  width: 40px;
+}
+.alloptions{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.options{
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 450px;
+}
+::-webkit-scrollbar{
+  width: 12px;
+}
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(transparent, #5f574a);
+  border-radius: 10px;
+
+}
+::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(transparent, #4f473b);
+}
+#myList li:hover{
+  color: red;
+  cursor: pointer;
+}
+
+<!--#781f19

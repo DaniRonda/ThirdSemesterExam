@@ -1,0 +1,95 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="with=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>WackDonald's Users</title>
+  <link rel="stylesheet" href="AdminScreenUsersStyle.css">
+  <link rel="icon" href="images/favicon.ico">
+  <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+<div class="header">
+  <div class="inner_header">
+    <div class="logocontainer">
+      <img src="images/mcdlogo.png" alt="">
+    </div>
+    <ul class="navigation">
+      <a onclick="openHistory()"><li>History</li></a>
+      <a onclick="openAdmin()"><li>Main Screen</li></a>
+      <a onclick="logout()"><li>Log out</li></a>
+    </ul>
+  </div>
+</div>
+<div class="footer">
+  <div class="inner_footer">
+    <ul class="navigation_footer">
+      <a ><li onclick="openUsers()">Users</li></a>
+      <a><li onclick="openEmployees()">Employees</li></a>
+    </ul>
+  </div>
+</div>
+<div class="content">
+  <h1 id="title">Users</h1>
+  <input type="text" placeholder="Search.." oninput="searchItems(this.value)" class="searchbar">
+  <div id="container">
+    <div class="hisContainer">
+      <div class="recieptContainer">
+        <ul id="hisList">
+
+        </ul>
+      </div>
+    </div>
+    <button class="add-event" onclick="openNew()">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+</div>
+<div id="getFull">
+  <button onclick="closeReciept()" class="closeBtn"><i class="fa-solid fa-xmark"></i></button>
+  <h1 class="userName">Username </h1>
+  <div class="loginInfo">
+    <h3>Login Information</h3>
+    <input type="text" placeholder="Username" id="usernameInput">
+    <input type="text" placeholder="Password" id="passwordInput">
+  </div>
+  <h3>ID</h3>
+  <p id="idText">test</p>
+  <div class="contentPane">
+    <ul class="contents">
+
+    </ul>
+  </div>
+  <div class="foot">
+    <div class="buttons">
+      <button onclick="closeReciept()" id="footButtonSave"><i class="fa-solid fa-floppy-disk"></i></button>
+      <button onclick="closeReciept()" id="footButtonDelete"><i class="fa-solid fa-trash"></i></button>
+    </div>
+    <p class="time">18:47 21/11/2023</p>
+  </div>
+
+</div>
+<div id="makenew">
+  <button onclick="closeReciept2()" class="closeBtn"><i class="fa-solid fa-xmark"></i></button>
+  <h3 id="nameTitle">User/Employee Name</h3>
+  <input type="text" placeholder="Name" id="newnameInput">
+  <div class="loginInfo">
+    <h3 class="loginInfo" id="loginTitle">Login Information</h3>
+    <input type="text" placeholder="Username" id="newusernameInput">
+    <input type="text" placeholder="Password" id="newpasswordInput">
+  </div>
+  <h3 class="loginInfo" id="loginId">ID</h3>
+  <input type="text" placeholder="Id" id="newIdInput">
+  <div class="foot">
+    <div class="buttons">
+      <button onclick="closeReciept()" id="footNewButtonSave"><i class="fa-solid fa-plus"></i></button>
+    </div>
+    <p class="time">18:47 21/11/2023</p>
+  </div>
+</div>
+</body>
+</html>

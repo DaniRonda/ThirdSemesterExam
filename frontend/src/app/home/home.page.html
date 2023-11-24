@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="with=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>WackDonald's Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/favicon.ico">
+  <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="center">
+  <h1>Login</h1>
+  <img src="images/mcdlogo.png" class="logo">
+  <h2>WackDonald's</h2>
+  <form method="post" onsubmit="return login()">
+    <div class="txt_field">
+      <input type="text" required id="usernameText" autocomplete="off">
+      <label>Username</label>
+    </div>
+    <div class="txt_field">
+      <input type="password" required id="passwordText">
+      <label>Password</label>
+    </div>
+    <div class="pass" onclick="myFunction()">Forgot Password?
+      <span class="popuptext" id="myPopup">Contact your manager or a technician via +4511223344</span>
+    </div>
+    <input type="submit" value="Login" onclick="login()">
+  </form>
+
+
+
+</div>
+</body>
+</html>

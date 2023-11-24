@@ -1,0 +1,186 @@
+﻿*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(25deg, #4d463c, #362917) fixed;
+  min-height: 100vh;
+  overflow-y: hidden;
+}
+.header{
+  width: 100%;
+  height: 9vh;
+  display: block;
+  background-color: #101a10;
+}
+.inner_header{
+  width: 90%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.logocontainer{
+  height: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logocontainer img{
+  height: 50px;
+
+}
+.navigation{
+  float: right;
+  height: 100%;
+  display: table;
+  padding: 0px 20px;
+}
+.navigation a{
+  display: table;
+  height: 100%;
+  float: left;
+  padding: 0px 20px;
+}
+
+.navigation a li{
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+h1{
+  padding-left: 10%;
+  padding-top: 2.5%;
+  color: white;
+}
+input[type=text] {
+  padding-top: 6px;
+  width: 300px;
+  border: none;
+  margin-top: 8px;
+  margin-left: 10%;
+  font-size: 17px;
+  border-radius: 15px;
+}
+input[type=text] {
+  padding: 6px;
+  width: 300px;
+  border: none;
+  margin-top: 8px;
+  margin-left: 10%;
+  font-size: 17px;
+  border-radius: 15px;
+}
+
+#container{
+  width: 90%;
+  padding-left: 10%;
+  padding-top: 20px;
+
+}
+.recieptContainer{
+  background-color: white;
+  width: 100%;
+  height:70vh;
+  border-bottom: 2px solid black;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 15px;
+
+}
+#hisList{
+  width: 100%;
+
+}
+#hisList li{
+  padding: 5px;
+  white-space: normal;
+  max-width: 80%;
+}
+#hisList div{
+  position: relative;
+}
+#hisList div p{
+  padding: 5px;
+  position: absolute;
+  right: 5%;
+}
+
+#hisList div:hover{
+  cursor: pointer;
+  color: darkgrey;
+}
+#hisList div:nth-child(even){
+  background: linear-gradient(90deg, silver, transparent);
+}
+
+#hisList div {
+  display: flex;
+  padding: 5px;
+  font-size: 21px;
+  /* Add more styling as needed */
+}
+#getFull{
+  position: absolute;
+  background-color: #f1f1f1;
+  height: 66vh;
+  width: 66%;
+  top: 25%;
+  left: 16.6%;
+  border-radius: 25px;
+  border: solid 2px grey;
+  transform: translateY(-150%);
+  opacity: 0;
+}
+#getFull button{
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  width: 30px;
+  height: 30px;
+  border-style: none;
+  border-radius: 10px;
+  background-color: #5f725d;
+  color: silver;
+  cursor: pointer;
+}
+#getFull h1{
+  padding: 20px 0 20px 0;
+  border-bottom: 2px solid black;
+  color: black;
+
+}
+#getFull h1{
+  padding: 20px;
+  border-bottom: 2px solid black;
+  color: black;
+
+}
+#getFull h3{
+  padding: 20px;
+  color: black;
+  font-size: 21px;
+}
+.time{
+  position: absolute;
+  padding: 20px;
+  bottom: 0;
+  text-wrap: normal;
+}
+.contents li{
+  padding: 10px 0 0 20px;
+  font-size: 18px;
+}
+.contentPane{
+  width: 100%;
+  height: 70%;
+  overflow-y: auto;
+}
