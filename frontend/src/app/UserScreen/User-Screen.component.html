@@ -1,11 +1,10 @@
 ﻿<!doctype html>
-<html lang="en">
+
 <head>
   <meta name="viewport" content="with=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>WackDonald's UserPage</title>
-  <link rel="stylesheet" href="Userstyle.css">
   <link rel="icon" href="images/favicon.ico">
   <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
 </head>
@@ -15,14 +14,14 @@
     <nav>
 
       <ul id="sidemenu">
-        <li><button href="#" id="headerMenu" onclick="openMenues()" class="tab-links" ><img src="images/menuicon.png"></button> </li>
-        <li><button href="#" id="headerBurger" onclick="openBurger()" class="tab-links"><img src="images/burgericon.png"></button> </li>
-        <li><button href="#services" id="headerSides" onclick="openSides()" class="tab-links"><img src="images/sidesicon.png"></button> </li>
-        <li><button href="#portfolio" id="headerSoda" onclick="openSoda()" class="tab-links"><img src="images/drinkicon.png"></button> </li>
-        <li><button href="#contact" id="headerChicken" onclick="openChicken()" class="tab-links"><img src="images/chickencon.png"></button> </li>
-        <li><button href="#contact" id="headerDessert" onclick="openDessert()" class="tab-links"><img src="images/dessertncon.png"></button> </li>
-        <li><button href="#contact" id="headerSalads" onclick="openSalad()" class="tab-links"><img src="images/saladicon.png"></button> </li>
-        <li><button href="#contact" id="headerVegan" onclick="openVegan()" class="tab-links"><img src="images/veganicon.png"></button> </li>
+        <li><button href="#" id="headerMenu" (click)="openMenues()" class="tab-links" ><img src="assets/menuicon.png"></button> </li>
+        <li><button href="#" id="headerBurger" (click)="openBurger()" class="tab-links"><img src="assets/burgericon.png"></button> </li>
+        <li><button href="#services" id="headerSides" (click)="openSides()" class="tab-links"><img src="assets/sidesicon.png"></button> </li>
+        <li><button href="#portfolio" id="headerSoda" (click)="openSoda()" class="tab-links"><img src="assets/drinkicon.png"></button> </li>
+        <li><button href="#contact" id="headerChicken" (click)="openChicken()" class="tab-links"><img src="assets/chickencon.png"></button> </li>
+        <li><button href="#contact" id="headerDessert" (click)="openDessert()" class="tab-links"><img src="assets/dessertncon.png"></button> </li>
+        <li><button href="#contact" id="headerSalads" (click)="openSalad()" class="tab-links"><img src="assets/saladicon.png"></button> </li>
+        <li><button href="#contact" id="headerVegan" (click)="openVegan()" class="tab-links"><img src="assets/veganicon.png"></button> </li>
       </ul>
     </nav>
   </div>
@@ -36,7 +35,11 @@
 
       </ul>
     </div>
-    <button type="submit" class="btn" onclick="openPayScreen()">Submit</button>
+    <button type="submit" class="btn" onclick="openPayScreen()">
+      <p id="left">Submit</p>
+      <p id="right" class="rightp"></p>
+
+    </button>
   </div>
 </div>
 
@@ -46,15 +49,15 @@
     <nav>
 
       <ul id="menulist">
-        <li><button href="#1menuscroll" id="menu1"><img src="images/menu1.png" onclick="showMenuOptions1()"></button> </li>
-        <li><button href="#2menuscroll" id="menu2"><img src="images/menu2.png" onclick="showMenuOptions2()"></button> </li>
-        <li><button href="#3menuscroll" id="menu3"><img src="images/menu3.png" onclick="showMenuOptions3()"></button> </li>
-        <li><button href="#4menuscroll" id="menu4"><img src="images/menu4.png" onclick="showMenuOptions4()"></button> </li>
-        <li><button href="#5menuscroll" id="menu5"><img src="images/menu5.png" onclick="showMenuOptions5()"></button> </li>
-        <li><button href="#6menuscroll" id="menu6"><img src="images/menu6.png" onclick="showMenuOptions6()"></button> </li>
-        <li><button href="#7menuscroll" id="menu7"><img src="images/menu7.png" onclick="showMenuOptions7()"></button> </li>
-        <li><button href="#8menuscroll" id="menu8"><img src="images/menu8.png" onclick="showMenuOptions8()"></button> </li>
-        <li><button href="#9menuscroll" id="menu9"><img src="images/menu9.png" onclick="showMenuOptions9()"></button> </li>
+        <li><button href="#1menuscroll" id="menu1"><img src="assets/menu1.png" (click)="showMenuOptions1()"></button> </li>
+        <li><button href="#2menuscroll" id="menu2"><img src="assets/menu2.png" onclick="showMenuOptions2()"></button> </li>
+        <li><button href="#3menuscroll" id="menu3"><img src="assets/menu3.png" onclick="showMenuOptions3()"></button> </li>
+        <li><button href="#4menuscroll" id="menu4"><img src="assets/menu4.png" onclick="showMenuOptions4()"></button> </li>
+        <li><button href="#5menuscroll" id="menu5"><img src="assets/menu5.png" onclick="showMenuOptions5()"></button> </li>
+        <li><button href="#6menuscroll" id="menu6"><img src="assets/menu6.png" onclick="showMenuOptions6()"></button> </li>
+        <li><button href="#7menuscroll" id="menu7"><img src="assets/menu7.png" onclick="showMenuOptions7()"></button> </li>
+        <li><button href="#8menuscroll" id="menu8"><img src="assets/menu8.png" onclick="showMenuOptions8()"></button> </li>
+        <li><button href="#9menuscroll" id="menu9"><img src="assets/menu9.png" onclick="showMenuOptions9()"></button> </li>
       </ul>
     </nav>
   </div>
@@ -64,12 +67,12 @@
 
     <nav>
       <ul id="burgerlist">
-        <li><button href="#1burgerscroll" id="burger1"><img src="images/burger1.png" onclick="showBurgerOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="burger2"><img src="images/burger2.png" onclick="showBurgerOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="burger3"><img src="images/burger3.png" onclick="showBurgerOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="burger5"><img src="images/burger4.png" onclick="showBurgerOptions4()"></button> </li>
-        <li><button href="#1burgerscroll" id="burger6"><img src="images/burger5.png" onclick="showBurgerOptions5()"></button> </li>
-        <li><button href="#1burgerscroll" id="burger7"><img src="images/burger6.png" onclick="showBurgerOptions6()"></button> </li>
+        <li><button href="#1burgerscroll" id="burger1"><img src="assets/burger1.png" onclick="showBurgerOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="burger2"><img src="assets/burger2.png" onclick="showBurgerOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="burger3"><img src="assets/burger3.png" onclick="showBurgerOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="burger5"><img src="assets/burger4.png" onclick="showBurgerOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="burger6"><img src="assets/burger5.png" onclick="showBurgerOptions5()"></button> </li>
+        <li><button href="#1burgerscroll" id="burger7"><img src="assets/burger6.png" onclick="showBurgerOptions6()"></button> </li>
       </ul>
     </nav>
 
@@ -78,12 +81,12 @@
 
     <nav>
       <ul id="sidelist">
-        <li><button href="#1burgerscroll" id="side1"><img src="images/sides1.png" onclick="showSidesOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="side2"><img src="images/sides2.png" onclick="showSidesOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="side3"><img src="images/sides3.png" onclick="showSidesOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="side5"><img src="images/sides4.png" onclick="showSidesOptions4()"></button> </li>
-        <li><button href="#1burgerscroll" id="side6"><img src="images/sides5.png" onclick="showSidesOptions5()"></button> </li>
-        <li><button href="#1burgerscroll" id="side7"><img src="images/sides6.png" onclick="showSidesOptions6()"></button> </li>
+        <li><button href="#1burgerscroll" id="side1"><img src="assets/sides1.png" onclick="showSidesOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="side2"><img src="assets/sides2.png" onclick="showSidesOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="side3"><img src="assets/sides3.png" onclick="showSidesOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="side5"><img src="assets/sides4.png" onclick="showSidesOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="side6"><img src="assets/sides5.png" onclick="showSidesOptions5()"></button> </li>
+        <li><button href="#1burgerscroll" id="side7"><img src="assets/sides6.png" onclick="showSidesOptions6()"></button> </li>
       </ul>
     </nav>
 
@@ -92,10 +95,10 @@
 
     <nav>
       <ul id="sodalist">
-        <li><button href="#1burgerscroll" id="soda1"><img src="images/soda1.png" onclick="showSodaOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="soda2"><img src="images/soda2.png" onclick="showSodaOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="soda3"><img src="images/soda3.png" onclick="showSodaOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="soda5"><img src="images/soda4.png" onclick="showSodaOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="soda1"><img src="assets/soda1.png" onclick="showSodaOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="soda2"><img src="assets/soda2.png" onclick="showSodaOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="soda3"><img src="assets/soda3.png" onclick="showSodaOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="soda5"><img src="assets/soda4.png" onclick="showSodaOptions4()"></button> </li>
 
       </ul>
     </nav>
@@ -105,11 +108,11 @@
 
     <nav>
       <ul id="chickenlist">
-        <li><button href="#1burgerscroll" id="chicken1"><img src="images/chicken1.png" onclick="showChickenOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="chicken2"><img src="images/chicken2.png" onclick="showChickenOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="chicken3"><img src="images/sides1.png" onclick="showChickenOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="chicken5"><img src="images/sides2.png" onclick="showChickenOptions4()"></button> </li>
-        <li><button href="#1burgerscroll" id="chicken6"><img src="images/sides3.png" onclick="showChickenOptions5()"></button> </li>
+        <li><button href="#1burgerscroll" id="chicken1"><img src="assets/chicken1.png" onclick="showChickenOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="chicken2"><img src="assets/chicken2.png" onclick="showChickenOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="chicken3"><img src="assets/sides1.png" onclick="showChickenOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="chicken5"><img src="assets/sides2.png" onclick="showChickenOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="chicken6"><img src="assets/sides3.png" onclick="showChickenOptions5()"></button> </li>
 
       </ul>
     </nav>
@@ -119,16 +122,16 @@
 
     <nav>
       <ul id="dessertlist">
-        <li><button href="#1burgerscroll" id="dessert1"><img src="images/dessert1.png" onclick="showDessertOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert2"><img src="images/dessert2.png" onclick="showDessertOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert3"><img src="images/dessert3.png" onclick="showDessertOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert4"><img src="images/dessert4.png" onclick="showDessertOptions4()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert5"><img src="images/dessert5.png" onclick="showDessertOptions5()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert6"><img src="images/dessert6.png" onclick="showDessertOptions6()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert7"><img src="images/dessert7.png" onclick="showDessertOptions7()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert8"><img src="images/dessert8.png" onclick="showDessertOptions8()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert9"><img src="images/dessert9.png" onclick="showDessertOptions9()"></button> </li>
-        <li><button href="#1burgerscroll" id="dessert10"><img src="images/dessert10.png" onclick="showDessertOptions10()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert1"><img src="assets/dessert1.png" onclick="showDessertOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert2"><img src="assets/dessert2.png" onclick="showDessertOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert3"><img src="assets/dessert3.png" onclick="showDessertOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert4"><img src="assets/dessert4.png" onclick="showDessertOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert5"><img src="assets/dessert5.png" onclick="showDessertOptions5()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert6"><img src="assets/dessert6.png" onclick="showDessertOptions6()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert7"><img src="assets/dessert7.png" onclick="showDessertOptions7()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert8"><img src="assets/dessert8.png" onclick="showDessertOptions8()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert9"><img src="assets/dessert9.png" onclick="showDessertOptions9()"></button> </li>
+        <li><button href="#1burgerscroll" id="dessert10"><img src="assets/dessert10.png" onclick="showDessertOptions10()"></button> </li>
       </ul>
     </nav>
 
@@ -137,11 +140,11 @@
 
     <nav>
       <ul id="saladlist">
-        <li><button href="#1burgerscroll" id="salad1"><img src="images/salad1.png" onclick="showSaladOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="salad2"><img src="images/salad2.png" onclick="showSaladOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="salad3"><img src="images/salad3.png" onclick="showSaladOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="salad4"><img src="images/salad4.png" onclick="showSaladOptions4()"></button> </li>
-        <li><button href="#1burgerscroll" id="salad5"><img src="images/salad5.png" onclick="showSaladOptions5()"></button> </li>
+        <li><button href="#1burgerscroll" id="salad1"><img src="assets/salad1.png" onclick="showSaladOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="salad2"><img src="assets/salad2.png" onclick="showSaladOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="salad3"><img src="assets/salad3.png" onclick="showSaladOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="salad4"><img src="assets/salad4.png" onclick="showSaladOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="salad5"><img src="assets/salad5.png" onclick="showSaladOptions5()"></button> </li>
       </ul>
     </nav>
   </div>
@@ -149,17 +152,17 @@
 
     <nav>
       <ul id="veganlist">
-        <li><button href="#1burgerscroll" id="vegan1"><img src="images/vegan1.png" onclick="showVeganOptions1()"></button> </li>
-        <li><button href="#1burgerscroll" id="vegan2"><img src="images/vegan2.png" onclick="showVeganOptions2()"></button> </li>
-        <li><button href="#1burgerscroll" id="vegan3"><img src="images/vegan3.png" onclick="showVeganOptions3()"></button> </li>
-        <li><button href="#1burgerscroll" id="vegan4"><img src="images/salad2.png" onclick="showVeganOptions4()"></button> </li>
+        <li><button href="#1burgerscroll" id="vegan1"><img src="assets/vegan1.png" onclick="showVeganOptions1()"></button> </li>
+        <li><button href="#1burgerscroll" id="vegan2"><img src="assets/vegan2.png" onclick="showVeganOptions2()"></button> </li>
+        <li><button href="#1burgerscroll" id="vegan3"><img src="assets/vegan3.png" onclick="showVeganOptions3()"></button> </li>
+        <li><button href="#1burgerscroll" id="vegan4"><img src="assets/salad2.png" onclick="showVeganOptions4()"></button> </li>
       </ul>
     </nav>
   </div>
 </div>
 <div id="optionspane">
   <div class="optionspane">
-    <button onclick="closeOptions()"><i class="fa-solid fa-xmark"></i></button>
+    <button (click)="closeOptions()"><i class="fa-solid fa-xmark"></i></button>
     <h1>Options</h1>
     <img src="images/menu1.png" alt="Selected burger image" id="optionImg">
     <p id="optionTitle">WackCheese Double Patty Menu</p>
@@ -169,11 +172,11 @@
         <div class="anoption" id="sizeoption">
           <p id="sizeoptiontitle">Menu size</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Size: Small- " name="menuRadio" id="sizeRadio1" data-price="-10" onclick="smallClicked()">
+            <input class="radio__input" type="radio" value="|Size: Small| " name="menuRadio" id="sizeRadio1" data-price="-10" onclick="smallClicked()">
             <label class="radio__label" for="sizeRadio1">Small</label>
-            <input class="radio__input" type="radio" value="Size: Medium- " name="menuRadio" id="sizeRadio2" data-price="0" onclick="mediumClicked()" checked>
+            <input class="radio__input" type="radio" value="|Size: Medium| " name="menuRadio" id="sizeRadio2" data-price="0" onclick="mediumClicked()" checked>
             <label class="radio__label" for="sizeRadio2">Medium</label>
-            <input class="radio__input" type="radio" value="Size: Large- " name="menuRadio" id="sizeRadio3" data-price="10" onclick="largeClicked()">
+            <input class="radio__input" type="radio" value="|Size: Large| " name="menuRadio" id="sizeRadio3" data-price="10" onclick="largeClicked()">
             <label class="radio__label" for="sizeRadio3">Large</label>
           </div>
         </div>
@@ -181,25 +184,25 @@
         <div class="anoption" id="sodaoption">
           <p id="sodaoptiontitle">Drinks:</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Soda: Cola- " name="sodaRadio" id="sodaRadio1" data-price="10" checked>
-            <label class="radio__label" for="sodaRadio1"><img src="images/soda1.png"></label>
-            <input class="radio__input" type="radio" value="Soda: Pepsi- " name="sodaRadio" id="sodaRadio2" data-price="10">
-            <label class="radio__label" for="sodaRadio2"><img src="images/soda2.png"></label>
-            <input class="radio__input" type="radio" value="Soda: Sprite- " name="sodaRadio" id="sodaRadio3" data-price="10">
-            <label class="radio__label" for="sodaRadio3"><img src="images/soda3.png"></label>
-            <input class="radio__input" type="radio" value="Soda: Fanta- " name="sodaRadio" id="sodaRadio4" data-price="10">
-            <label class="radio__label" for="sodaRadio4"><img src="images/soda4.png"></label>
+            <input class="radio__input" type="radio" value="|Soda: Cola| " name="sodaRadio" id="sodaRadio1" data-price="10" checked>
+            <label class="radio__label" for="sodaRadio1"><img src="assets/soda1.png"></label>
+            <input class="radio__input" type="radio" value="|Soda: Pepsi| " name="sodaRadio" id="sodaRadio2" data-price="10">
+            <label class="radio__label" for="sodaRadio2"><img src="assets/soda2.png"></label>
+            <input class="radio__input" type="radio" value="|Soda: Sprite| " name="sodaRadio" id="sodaRadio3" data-price="10">
+            <label class="radio__label" for="sodaRadio3"><img src="assets/soda3.png"></label>
+            <input class="radio__input" type="radio" value="|Soda: Fanta| " name="sodaRadio" id="sodaRadio4" data-price="10">
+            <label class="radio__label" for="sodaRadio4"><img src="assets/soda4.png"></label>
           </div>
         </div>
 
         <div class="anoption" id="cheeseoption">
           <p id="cheeseoptiontitle">No/Extra Cheese</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Cheese: None- " name="myRadio" id="myRadio1" onclick="noCheeseClicked()">
+            <input class="radio__input" type="radio" value="|Cheese: None| " name="myRadio" id="myRadio1" onclick="noCheeseClicked()">
             <label class="radio__label" for="myRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Cheese: Normal- " name="myRadio" id="myRadio2" onclick="cheeseClicked()" checked>
+            <input class="radio__input" type="radio" value="|Cheese: Normal| " name="myRadio" id="myRadio2" onclick="cheeseClicked()" checked>
             <label class="radio__label" for="myRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Cheese: Extra- " name="myRadio" id="myRadio3" onclick="extraCheeseClicked()">
+            <input class="radio__input" type="radio" value="|Cheese: Extra| " name="myRadio" id="myRadio3" onclick="extraCheeseClicked()">
             <label class="radio__label" for="myRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
@@ -209,11 +212,11 @@
         <div class="anoption" id="baconoption">
           <p id="baconoptiontitle">No/Extra Bacon</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Bacon: None- " name="baconRadio" id="baconRadio1" onclick="noBaconClicked()">
+            <input class="radio__input" type="radio" value="|Bacon: None| " name="baconRadio" id="baconRadio1" onclick="noBaconClicked()">
             <label class="radio__label" for="baconRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Bacon: Normal- " name="baconRadio" id="baconRadio2" onclick="baconClicked()" checked>
+            <input class="radio__input" type="radio" value="|Bacon: Normal| " name="baconRadio" id="baconRadio2" onclick="baconClicked()" checked>
             <label class="radio__label" for="baconRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Bacon: Extra- " name="baconRadio" id="baconRadio3" onclick="extraBaconClicked()">
+            <input class="radio__input" type="radio" value="|Bacon: Extra| " name="baconRadio" id="baconRadio3" onclick="extraBaconClicked()">
             <label class="radio__label" for="baconRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
@@ -221,66 +224,66 @@
         <div class="anoption" id="picklesoption">
           <p id="picklesoptiontitle">No/Extra Pickles</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Pickles: None- " name="pickleRadio" id="pickleRadio1" onclick="noPickleClicked()">
+            <input class="radio__input" type="radio" value="|Pickles: None| " name="pickleRadio" id="pickleRadio1" onclick="noPickleClicked()">
             <label class="radio__label" for="pickleRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Pickles: Normal- " name="pickleRadio" id="pickleRadio2" onclick="pickleClicked()" checked>
+            <input class="radio__input" type="radio" value="|Pickles: Normal| " name="pickleRadio" id="pickleRadio2" onclick="pickleClicked()" checked>
             <label class="radio__label" for="pickleRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Pickles: Extra- " name="pickleRadio" id="pickleRadio3" onclick="extraPickleClicked()">
+            <input class="radio__input" type="radio" value="|Pickles: Extra| " name="pickleRadio" id="pickleRadio3" onclick="extraPickleClicked()">
             <label class="radio__label" for="pickleRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
         <div class="anoption" id="onionsoption">
           <p id="onionsoptiontitle">No/Extra Onions</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Onions: None- " name="onionRadio" id="onionRadio1" onclick="noOnionClicked()">
+            <input class="radio__input" type="radio" value="|Onions: None| " name="onionRadio" id="onionRadio1" onclick="noOnionClicked()">
             <label class="radio__label" for="onionRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Onions: Normal- " name="onionRadio" id="onionRadio2" onclick="onionClicked()" checked>
+            <input class="radio__input" type="radio" value="|Onions: Normal| " name="onionRadio" id="onionRadio2" onclick="onionClicked()" checked>
             <label class="radio__label" for="onionRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Onions: Extra- " name="onionRadio" id="onionRadio3" onclick="extraOnionClicked()">
+            <input class="radio__input" type="radio" value="|Onions: Extra| " name="onionRadio" id="onionRadio3" onclick="extraOnionClicked()">
             <label class="radio__label" for="onionRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
         <div class="anoption" id="tomatooption">
           <p id="tomatooptiontitle">No/Extra Tomatos</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Tomato: None- " name="tomatoRadio" id="tomatoRadio1" onclick="noTomatoClicked()">
+            <input class="radio__input" type="radio" value="|Tomato: None| " name="tomatoRadio" id="tomatoRadio1" onclick="noTomatoClicked()">
             <label class="radio__label" for="tomatoRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Tomato: Normal- " name="tomatoRadio" id="tomatoRadio2" onclick="tomatoClicked()" checked>
+            <input class="radio__input" type="radio" value="|Tomato: Normal| " name="tomatoRadio" id="tomatoRadio2" onclick="tomatoClicked()" checked>
             <label class="radio__label" for="tomatoRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Tomato: Extra- " name="tomatoRadio" id="tomatoRadio3" onclick="extraTomatoClicked()">
+            <input class="radio__input" type="radio" value="|Tomato: Extra| " name="tomatoRadio" id="tomatoRadio3" onclick="extraTomatoClicked()">
             <label class="radio__label" for="tomatoRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
         <div class="anoption" id="lettuceoption">
           <p id="lettuceoptiontitle">No/Extra Lettuce</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Lettuce: None- " name="lettuceRadio" id="lettuceRadio1" onclick="noLettuceClicked()">
+            <input class="radio__input" type="radio" value="|Lettuce: None| " name="lettuceRadio" id="lettuceRadio1" onclick="noLettuceClicked()">
             <label class="radio__label" for="lettuceRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Lettuce: Normal- " name="lettuceRadio" id="lettuceRadio2" onclick="lettuceClicked()" checked>
+            <input class="radio__input" type="radio" value="|Lettuce: Normal| " name="lettuceRadio" id="lettuceRadio2" onclick="lettuceClicked()" checked>
             <label class="radio__label" for="lettuceRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Lettuce: Extra- " name="lettuceRadio" id="lettuceRadio3" onclick="extraLettuceClicked()">
+            <input class="radio__input" type="radio" value="|Lettuce: Extra| " name="lettuceRadio" id="lettuceRadio3" onclick="extraLettuceClicked()">
             <label class="radio__label" for="lettuceRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
         <div class="anoption" id="ketchupoption">
           <p id="ketchupoptiontitle">No/Extra Ketchup</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Ketchup: None- " name="ketchupRadio" id="ketchupRadio1" onclick="noKetchupClicked()">
+            <input class="radio__input" type="radio" value="|Ketchup: None| " name="ketchupRadio" id="ketchupRadio1" onclick="noKetchupClicked()">
             <label class="radio__label" for="ketchupRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Ketchup: Normal- " name="ketchupRadio" id="ketchupRadio2" onclick="ketchupClicked()" checked>
+            <input class="radio__input" type="radio" value="|Ketchup: Normal| " name="ketchupRadio" id="ketchupRadio2" onclick="ketchupClicked()" checked>
             <label class="radio__label" for="ketchupRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Ketchup: Extra- " name="ketchupRadio" id="ketchupRadio3" onclick="extraKetchupClicked()">
+            <input class="radio__input" type="radio" value="|Ketchup: Extra| " name="ketchupRadio" id="ketchupRadio3" onclick="extraKetchupClicked()">
             <label class="radio__label" for="ketchupRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
         </div>
         <div class="anoption" id="mayooption">
           <p id="mayooptiontitle">No/Extra Mayonnaise</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="Mayo: None- " name="mayoRadio" id="mayoRadio1" onclick="noMayoClicked()">
+            <input class="radio__input" type="radio" value="|Mayo: None| " name="mayoRadio" id="mayoRadio1" onclick="noMayoClicked()">
             <label class="radio__label" for="mayoRadio1"><i class="fa-solid fa-square-minus"></i></label>
-            <input class="radio__input" type="radio" value="Mayo: Normal- " name="mayoRadio" id="mayoRadio2" onclick="mayoClicked()" checked>
+            <input class="radio__input" type="radio" value="|Mayo: Normal| " name="mayoRadio" id="mayoRadio2" onclick="mayoClicked()" checked>
             <label class="radio__label" for="mayoRadio2"><i class="fa-solid fa-slash"></i></label>
-            <input class="radio__input" type="radio" value="Mayo: Extra- " name="mayoRadio" id="mayoRadio3" onclick="extraMayoClicked()">
+            <input class="radio__input" type="radio" value="|Mayo: Extra| " name="mayoRadio" id="mayoRadio3" onclick="extraMayoClicked()">
             <label class="radio__label" for="mayoRadio3"><i class="fa-solid fa-square-plus"></i></label>
           </div>
 
@@ -293,4 +296,4 @@
   </div>
 </div>
 </body>
-</html>
+

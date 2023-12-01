@@ -6,9 +6,18 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import {ChefScreenComponent} from "./ChefScreen/Chef-Screen.component";
+import {UserScreenComponent} from "./UserScreen/User-Screen.component";
+import {UserPayScreenComponent} from "./UserPayScreen/User-Pay-Screen.component";
+import {AdminUserScreenComponent} from "./AdminUsersScreen/Admin-Users-Screen.component";
+import {AdminScreenComponent} from "./AdminScreen/Admin-Screen.component";
+import {AdminHistoryScreenComponent} from "./AdminHistoryScreen/Admin-History-Screen";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ChefScreenComponent,
+    UserScreenComponent, UserPayScreenComponent,
+    AdminUserScreenComponent, AdminScreenComponent,
+    AdminHistoryScreenComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
