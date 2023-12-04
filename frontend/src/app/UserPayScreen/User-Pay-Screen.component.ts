@@ -1,55 +1,90 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   templateUrl: 'User-Pay-Screen.component.html',
   styleUrls: ['User-Pay-Screen.scss'],
 })
-export class UserPayScreenComponent {
+export class UserPayScreenComponent{
   private originalString: string = '';
-  private stringWithSpaces: string = '';
+  public stringWithSpaces: string = '';
+  public holderName: string = '';
+  public cvvNmb: string = '';
+  public expM: string = '';
+  public expY: string = '';
+  cvvInput: HTMLInputElement | null = document.getElementById('cvvInputt') as HTMLInputElement;
   constructor() {
-    this.setupEventListeners();
+    this.cvvInput = document.getElementById('cvvInputt') as HTMLInputElement;
+
+    if (this.cvvInput) {
+      this.cvvInput.addEventListener('click', () => {
+        console.log('Clicked on CVV input');
+      });
+    } else {
+      console.error('Element with ID "cvvInputt" not found');
+    }
+
   }
-  private addSpaces(str: string): string {
+
+
+  onInputChangeNumber(event: Event): void {
+
+    const inputElement = event.target as HTMLInputElement;
+    this.originalString = inputElement.value;
+    this.stringWithSpaces = this.addSpaces(this.originalString);
+    console.log(this.stringWithSpaces)
+  }
+
+
+  addSpaces(str: string): string {
     // Use a regular expression to add a space every 4 characters
     return str.replace(/(.{4})/g, '$1 ');
   }
 
-  private setupEventListeners(): void {
-    document.querySelector('.card-number-input')?.addEventListener('input', () => {
-      this.originalString = (document.querySelector('.card-number-input') as HTMLInputElement).value;
-      this.stringWithSpaces = this.addSpaces(this.originalString);
-      (document.querySelector('.card-number-box') as HTMLElement).innerText = this.stringWithSpaces;
-    });
 
-    document.querySelector('.card-holder-input')?.addEventListener('input', () => {
-      (document.querySelector('.card-holder-name') as HTMLElement).innerText =
-          (document.querySelector('.card-holder-input') as HTMLInputElement).value;
-    });
-
-    // Add other event listeners here...
-
-    document.getElementById('numericInput')?.addEventListener('input', function (this: HTMLInputElement) {
-      let input = this.value.replace(/\D/g, ''); // Remove non-numeric characters
-      if (input.length > 15) {
-        input = input.slice(0, 15); // Limit to 15 characters
-        this.value = input;
-      }
-    });
+  onInputChangeName(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.holderName = inputElement.value;
   }
 
-  private goBackToUser(event: Event): boolean {
-    event.preventDefault();
-    const cardnmb = (document.getElementById('numericInput') as HTMLInputElement).value;
-    const cardHolder = (document.getElementById('cardHolderInput') as HTMLInputElement).value;
-    // ... (similarly get other values)
+  onInputChangeCVV(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.cvvNmb = inputElement.value;
+  }
 
-    if (cardnmb.trim() !== '' && cardHolder.trim() !== '') {
-      window.location.href = 'User.html';
-      return false;
+  onSelectY(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.expY = inputElement.value;
+  }
+
+  onSelectM(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.expM = inputElement.value;
+  }
+
+
+
+
+
+// Create an instance of the class to initialize the event listeners
+
+
+  handleMouseOver() {
+    const frontElement = document.querySelector('.front') as HTMLElement;
+    const backElement = document.querySelector('.back') as HTMLElement;
+
+    if (frontElement && backElement) {
+      frontElement.style.transform = 'perspective(1000px) rotateY(-180deg)';
+      backElement.style.transform = 'perspective(1000px) rotateY(0deg)';
     }
-
-    return true;
   }
 
+  handleMouseOut() {
+    const frontElement = document.querySelector('.front') as HTMLElement;
+    const backElement = document.querySelector('.back') as HTMLElement;
+
+    if (frontElement && backElement) {
+      frontElement.style.transform = 'perspective(1000px) rotateY(0deg)';
+      backElement.style.transform = 'perspective(1000px) rotateY(180deg)';
+    }
+  }
 }

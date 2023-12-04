@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>WackDonald's Orders</title>
 
-  <link rel="icon" href="images/favicon.ico">
+  <link rel="icon" href="assets/favicon.ico">
   <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="header">
   <div class="inner_header">
     <div class="logocontainer">
-      <img src="images/mcdlogo.png" alt="">
+      <img src="assets/mcdlogo.png" alt="">
     </div>
 
     <ul class="navigation">
-      <a onclick="logout()"><li>Log out</li></a>
+      <a (click)="logout()"><li>Log out</li></a>
     </ul>
     <div class="clock">
       <span id="hrs">00</span>
@@ -35,7 +35,7 @@
 
 </div>
 <div>
-  <button class="addbtn" onclick="addOrder1()">+</button>
+  <button class="addbtn" (click)="addOrder1()">+</button>
 </div>
 </body>
 

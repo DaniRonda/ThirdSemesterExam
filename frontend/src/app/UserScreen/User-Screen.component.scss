@@ -78,7 +78,7 @@ nav ul li{
   overflow-x: hidden;
 }
 .btn{
-  display: block;
+  display: flex;
   margin: 35px auto;
   width: 100%;
   border: 1px solid #3B3C36;
@@ -200,17 +200,18 @@ ol li{
   display: block;
   margin: 35px auto;
   border: 2px solid #3B3C36;
-  padding: 14px 50px;
+  padding-top: 9px;
   border-radius: 12px;
   background-color: #5f725d;
   color: silver;
   cursor: pointer;
   width: 250px;
-  height: 30px;
+  height: 48px;
   text-align: center;
   font-size: 24px;
   font-weight: 900;
   transition: 0.3s;
+
 }
 .alloptions a:hover{
   background: #2e4b36;
@@ -265,7 +266,7 @@ ol li{
   display: inline-flex;
   overflow: hidden;
   border-radius: 15px;
-  margin: 20px;
+  margin: 20px 80px 20px 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
@@ -297,11 +298,13 @@ ol li{
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+
 }
 .options{
   overflow: scroll;
   overflow-x: hidden;
   height: 450px;
+
 }
 ::-webkit-scrollbar{
   width: 12px;
@@ -314,9 +317,30 @@ ol li{
 ::-webkit-scrollbar-thumb:hover{
   background: linear-gradient(transparent, #4f473b);
 }
-#myList li:hover{
+#myList{
+  width: 100%;
+}
+.orderParts:hover{
   color: red;
   cursor: pointer;
 }
+.orderParts{
+  text-align: center;
+  border-bottom: solid 1px silver;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+.rightp{
+  display: flex;
+  width: fit-content;
+  text-align: right;
+  float: right;
+  margin-left: auto;
+  margin-right: 20px;
+}
+#left{
+  padding-left: 20px;
+  display: flex;
 
+}
 

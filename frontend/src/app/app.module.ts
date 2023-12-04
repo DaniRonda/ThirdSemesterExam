@@ -12,13 +12,14 @@ import {UserPayScreenComponent} from "./UserPayScreen/User-Pay-Screen.component"
 import {AdminUserScreenComponent} from "./AdminUsersScreen/Admin-Users-Screen.component";
 import {AdminScreenComponent} from "./AdminScreen/Admin-Screen.component";
 import {AdminHistoryScreenComponent} from "./AdminHistoryScreen/Admin-History-Screen";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [AppComponent, ChefScreenComponent,
     UserScreenComponent, UserPayScreenComponent,
     AdminUserScreenComponent, AdminScreenComponent,
     AdminHistoryScreenComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FaIconComponent],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

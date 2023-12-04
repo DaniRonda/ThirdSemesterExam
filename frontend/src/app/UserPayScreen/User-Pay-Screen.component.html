@@ -21,17 +21,17 @@
         <img src="assets/chip.png" alt="">
         <img src="assets/visa.png" alt="">
       </div>
-      <div class="card-number-box">################</div>
+      <div class="card-number-box">{{ stringWithSpaces }}</div>
       <div class="flexbox">
         <div class="box">
           <span>card holder</span>
-          <div class="card-holder-name">full name</div>
+          <div class="card-holder-name">{{ holderName }}</div>
         </div>
         <div class="box">
           <span>expires</span>
           <div class="expiration">
-            <span class="exp-month">mm</span>
-            <span class="exp-year">yy</span>
+            <span class="exp-month">{{expM}}</span>
+            <span class="exp-year">{{expY}}</span>
           </div>
         </div>
       </div>
@@ -40,8 +40,9 @@
     <div class="back">
       <div class="stripe"></div>
       <div class="box">
-        <span>cvv</span>
-        <div class="cvv-box"></div>
+        <span>CVV</span>
+        <div class="cvv-box"><span>{{ cvvNmb }}</span></div>
+
         <img src="assets/visa.png" alt="">
       </div>
     </div>
@@ -51,16 +52,16 @@
   <form action="">
     <div class="inputBox">
       <span>card number</span>
-      <input type="number" id="numericInput" pattern="[0-9]*" class="card-number-input" maxlength="16">
+      <input type="number" id="numericInput" pattern="[0-9]*" class="card-number-input" maxlength="16" (input)="onInputChangeNumber($event)">
     </div>
     <div class="inputBox">
       <span>card holder</span>
-      <input type="text" class="card-holder-input" id="cardHolderInput">
+      <input type="text" class="card-holder-input" id="cardHolderInput" (input)="onInputChangeName($event)">
     </div>
     <div class="flexbox">
       <div class="inputBox">
         <span>expiration mm</span>
-        <select name="" id="monthBox" class="month-input">
+        <select name="" id="monthBox" class="month-input" (change)="onSelectM($event)">
           <option value="month" selected disabled>month</option>
           <option value="01">01</option>
           <option value="02">02</option>
@@ -78,7 +79,7 @@
       </div>
       <div class="inputBox">
         <span>expiration yy</span>
-        <select name="" id="yearBox" class="year-input">
+        <select name="" id="yearBox" class="year-input" (change)="onSelectY($event)">
           <option value="year" selected disabled>year</option>
           <option value="2023">2023</option>
           <option value="2024">2024</option>
@@ -103,7 +104,7 @@
       </div>
       <div class="inputBox">
         <span>cvv</span>
-        <input type="number" id="cvvInputt" pattern="[0-9]*" maxlength="4" class="cvv-input">
+        <input type="number" id="cvvInputt" pattern="[0-9]*" maxlength="4" class="cvv-input" (input)="onInputChangeCVV($event)" (mouseover)="handleMouseOver()" (mouseleave)="handleMouseOut()">
       </div>
     </div>
     <input type="submit" value="submit" class="submit-btn" onclick="goBackToUser(event)">

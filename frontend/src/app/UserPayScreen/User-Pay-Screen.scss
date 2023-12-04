@@ -147,9 +147,12 @@
 .container .card-container .back .box{
   padding: 0 20px;
 }
-
 .container .card-container .back .box span{
   color:#fff;
+  font-size: 15px;
+}
+.container .card-container .back .box .cvv-box span{
+  color:#333;
   font-size: 15px;
 }
 
@@ -157,7 +160,7 @@
   height: 50px;
   padding: 10px;
   margin-top: 5px;
-  color:#333;
+  color:red;
   background: #fff;
   border-radius: 5px;
   width: 100%;

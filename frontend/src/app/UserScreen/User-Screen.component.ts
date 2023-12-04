@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
+import {faCoffee, faMinus, faPlus, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   templateUrl: 'User-Screen.component.html',
@@ -7,21 +8,8 @@ import { Component } from '@angular/core';
 
 export class UserScreenComponent {
 
-  constructor() {
-      this.orderList?.addEventListener("click", (event: MouseEvent) => {
-          if (event.target instanceof HTMLLIElement) {
-              const indexToRemove = Array.from(this.orderList?.children || []).indexOf(event.target);
+  constructor(private el: ElementRef) {
 
-              // Remove the item from the data array
-              this.data.splice(indexToRemove, 1);
-
-              // Remove the clicked <li> element from the list
-              event.target.remove();
-
-              console.log(this.data);
-              this.setTotal();
-          }
-      });
   }
 
   menubase: number = 0;
@@ -377,7 +365,7 @@ export class UserScreenComponent {
       });
     };
 
-    resetRadioInputs("sizeRadio", "2");
+    resetRadioInputs("menuRadio", "2");
     resetRadioInputs("sodaRadio", "1");
     resetRadioInputs("myRadio", "2");
     resetRadioInputs("baconRadio", "2");
@@ -387,6 +375,15 @@ export class UserScreenComponent {
     resetRadioInputs("lettuceRadio", "2");
     resetRadioInputs("ketchupRadio", "2");
     resetRadioInputs("mayoRadio", "2");
+
+    const radioElement = document.getElementById("sizeRadio2") as HTMLInputElement | null;
+    const radioElement2 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
+
+
+    if (radioElement && radioElement2) {
+      radioElement.checked = true;
+      radioElement2.checked = true;
+    }
 
     this.menubase = 0;
     this.newprice = 0;
@@ -2659,8 +2656,9 @@ export class UserScreenComponent {
     }
   }
   setTotal(): void {
+
     var totalPrice = 0;
-    const priceText = document.getElementById("priceText");
+    const priceText = document.getElementById("right");
 
     if (priceText) {
       this.data.forEach(function (inputString) {
@@ -2678,16 +2676,37 @@ export class UserScreenComponent {
     }
   }
   renderItems(): void {
-    const list = document.getElementById("yourListId") as HTMLUListElement | null;
+    const list = document.getElementById("myList") as HTMLUListElement | null;
 
-    if (list && this.data.length > 0) {
+    if (list && this.data.length > -1) {
+      console.log("test this")
       list.innerHTML = "";
-
       this.data.forEach((item: string) => {
-        let li = document.createElement("li");
+        let li = document.createElement("li") as HTMLLIElement;
         li.innerText = item;
+        li.classList.add("orderParts");
+
+
+        li.style.cursor = 'pointer';
+        li.style.textAlign = 'center';
+        li.style.borderBottom = 'solid 1px silver';
+        li.style.paddingBottom = '8px';
+        li.style.paddingTop = '8px';
+
+        li.addEventListener('mouseover', () => {
+          li.style.color = 'red';
+        });
+
+        li.addEventListener('mouseout', () => {
+          // Reset styles on mouseout
+          li.style.color = '';
+        });
+        li.addEventListener('click', () => this.removeItem(item));
+
         list.appendChild(li);
+
       });
+
 
       console.log(this.data);
       this.setTotal();
@@ -2697,7 +2716,7 @@ export class UserScreenComponent {
     const itemname = document.getElementById("optionTitle")?.textContent || "";
     const printprice = this.baseprice + this.newprice + this.cheeseprice + this.baconprice + this.pickleprice + this.onionprice + this.tomatoprice + this.lettuceprice + this.ketchupprice + this.mayoprice;
 
-    const size_value = this.getRadioValue("sizeRadio");
+    const size_value = this.getRadioValue("menuRadio");
     const soda_value = this.getRadioValue("sodaRadio");
     const bacon_value = this.getRadioValue("baconRadio");
     const cheese_value = this.getRadioValue("myRadio");
@@ -2711,6 +2730,7 @@ export class UserScreenComponent {
     const finalitemstring = `${itemname}:\nPrice: ${printprice}DKK\n${size_value}${soda_value}${bacon_value}${cheese_value}${pickles_value}${onion_value}${tomato_value}${lettuce_value}${ketchup_value}${mayo_value};`;
     this.data.push(finalitemstring);
 
+    console.log("hi" + size_value);
     this.renderItems();
     this.closeOptions();
   }
@@ -2729,6 +2749,26 @@ export class UserScreenComponent {
         }
         return false;
     }
+
+  removeItem(item: string) {
+    console.log("clicked")
+    const indexToRemove = this.data.indexOf(item);
+    if (indexToRemove !== -1) {
+      console.log("clicked2")
+      this.data.splice(indexToRemove, 1);
+      this.setTotal();
+      this.renderItems();
+    }
+  }
+  ngAfterViewInit(): void {
+    // Additional setup after the view has been initialized
+  }
+
+
+
+  protected readonly faMinus = faMinus;
+  protected readonly faPlus = faPlus;
+  protected readonly faXmark = faXmark;
 
 
 }
