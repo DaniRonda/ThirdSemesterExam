@@ -6,7 +6,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.addSpaStaticFiles(conf => conf.RootPAth = "../frontend/www/");
+builder.Services.AddSpaStaticFiles(conf => conf.RootPath = "../frontend/www/");
 
 var app = builder.Build();
 
@@ -17,8 +17,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.useSpaStaticFiles();
-app.useSpa(conf =>
+app.UseSpaStaticFiles();
+app.UseSpa(conf =>
 {
   conf.Options.SourcePath = ".. / frontend / www / ";
 });

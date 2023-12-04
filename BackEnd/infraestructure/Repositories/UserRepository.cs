@@ -27,7 +27,7 @@ FROM ExamProject.Users;
             return conn.Query<UserQuery>(sql);
         }
     }
-    public User CreateUser(string username, string passwordHash, string passwordSalt, string role)
+    public User CreateUser(string username, string passwordHash, byte[] passwordSalt, string role)
     {
         var sql = $@"
 INSERT INTO ExamProject.Users (Username, PasswordHash, PasswordSalt, Role) 
@@ -69,6 +69,23 @@ FROM ExamProject.Users;";
         using (var conn = _dataSource.OpenConnection())
         {
             return conn.QueryFirst<User>(sql, new { username, userId, passwordHash, passwordSalt, role});
+        }
+    }
+    
+    public async Task<UserQuery> GetUserByUsernameAsync(string username)
+    {
+        string sql = $@"
+SELECT UserId as {nameof(UserQuery.UserId)},
+       Username as {nameof(UserQuery.Username)},
+       PasswordHash as {nameof(UserQuery.PasswordHash)},
+       PasswordSalt as {nameof(UserQuery.PasswordSalt)},
+       Role as {nameof(UserQuery.Role)}
+FROM ExamProject.Users
+WHERE Username = @Username;
+";
+        using (var conn = _dataSource.OpenConnection())
+        {
+            return await conn.QueryFirstOrDefaultAsync<UserQuery>(sql, new { Username = username });
         }
     }
 }
