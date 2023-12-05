@@ -12,7 +12,7 @@ public class UserRepository
         _dataSource = datasource;
     }
 
-    public IEnumerable<UserQuery> GetUserFeed()
+    public IEnumerable<UserQuery> GetUser()
     {
         string sql = $@"
 SELECT UserId as {nameof(UserQuery.UserId)},
