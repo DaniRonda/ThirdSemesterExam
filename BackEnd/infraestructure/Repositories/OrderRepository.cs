@@ -1,5 +1,4 @@
 ﻿using infraestructure.DataModels;
-
 namespace infraestructure;
 using System;
 using System.Collections.Generic;

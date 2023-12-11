@@ -54,7 +54,7 @@ RETURNING UserId as {nameof(UserQuery.UserId)},
         }
     }
     
-    public User UpdateUser(string username, int userId, string passwordHash, string passwordSalt, string role)
+    public User UpdateUser(string username, int userId, byte[] passwordHash, byte[] passwordSalt, string role)
     {
         var sql = $@"
 UPDATE ExamProject.Users SET Username = @Username, PasswordHash = @PasswordHash, PasswordSalt= @PasswordSalt, Role = @Role
