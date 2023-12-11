@@ -14,12 +14,28 @@ import {AdminScreenComponent} from "./AdminScreen/Admin-Screen.component";
 import {AdminHistoryScreenComponent} from "./AdminHistoryScreen/Admin-History-Screen";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {FormsModule} from "@angular/forms";
+import {ReceiptInfoComponent} from "./ReceiptInfo/reciept-info.component";
+import {UserEditComponent} from "./UserEdit/user-edit.component";
+
+
 @NgModule({
   declarations: [AppComponent, ChefScreenComponent,
     UserScreenComponent, UserPayScreenComponent,
     AdminUserScreenComponent, AdminScreenComponent,
-    AdminHistoryScreenComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FaIconComponent],
+    AdminHistoryScreenComponent, ReceiptInfoComponent,
+  UserEditComponent],
+  imports: [BrowserModule, IonicModule.forRoot(),
+    AppRoutingModule, FaIconComponent,
+    BrowserAnimationsModule, MatFormFieldModule,
+    MatInputModule, MatDatepickerModule,
+    MatNativeDateModule, FormsModule,
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

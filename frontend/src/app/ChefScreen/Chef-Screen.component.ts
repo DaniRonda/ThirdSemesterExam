@@ -1,4 +1,5 @@
 import {Component, ElementRef, Renderer2} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   templateUrl: 'Chef-Screen.component.html',
@@ -10,10 +11,10 @@ export class ChefScreenComponent {
   hours: string = '';
   minutes: string = '';
   seconds: string = '';
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(private el: ElementRef, private renderer: Renderer2, private router: Router,) {}
 
   logout() {
-
+    this.router.navigate(['home']);
   }
 
   addOrder1() {

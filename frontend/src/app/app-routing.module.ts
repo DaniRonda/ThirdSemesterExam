@@ -6,6 +6,7 @@ import {UserPayScreenComponent} from "./UserPayScreen/User-Pay-Screen.component"
 import {AdminUserScreenComponent} from "./AdminUsersScreen/Admin-Users-Screen.component";
 import {AdminScreenComponent} from "./AdminScreen/Admin-Screen.component";
 import {AdminHistoryScreenComponent} from "./AdminHistoryScreen/Admin-History-Screen";
+import {ReceiptInfoComponent} from "./ReceiptInfo/reciept-info.component";
 
 const routes: Routes = [
   {
@@ -41,6 +42,7 @@ const routes: Routes = [
     path: 'AdminHistoryScreen',
     component: AdminHistoryScreenComponent
   },
+
 ];
 
 @NgModule({

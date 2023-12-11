@@ -1,5 +1,6 @@
 import {Component, ElementRef} from '@angular/core';
 import {faCoffee, faMinus, faPlus, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {Router} from "@angular/router";
 
 @Component({
   templateUrl: 'User-Screen.component.html',
@@ -8,7 +9,7 @@ import {faCoffee, faMinus, faPlus, faXmark} from "@fortawesome/free-solid-svg-ic
 
 export class UserScreenComponent {
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, private router: Router,) {
 
   }
 
@@ -41,7 +42,7 @@ export class UserScreenComponent {
     optionsPane.style.borderColor = "#B33F40";
 
     // Uncomment the following lines if you want to use setTimeout
-    /*
+
     setTimeout(() => {
         optionsPane.style.borderColor = "#5f725d";
     }, 150);
@@ -53,7 +54,7 @@ export class UserScreenComponent {
     setTimeout(() => {
         optionsPane.style.borderColor = "#5f725d";
     }, 450);
-    */
+
   }
   openMenues(): void {
     if (!this.optionsopen){
@@ -2007,6 +2008,7 @@ export class UserScreenComponent {
     }
     this.showMenuOptions();
   }
+  priceTitle = "";
   smallClicked(): void {
     const sizeRadio1 = document.getElementById("sizeRadio1") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2103,30 +2105,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  cheeseClicked(): void {
-    const myRadio2 = document.getElementById("myRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (myRadio2 && priceTitle) {
-      if (myRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraCheeseClicked(): void {
     const myRadio3 = document.getElementById("myRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2175,30 +2154,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  baconClicked(): void {
-    const baconRadio2 = document.getElementById("baconRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (baconRadio2 && priceTitle) {
-      if (baconRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraBaconClicked(): void {
     const baconRadio3 = document.getElementById("baconRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2247,30 +2203,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  pickleClicked(): void {
-    const pickleRadio2 = document.getElementById("pickleRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (pickleRadio2 && priceTitle) {
-      if (pickleRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraPickleClicked(): void {
     const pickleRadio3 = document.getElementById("pickleRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2319,30 +2252,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  onionClicked(): void {
-    const onionRadio2 = document.getElementById("onionRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (onionRadio2 && priceTitle) {
-      if (onionRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraOnionClicked(): void {
     const onionRadio3 = document.getElementById("onionRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2391,30 +2301,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  tomatoClicked(): void {
-    const tomatoRadio2 = document.getElementById("tomatoRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (tomatoRadio2 && priceTitle) {
-      if (tomatoRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraTomatoClicked(): void {
     const tomatoRadio3 = document.getElementById("tomatoRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2463,30 +2350,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  lettuceClicked(): void {
-    const lettuceRadio2 = document.getElementById("lettuceRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (lettuceRadio2 && priceTitle) {
-      if (lettuceRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraLettuceClicked(): void {
     const lettuceRadio3 = document.getElementById("lettuceRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2535,30 +2399,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  ketchupClicked(): void {
-    const ketchupRadio2 = document.getElementById("ketchupRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (ketchupRadio2 && priceTitle) {
-      if (ketchupRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraKetchupClicked(): void {
     const ketchupRadio3 = document.getElementById("ketchupRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2607,30 +2448,7 @@ export class UserScreenComponent {
       priceTitle.innerHTML = "Price: " + printprice + "DKK";
     }
   }
-  mayoClicked(): void {
-    const mayoRadio2 = document.getElementById("mayoRadio2") as HTMLInputElement | null;
-    const priceTitle = document.getElementById("priceTitle");
 
-    if (mayoRadio2 && priceTitle) {
-      if (mayoRadio2.checked) {
-        this.newprice = 0;
-      }
-
-      const printprice =
-        this.baseprice +
-        this.newprice +
-        this.cheeseprice +
-        this.baconprice +
-        this.pickleprice +
-        this.onionprice +
-        this.tomatoprice +
-        this.lettuceprice +
-        this.ketchupprice +
-        this.mayoprice;
-
-      priceTitle.innerHTML = "Price: " + printprice + "DKK";
-    }
-  }
   extraMayoClicked(): void {
     const mayoRadio3 = document.getElementById("mayoRadio3") as HTMLInputElement | null;
     const priceTitle = document.getElementById("priceTitle");
@@ -2679,7 +2497,7 @@ export class UserScreenComponent {
     const list = document.getElementById("myList") as HTMLUListElement | null;
 
     if (list && this.data.length > -1) {
-      console.log("test this")
+      console.log("list rendered")
       list.innerHTML = "";
       this.data.forEach((item: string) => {
         let li = document.createElement("li") as HTMLLIElement;
@@ -2743,7 +2561,7 @@ export class UserScreenComponent {
 
     openPayScreen() {
         if (this.data.length > 0) {
-            window.location.href = "UserPayScreen.html";
+          this.router.navigate(['UserPayScreen']);
         } else {
             alert("Please add items to your order before proceeding to payment.");
         }
@@ -2760,9 +2578,7 @@ export class UserScreenComponent {
       this.renderItems();
     }
   }
-  ngAfterViewInit(): void {
-    // Additional setup after the view has been initialized
-  }
+
 
 
 

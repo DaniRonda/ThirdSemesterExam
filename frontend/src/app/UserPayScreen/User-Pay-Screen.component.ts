@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   templateUrl: 'User-Pay-Screen.component.html',
@@ -12,7 +13,7 @@ export class UserPayScreenComponent{
   public expM: string = '';
   public expY: string = '';
   cvvInput: HTMLInputElement | null = document.getElementById('cvvInputt') as HTMLInputElement;
-  constructor() {
+  constructor(private router: Router,) {
     this.cvvInput = document.getElementById('cvvInputt') as HTMLInputElement;
 
     if (this.cvvInput) {
@@ -86,5 +87,9 @@ export class UserPayScreenComponent{
       frontElement.style.transform = 'perspective(1000px) rotateY(0deg)';
       backElement.style.transform = 'perspective(1000px) rotateY(180deg)';
     }
+  }
+
+  goBackToUser() {
+    this.router.navigate(['UserScreen']);
   }
 }
