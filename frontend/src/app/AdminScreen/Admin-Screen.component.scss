@@ -564,11 +564,47 @@ p{
   }
 }
 .calchart{
-  display: flex;
+margin: 20px;
 
 }
 .calchart canvas{
   padding-top: 40px;
   width: 65% !important;
   font-size: 15px !important;
+}
+mat-label{
+  font-size: 22px;
+}
+mat-form-field{
+  background: #4f473b;
+  width: 20%;
+  border-radius: 15px;
+}
+mat-hint{
+  color: silver;
+}
+mat-datepicker{
+  background-color: red;
+  border-radius: 25px;
+}
+::ng-deep .datepickerTwo {
+  background:#5f725d;
+}
+.datepickerTwo .mat-calendar-body-today:not(.mat-calendar-body-selected){
+  border-color: black;
+}
+::ng-deep .mat-calendar-body-selected{
+  background: grey;
+}
+#divChart{
+  padding-left: 10%;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  width: 100%;
+  height: 750px;
+}
+#myChart{
+  display: inline;
+  float: none;
 }

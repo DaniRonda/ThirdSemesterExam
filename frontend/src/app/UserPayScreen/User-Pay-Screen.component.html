@@ -107,7 +107,7 @@
         <input type="number" id="cvvInputt" pattern="[0-9]*" maxlength="4" class="cvv-input" (input)="onInputChangeCVV($event)" (mouseover)="handleMouseOver()" (mouseleave)="handleMouseOut()">
       </div>
     </div>
-    <input type="submit" value="submit" class="submit-btn" onclick="goBackToUser(event)">
+    <input type="submit" value="submit" class="submit-btn" (click)="goBackToUser()">
   </form>
 
 </div>
