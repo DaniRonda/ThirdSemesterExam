@@ -19,8 +19,8 @@ public class OrderRepositoryTests
 
         var expectedOrders = new List<Order>
         {
-            new Order { OrderId = 1, OrderItemArrayId = new int[] { 1, 2, 3 }, OrderDate = DateTime.Now.Date, OrderTime = DateTime.Now.TimeOfDay, OrderItIsDone = false },
-            new Order { OrderId = 2, OrderItemArrayId = new int[] { 4, 5, 6 }, OrderDate = DateTime.Now.Date, OrderTime = DateTime.Now.TimeOfDay, OrderItIsDone = true }
+            new Order { OrderId = 1, OrderItemArrayId = new int[] { 1, 2, 3 }, OrderDate = "some date", OrderTime = "some time", OrderItIsDone = false },
+            new Order { OrderId = 2, OrderItemArrayId = new int[] { 4, 5, 6 }, OrderDate = "some date", OrderTime = "some time", OrderItIsDone = true }
         };
 
 
@@ -45,13 +45,13 @@ public class OrderRepositoryTests
         {
             OrderId = 1,
             OrderItemArrayId = new int[] { 1, 2, 3 },
-            OrderDate = DateTime.Now.Date,
-            OrderTime = DateTime.Now.TimeOfDay,
+            OrderDate = "some date",
+            OrderTime = "some time",
             OrderItIsDone = false
         };
         
         // Act
-        var actualOrder = orderRepository.CreateOrder(new int[] { 1, 2, 3 }, DateTime.Now.Date, DateTime.Now.TimeOfDay, false);
+        var actualOrder = orderRepository.CreateOrder(new int[] { 1, 2, 3 }, "some date", "some time", false);
 
         // Assert
         Assert.Equal(expectedOrder, actualOrder);
@@ -90,13 +90,13 @@ public class OrderRepositoryTests
         {
             OrderId = 1,
             OrderItemArrayId = new int[] { 4, 5, 6 },
-            OrderDate = DateTime.Now.Date,
-            OrderTime = DateTime.Now.TimeOfDay,
+            OrderDate = "some date",
+            OrderTime = "some time",
             OrderItIsDone = true
         };
 
         // Act
-        var actualOrder = orderRepository.UpdateOrder(1, new int[] { 4, 5, 6 }, DateTime.Now.Date, DateTime.Now.TimeOfDay, true);
+        var actualOrder = orderRepository.UpdateOrder(1, new int[] { 4, 5, 6 }, "some date", "some time", true);
 
         // Assert
         Assert.Equal(expectedOrder, actualOrder);
@@ -116,8 +116,8 @@ public class OrderRepositoryTests
         {
             OrderId = 1,
             OrderItemArrayId = new int[] { 1, 2, 3 },
-            OrderDate = DateTime.Now.Date,
-            OrderTime = DateTime.Now.TimeOfDay,
+            OrderDate = "some date",
+            OrderTime = "some time",
             OrderItIsDone = false
         };
 

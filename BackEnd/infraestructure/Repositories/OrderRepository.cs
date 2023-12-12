@@ -31,7 +31,7 @@ FROM ExamProject.Orders;
             }
         }
 
-        public Order CreateOrder(Array orderItemArrayId, DateTime orderDate, TimeSpan orderTime, bool orderItIsDone)
+        public Order CreateOrder(Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"
 INSERT INTO ExamProject.Orders (OrderItemArrayId, OrderDate, OrderTime, OrderItIsDone) 
@@ -57,7 +57,7 @@ RETURNING OrderId as {nameof(Order.OrderId)},
             }
         }
 
-        public Order UpdateOrder(int orderId, Array orderItemArrayId, DateTime orderDate, TimeSpan orderTime, bool orderItIsDone)
+        public Order UpdateOrder(int orderId, Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"
 UPDATE ExamProject.Orders 
