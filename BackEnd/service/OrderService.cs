@@ -1,8 +1,8 @@
-﻿using infraestructure;
-using infraestructure.DataModels;
-namespace service
-{
-    public class OrderService
+﻿using infraestructure.DataModels;
+using infraestructure.Repositories;
+namespace service;
+
+public class OrderService
     {
         private readonly OrderRepository _orderRepository;
         public OrderService(OrderRepository orderRepository)
@@ -35,4 +35,3 @@ namespace service
             return await _orderRepository.GetOrderByOrderIdAsync(orderId);
         }
     }
-}

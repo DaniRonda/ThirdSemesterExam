@@ -1,7 +1,8 @@
 ﻿using Dapper;
 using infraestructure.DataModels;
 using Npgsql;
-namespace infraestructure;
+
+namespace infraestructure.Repositories;
 
 public class ItemRepository
     {

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using infraestructure;
+using infraestructure.Repositories;
 
 public class AuthenticationService
 {

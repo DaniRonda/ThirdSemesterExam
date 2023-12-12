@@ -1,5 +1,6 @@
 using infraestructure;
 using infraestructure.DataModels;
+using infraestructure.Repositories;
 using Assert = Xunit.Assert;
 namespace unitTests;
 

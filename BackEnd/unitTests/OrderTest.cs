@@ -1,4 +1,5 @@
-﻿using Assert = Xunit.Assert;
+﻿using infraestructure.Repositories;
+using Assert = Xunit.Assert;
 
 namespace unitTests;
 using infraestructure;

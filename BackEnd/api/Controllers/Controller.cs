@@ -8,20 +8,23 @@ namespace api.Controllers;
 [Route("[controller]")]
 public class Controller : ControllerBase
 {
-    private readonly ILogger<Controller> _logger;
     private readonly OrderService _orderService;
-    private readonly UserService _userService;
-    private readonly ItemService _itemService;
 
+    private readonly ILogger<Controller> _logger;
+
+    private readonly UserService _userService;
+   // private readonly ItemService _itemService;
+
+   
     public Controller(ILogger<Controller> logger, OrderService orderService, UserService userService, ItemService itemService)
     {
         _logger = logger;
         _orderService = orderService;
         _userService = userService;
-        _itemService = itemService;
+        //_itemService = itemService;
     }
 
-    #region Orders
+   // #region Orders
 
     [HttpGet]
     [Route("/api/orders")]
@@ -96,7 +99,7 @@ public class Controller : ControllerBase
         public bool OrderItIsDone { get; set; }
     }
     
-    #endregion
+   // #endregion
     
     #region Users
     

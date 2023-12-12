@@ -2,9 +2,9 @@
 
 using infraestructure;
 using infraestructure.DataModels;
+using infraestructure.Repositories;
+namespace service;
 
-namespace service
-{
     public class UserService
     {
         private readonly UserRepository _userRepository;
@@ -39,4 +39,3 @@ namespace service
             return await _userRepository.GetUserByUsernameAsync(username);
         }
     }
-}

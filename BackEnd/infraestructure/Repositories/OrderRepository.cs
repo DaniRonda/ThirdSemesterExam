@@ -1,14 +1,12 @@
-﻿using infraestructure.DataModels;
-namespace infraestructure;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Dapper;
+﻿using Dapper;
 using Npgsql;
+using infraestructure.DataModels;
+namespace infraestructure.Repositories;
 
 public class OrderRepository
     {
         private readonly NpgsqlDataSource _dataSource;
+
 
         public OrderRepository(NpgsqlDataSource datasource)
         {

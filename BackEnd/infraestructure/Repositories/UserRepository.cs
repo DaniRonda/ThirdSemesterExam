@@ -1,7 +1,8 @@
-﻿using infraestructure.DataModels;
+﻿using Dapper;
+using infraestructure.DataModels;
 using Npgsql;
-namespace infraestructure;
-using Dapper;
+
+namespace infraestructure.Repositories;
 
 public class UserRepository
 

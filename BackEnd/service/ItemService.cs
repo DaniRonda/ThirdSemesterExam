@@ -1,10 +1,9 @@
 ﻿
-
-using infraestructure;
 using infraestructure.DataModels;
+using infraestructure.Repositories;
 
-namespace service
-{
+namespace service;
+
     public class ItemService
     {
         private readonly ItemRepository _itemRepository;
@@ -39,4 +38,3 @@ namespace service
             return await _itemRepository.GetItemByNameAsync(itemName);
         }
     }
-}
