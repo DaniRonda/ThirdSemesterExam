@@ -22,6 +22,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {FormsModule} from "@angular/forms";
 import {ReceiptInfoComponent} from "./ReceiptInfo/reciept-info.component";
 import {UserEditComponent} from "./UserEdit/user-edit.component";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {UserEditComponent} from "./UserEdit/user-edit.component";
     BrowserAnimationsModule, MatFormFieldModule,
     MatInputModule, MatDatepickerModule,
     MatNativeDateModule, FormsModule,
+    HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -52,7 +52,7 @@ app.UseCors(options =>
 app.UseSpaStaticFiles();
 app.UseSpa(conf =>
 {
-  conf.Options.SourcePath = ".. / frontend / www / ";
+  conf.Options.SourcePath = "../frontend/www/";
 });
 
 app.UseHttpsRedirection();

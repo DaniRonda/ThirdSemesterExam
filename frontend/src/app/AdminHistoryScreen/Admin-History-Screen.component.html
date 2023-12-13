@@ -30,7 +30,7 @@
   <div class="hisContainer">
     <div class="recieptContainer">
       <ul id="hisList">
-        <div *ngFor="let item of data; let i = index" (click)="openModal()">
+        <div *ngFor="let item of orders; let i = index" (click)="openModal()">
           <li>{{ item.name }}</li>
           <p>{{ item.time }}</p>
         </div>

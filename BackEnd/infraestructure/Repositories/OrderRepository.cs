@@ -16,12 +16,12 @@ public class OrderRepository
         public IEnumerable<Order> GetOrders()
         {
             string sql = $@"
-SELECT OrderId as {nameof(Order.OrderId)},
-       OrderItemArrayId as {nameof(Order.OrderItemArrayId)},
-       OrderDate as {nameof(Order.OrderDate)},
-       OrderTime as {nameof(Order.OrderTime)},
-       OrderItIsDone as {nameof(Order.OrderItIsDone)}
-FROM ExamProject.Orders;
+SELECT order_id as {nameof(Order.OrderId)},
+       order_item as {nameof(Order.OrderItemArrayId)},
+       order_date as {nameof(Order.OrderDate)},
+       order_time as {nameof(Order.OrderTime)},
+       order_itsdone as {nameof(Order.OrderItIsDone)}
+FROM public.orders;
 ";
             using (var conn = _dataSource.OpenConnection())
             {
@@ -32,13 +32,13 @@ FROM ExamProject.Orders;
         public Order CreateOrder(Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"
-INSERT INTO ExamProject.Orders (OrderItemArrayId, OrderDate, OrderTime, OrderItIsDone) 
-VALUES (@OrderItemArrayId, @OrderDate, @OrderTime, @OrderItIsDone)
-RETURNING OrderId as {nameof(Order.OrderId)},
-       OrderItemArrayId as {nameof(Order.OrderItemArrayId)},
-       OrderDate as {nameof(Order.OrderDate)},
-       OrderTime as {nameof(Order.OrderTime)},
-       OrderItIsDone as {nameof(Order.OrderItIsDone)};
+INSERT INTO public.orders (OrderItemArrayId, OrderDate, OrderTime, OrderItIsDone) 
+VALUES (@order_item, @order_date, @order_time, @order_itsdone)
+RETURNING order_id as {nameof(Order.OrderId)},
+       order_item as {nameof(Order.OrderItemArrayId)},
+       order_date as {nameof(Order.OrderDate)},
+       order_time as {nameof(Order.OrderTime)},
+       order_itsdone as {nameof(Order.OrderItIsDone)};
 ";
             using (var conn = _dataSource.OpenConnection())
             {
@@ -48,7 +48,7 @@ RETURNING OrderId as {nameof(Order.OrderId)},
 
         public bool DeleteOrder(int orderId)
         {
-            var sql = @"DELETE FROM ExamProject.Orders WHERE OrderId = @OrderId;";
+            var sql = @"DELETE FROM public.orders WHERE OrderId = @order_id;";
             using (var conn = _dataSource.OpenConnection())
             {
                 return conn.Execute(sql, new { OrderId = orderId }) == 1;
@@ -59,16 +59,16 @@ RETURNING OrderId as {nameof(Order.OrderId)},
         {
             var sql = $@"
 UPDATE ExamProject.Orders 
-SET OrderItemArrayId = @OrderItemArrayId, 
-    OrderDate = @OrderDate, 
-    OrderTime = @OrderTime, 
-    OrderItIsDone = @OrderItIsDone
-WHERE OrderId = @OrderId
-RETURNING OrderId as {nameof(Order.OrderId)},
-       OrderItemArrayId as {nameof(Order.OrderItemArrayId)},
-       OrderDate as {nameof(Order.OrderDate)},
-       OrderTime as {nameof(Order.OrderTime)},
-       OrderItIsDone as {nameof(Order.OrderItIsDone)};
+SET OrderItemArrayId = @order_item, 
+    OrderDate = @order_date, 
+    OrderTime = @order_item, 
+    OrderItIsDone = @order_itsdone
+WHERE OrderId = @order_id
+RETURNING order_id as {nameof(Order.OrderId)},
+       order_item as {nameof(Order.OrderItemArrayId)},
+       order_date as {nameof(Order.OrderDate)},
+       order_time as {nameof(Order.OrderTime)},
+       order_itsdone as {nameof(Order.OrderItIsDone)};
 ";
 
             using (var conn = _dataSource.OpenConnection())
@@ -79,14 +79,13 @@ RETURNING OrderId as {nameof(Order.OrderId)},
 
         public async Task<Order> GetOrderByOrderIdAsync(int orderId)
         {
-            string sql = $@"
-SELECT OrderId as {nameof(Order.OrderId)},
-       OrderItemArrayId as {nameof(Order.OrderItemArrayId)},
-       OrderDate as {nameof(Order.OrderDate)},
-       OrderTime as {nameof(Order.OrderTime)},
-       OrderItIsDone as {nameof(Order.OrderItIsDone)}
-FROM ExamProject.Orders
-WHERE OrderId = @OrderId;
+            string sql = $@"SELECT order_id as {nameof(Order.OrderId)},
+       order_item as {nameof(Order.OrderItemArrayId)},
+       order_date as {nameof(Order.OrderDate)},
+       order_time as {nameof(Order.OrderTime)},
+       order_itsdone as {nameof(Order.OrderItIsDone)}
+FROM public.orders
+WHERE OrderId = @order_id;
 ";
             using (var conn = _dataSource.OpenConnection())
             {

@@ -14,22 +14,60 @@ interface DataItem {
   time: string;
 }
 @Component({
-  templateUrl: 'Admin-History-Screen.component.html',
+  template:
+  `<!doctype html>
+
+  <head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WackDonald's Orders</title>
+    <link rel="icon" href="images/favicon.ico">
+    <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
+
+
+
+  </head>
+  <body>
+  <div class="header">
+    <div class="inner_header">
+      <div class="logocontainer">
+        <img src="assets/mcdlogo.png" alt="">
+      </div>
+      <ul class="navigation">
+        <a (click)="openUsers()"><li>Users</li></a>
+        <a (click)="openAdmin()"><li>Main Screen</li></a>
+        <a (click)="logout()"><li>Log out</li></a>
+      </ul>
+    </div>
+  </div>
+  <h1 class="">Receipts Of Orders</h1>
+  <input type="text" id="searchInput" placeholder="Search.." [(ngModel)]="searchQuery" (input)="searchItems()">
+  <div id="container">
+    <div class="hisContainer">
+      <div class="recieptContainer">
+        <ul id="hisList">
+          <div *ngFor="let item of state.orders; let i = index" (click)="openModal()">
+            <li>{{ item.OrderDate }}</li>
+            <p>{{ item.OrderTime }}</p>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </body>
+  `,
   styleUrls: ['Admin-History-Screen.scss'],
 })
 export class AdminHistoryScreenComponent  {
   searchQuery: string = "";
+  order : Order | undefined;
   constructor(private changeDetectorRef: ChangeDetectorRef,
               public modalController: ModalController,
               private router: Router,
               public state: State,
               public http: HttpClient) {this.getFeedData();}
-  data: DataItem[] = [
-    { name: "WackChicken Menu: ChickenBox Menu: BigWack Menu: Price:", time: "17:54 19/11/2023" },
-    { name: "WackCheese Double Patty Menu: WackChicken Menu: ChickenBox Menu: BigWack Menu: Price:", time: "19:21 20/11/2023" },
-    { name: "ChickenBox Menu: WackChicken Menu: BigWack Menu: Price:", time: "18:47 19/11/2023" },
-    // Add more data objects as needed
-  ];
+  data: DataItem[] = [  ];
 
 
 
@@ -92,4 +130,5 @@ export class AdminHistoryScreenComponent  {
     this.state.orders = await firstValueFrom<Order[]>(call);
   }
 
+  protected readonly Order = Order;
 }
