@@ -20,8 +20,8 @@ public class OrderRepositoryTests
 
         var expectedOrders = new List<Order>
         {
-            new Order { OrderId = 1, OrderItemArrayId = new int[] { 1, 2, 3 }, OrderDate = "some date", OrderTime = "some time", OrderItIsDone = false },
-            new Order { OrderId = 2, OrderItemArrayId = new int[] { 4, 5, 6 }, OrderDate = "some date", OrderTime = "some time", OrderItIsDone = true }
+            new Order { OrderId = 1, OrderItemArrayId = "some food", OrderDate = "some date", OrderTime = "some time", OrderItIsDone = false },
+            new Order { OrderId = 2, OrderItemArrayId = "some food", OrderDate = "some date", OrderTime = "some time", OrderItIsDone = true }
         };
 
 
@@ -45,7 +45,7 @@ public class OrderRepositoryTests
         var expectedOrder = new Order
         {
             OrderId = 1,
-            OrderItemArrayId = new int[] { 1, 2, 3 },
+            OrderItemArrayId = "some food",
             OrderDate = "some date",
             OrderTime = "some time",
             OrderItIsDone = false
@@ -90,7 +90,7 @@ public class OrderRepositoryTests
         var expectedOrder = new Order
         {
             OrderId = 1,
-            OrderItemArrayId = new int[] { 4, 5, 6 },
+            OrderItemArrayId ="some food",
             OrderDate = "some date",
             OrderTime = "some time",
             OrderItIsDone = true
@@ -116,7 +116,7 @@ public class OrderRepositoryTests
         var expectedOrder = new Order
         {
             OrderId = 1,
-            OrderItemArrayId = new int[] { 1, 2, 3 },
+            OrderItemArrayId = "some food",
             OrderDate = "some date",
             OrderTime = "some time",
             OrderItIsDone = false
