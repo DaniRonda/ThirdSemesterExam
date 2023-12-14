@@ -17,8 +17,8 @@ public class ItemRepositoryTests
 
         var expectedItems = new List<Items>
         {
-            new Items { ItemId = 1, ItemName = "Item1", ItemUrlImg = "img1.jpg", ItemPrice = 10.99, ItemOptions = Array.Empty<string>() },
-            new Items { ItemId = 2, ItemName = "Item2", ItemUrlImg = "img2.jpg", ItemPrice = 15.99, ItemOptions = new[] { "Option1", "Option2" } }
+            new Items { ItemId = 1, ItemName = "Item1", ItemUrlImg = "img1.jpg", ItemPrice = 10.99, ItemOptions ="some option" },
+            new Items { ItemId = 2, ItemName = "Item2", ItemUrlImg = "img2.jpg", ItemPrice = 15.99, ItemOptions = "more options" }
         };
         
         // Act
@@ -44,11 +44,10 @@ public class ItemRepositoryTests
             ItemName = "Item1",
             ItemUrlImg = "img1.jpg",
             ItemPrice = 10.99,
-            ItemOptions = Array.Empty<string>()
-        };
+            ItemOptions = "even more options" };
         
         // Act
-        var actualItem = itemRepository.CreateItem("Item1", "img1.jpg", 10.99, Array.Empty<string>());
+        var actualItem = itemRepository.CreateItem("Item1", "img1.jpg", 10.99, "even more options");
 
         // Assert
         Assert.Equal(expectedItem, actualItem);
@@ -87,11 +86,11 @@ public class ItemRepositoryTests
             ItemName = "UpdatedItem",
             ItemUrlImg = "img_updated.jpg",
             ItemPrice = 19.99,
-            ItemOptions = new[] { "Option1", "Option2", "Option3" }
+            ItemOptions = "option1, option 2"
         };
 
         // Act
-        var actualItem = itemRepository.UpdateItem(1, "UpdatedItem", "img_updated.jpg", 19.99, new[] { "Option1", "Option2", "Option3" });
+        var actualItem = itemRepository.UpdateItem(1, "UpdatedItem", "img_updated.jpg", 19.99, "option1, option 2");
 
         // Assert
         Assert.Equal(expectedItem, actualItem);
@@ -113,7 +112,7 @@ public class ItemRepositoryTests
             ItemName = "Item1",
             ItemUrlImg = "img1.jpg",
             ItemPrice = 10.99,
-            ItemOptions = Array.Empty<string>()
+            ItemOptions = "",
         };
 
         // Act

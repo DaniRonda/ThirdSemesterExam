@@ -6,5 +6,5 @@ public class Items
     public string ItemName  { get; set; }
     public string ItemUrlImg { get; set; }
     public Double ItemPrice { get; set; }
-    public Array ItemOptions { get; set; }
+    public string ItemOptions { get; set; }
 }

@@ -18,7 +18,7 @@ namespace service;
             return _itemRepository.GetItems();
         }
 
-        public Items CreateItem(string itemName, string itemUrlImg, double itemPrice, Array itemOptions)
+        public Items CreateItem(string itemName, string itemUrlImg, double itemPrice, string itemOptions)
         {
             return _itemRepository.CreateItem(itemName, itemUrlImg, itemPrice, itemOptions);
         }
@@ -28,7 +28,7 @@ namespace service;
             return _itemRepository.DeleteItem(itemId);
         }
 
-        public Items UpdateItem(int itemId, string itemName, string itemUrlImg, double itemPrice, Array itemOptions)
+        public Items UpdateItem(int itemId, string itemName, string itemUrlImg, double itemPrice, string itemOptions)
         {
             return _itemRepository.UpdateItem(itemId, itemName, itemUrlImg, itemPrice, itemOptions);
         }

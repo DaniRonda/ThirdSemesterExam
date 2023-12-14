@@ -124,7 +124,7 @@ public class OrderRepositoryTests
 
 
         // Act
-        var actualOrder = await orderRepository.GetOrderByOrderIdAsync(1);
+        var actualOrder = orderRepository.GetOrderByOrderIdAsync(1);
 
         // Assert
         Assert.Equal(expectedOrder, actualOrder);

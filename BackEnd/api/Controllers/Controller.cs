@@ -33,17 +33,13 @@ public class Controller : ControllerBase
         return _orderService.GetOrders();
     }
 
-    [HttpGet("{orderId}")]
-    public async Task<ActionResult<Order>> GetOrderById(int orderId)
+    [HttpGet]
+    [Route("/api/orders/{orderId}")]
+    public Order GetOrderById(int orderId)
     {
-        var order = await _orderService.GetOrderByOrderIdAsync(orderId);
+        return _orderService.GetOrderByOrderIdAsync(orderId);
 
-        if (order == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(order);
+        
     }
 
     [HttpPost]

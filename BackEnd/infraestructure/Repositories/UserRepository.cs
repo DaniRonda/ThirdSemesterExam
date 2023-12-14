@@ -16,12 +16,12 @@ public class UserRepository
     public IEnumerable<UserQuery> GetUser()
     {
         string sql = $@"
-SELECT UserId as {nameof(UserQuery.UserId)},
-       Username as {nameof(UserQuery.Username)},
-        PasswordHash as {nameof(UserQuery.PasswordHash)},
-        PasswordSalt as {nameof(UserQuery.PasswordSalt)},
-        Role as {nameof(UserQuery.Role)}
-FROM ExamProject.Users;
+SELECT user_id as {nameof(UserQuery.UserId)},
+       user_name as {nameof(UserQuery.Username)},
+        password_hash as {nameof(UserQuery.PasswordHash)},
+        password_salt as {nameof(UserQuery.PasswordSalt)},
+        user_role as {nameof(UserQuery.Role)}
+FROM public.users;
 ";
         using (var conn = _dataSource.OpenConnection())
         {
@@ -32,12 +32,12 @@ FROM ExamProject.Users;
     {
         var sql = $@"
 INSERT INTO ExamProject.Users (Username, PasswordHash, PasswordSalt, Role) 
-VALUES (@Username, @PasswordHash, @PasswordSalt, @Role)
-RETURNING UserId as {nameof(UserQuery.UserId)},
-       Username as {nameof(UserQuery.Username)},
-       PasswordHash as {nameof(UserQuery.PasswordHash)},
-        PasswordSalt as {nameof(UserQuery.PasswordSalt)},
-        Role as {nameof(UserQuery.Role)},
+VALUES (@user_name, @password_hash, @password_salt, @password_role)
+RETURNING user_id as {nameof(UserQuery.UserId)},
+       user_name as {nameof(UserQuery.Username)},
+       password_hash as {nameof(UserQuery.PasswordHash)},
+        password_salt as {nameof(UserQuery.PasswordSalt)},
+        user_role as {nameof(UserQuery.Role)},
 ";
         using (var conn = _dataSource.OpenConnection())
         {
@@ -48,7 +48,7 @@ RETURNING UserId as {nameof(UserQuery.UserId)},
     
     public bool DeleteUser(int userId)
     {
-        var sql = @"DELETE FROM ExamProject.Users WHERE UserId = @UserId;";
+        var sql = @"DELETE FROM ExamProject.Users WHERE UserId = @user_id;";
         using (var conn = _dataSource.OpenConnection())
         {
             return conn.Execute(sql, new { userId }) == 1;
@@ -58,14 +58,14 @@ RETURNING UserId as {nameof(UserQuery.UserId)},
     public User UpdateUser(string username, int userId, byte[] passwordHash, byte[] passwordSalt, string role)
     {
         var sql = $@"
-UPDATE ExamProject.Users SET Username = @Username, PasswordHash = @PasswordHash, PasswordSalt= @PasswordSalt, Role = @Role
+UPDATE ExamProject.Users SET Username = @user_name, PasswordHash = @password_hash, PasswordSalt= @password_salt, Role = @user_role
 WHERE UserId = @UserId
-RETURNING UserId as {nameof(UserQuery.UserId)},
-       Username as {nameof(UserQuery.Username)},
-       PasswordHash as {nameof(UserQuery.PasswordHash)},
-        PasswordSalt as {nameof(UserQuery.PasswordSalt)},
-        Role as {nameof(UserQuery.Role)}
-FROM ExamProject.Users;";
+RETURNING user_id as {nameof(UserQuery.UserId)},
+       user_name as {nameof(UserQuery.Username)},
+       password_hash as {nameof(UserQuery.PasswordHash)},
+        password_salt as {nameof(UserQuery.PasswordSalt)},
+        user_role as {nameof(UserQuery.Role)}
+FROM public.users;";
 
         using (var conn = _dataSource.OpenConnection())
         {
@@ -76,13 +76,13 @@ FROM ExamProject.Users;";
     public async Task<UserQuery> GetUserByUsernameAsync(string username)
     {
         string sql = $@"
-SELECT UserId as {nameof(UserQuery.UserId)},
-       Username as {nameof(UserQuery.Username)},
-       PasswordHash as {nameof(UserQuery.PasswordHash)},
-       PasswordSalt as {nameof(UserQuery.PasswordSalt)},
-       Role as {nameof(UserQuery.Role)}
-FROM ExamProject.Users
-WHERE Username = @Username;
+SELECT user_id as {nameof(UserQuery.UserId)},
+       user_name as {nameof(UserQuery.Username)},
+       password_hash as {nameof(UserQuery.PasswordHash)},
+       password_salt as {nameof(UserQuery.PasswordSalt)},
+       user_role as {nameof(UserQuery.Role)}
+FROM poblic.users
+WHERE Username = @user_name;
 ";
         using (var conn = _dataSource.OpenConnection())
         {

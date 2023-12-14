@@ -30,8 +30,8 @@ public class OrderService
             return _orderRepository.UpdateOrder(orderId, orderItemArrayId, orderDate, orderTime, orderItIsDone);
         }
 
-        public async Task<Order> GetOrderByOrderIdAsync(int orderId)
+        public Order GetOrderByOrderIdAsync(int orderId)
         {
-            return await _orderRepository.GetOrderByOrderIdAsync(orderId);
+            return _orderRepository.GetOrderByOrderIdAsync(orderId);
         }
     }
