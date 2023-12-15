@@ -21,7 +21,7 @@ SELECT item_id as {nameof(Items.ItemId)},
        item_img as {nameof(Items.ItemUrlImg)},
        item_price as {nameof(Items.ItemPrice)},
        item_options as {nameof(Items.ItemOptions)}
-FROM ExamProject.Items;
+FROM public.items;
 ";
             using (var conn = _dataSource.OpenConnection())
             {
@@ -32,7 +32,7 @@ FROM ExamProject.Items;
         public Items CreateItem(string itemName, string itemUrlImg, double itemPrice, string itemOptions)
         {
             var sql = $@"
-INSERT INTO ExamProject.Items (item_name, item_img, item_price, item_options) 
+INSERT INTO public.items (item_name, item_img, item_price, item_options) 
 VALUES (@ItemName, @ItemUrlImg, @ItemPrice, @ItemOptions)
 RETURNING item_id as {nameof(Items.ItemId)},
        item_name as {nameof(Items.ItemName)},
@@ -48,7 +48,7 @@ RETURNING item_id as {nameof(Items.ItemId)},
 
         public bool DeleteItem(int itemId)
         {
-            var sql = @"DELETE FROM ExamProject.Items WHERE item_id = @ItemId;";
+            var sql = @"DELETE FROM public.items WHERE item_id = @ItemId;";
             using (var conn = _dataSource.OpenConnection())
             {
                 return conn.Execute(sql, new { ItemId = itemId }) == 1;
@@ -58,17 +58,17 @@ RETURNING item_id as {nameof(Items.ItemId)},
         public Items UpdateItem(int itemId, string itemName, string itemUrlImg, double itemPrice, string itemOptions)
         {
             var sql = $@"
-UPDATE ExamProject.Items 
-SET ItemName = @ItemName, 
-    ItemUrlImg = @ItemUrlImg, 
-    ItemPrice = @ItemPrice, 
-    ItemOptions = @ItemOptions
-WHERE ItemId = @ItemId
-RETURNING ItemId as {nameof(Items.ItemId)},
-       ItemName as {nameof(Items.ItemName)},
-       ItemUrlImg as {nameof(Items.ItemUrlImg)},
-       ItemPrice as {nameof(Items.ItemPrice)},
-       ItemOptions as {nameof(Items.ItemOptions)};
+UPDATE public.items 
+SET item_name = @ItemName, 
+    item_img = @ItemUrlImg, 
+    item_price = @ItemPrice, 
+    item_options = @ItemOptions
+WHERE item_id = @ItemId
+RETURNING item_id as {nameof(Items.ItemId)},
+       item_name as {nameof(Items.ItemName)},
+       item_url as {nameof(Items.ItemUrlImg)},
+       item_price as {nameof(Items.ItemPrice)},
+       item_options as {nameof(Items.ItemOptions)};
 ";
 
             using (var conn = _dataSource.OpenConnection())
@@ -80,17 +80,33 @@ RETURNING ItemId as {nameof(Items.ItemId)},
         public async Task<Items> GetItemByNameAsync(string itemName)
         {
             string sql = $@"
-SELECT ItemId as {nameof(Items.ItemId)},
-       ItemName as {nameof(Items.ItemName)},
-       ItemUrlImg as {nameof(Items.ItemUrlImg)},
-       ItemPrice as {nameof(Items.ItemPrice)},
-       ItemOptions as {nameof(Items.ItemOptions)}
-FROM ExamProject.Items
-WHERE ItemName = @ItemName;
+SELECT item_id as {nameof(Items.ItemId)},
+       item_name as {nameof(Items.ItemName)},
+       item_url as {nameof(Items.ItemUrlImg)},
+       item_price as {nameof(Items.ItemPrice)},
+       item_options as {nameof(Items.ItemOptions)}
+FROM public.items
+WHERE item_name = @ItemName;
 ";
             using (var conn = _dataSource.OpenConnection())
             {
                 return await conn.QueryFirstOrDefaultAsync<Items>(sql, new { ItemName = itemName });
+            }
+        }
+        
+        public Items GetItemsById(int itemId)
+        {
+            string sql = $@"SELECT item_id as {nameof(Items.ItemId)},
+       item_name as {nameof(Items.ItemName)},
+       item_img as {nameof(Items.ItemUrlImg)},
+       item_price as {nameof(Items.ItemPrice)},
+       item_options as {nameof(Items.ItemOptions)}
+FROM public.items
+WHERE item_id = @itemId;
+";
+            using (var conn = _dataSource.OpenConnection())
+            {
+                return conn.QueryFirst<Items>(sql, new { itemId});
             }
         }
     }

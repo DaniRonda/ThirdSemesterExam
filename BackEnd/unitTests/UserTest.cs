@@ -18,8 +18,8 @@ public class UserRepositoryTests
 
         var expectedUsers = new List<UserQuery>
         {
-            new UserQuery { UserId = 1, Username = "user1", PasswordHash = new byte[] { 4, 5, 6 }, PasswordSalt = new byte[] { 1, 2, 3 }, Role = "role1" },
-            new UserQuery { UserId = 2, Username = "user2", PasswordHash = new byte[] { 1, 2, 3 }, PasswordSalt = new byte[] { 4, 5, 6 }, Role = "role2" }
+            new UserQuery { UserId = 1, Username = "user1", PasswordHash = "test", PasswordSalt = "test", Role = "role1" },
+            new UserQuery { UserId = 2, Username = "user2", PasswordHash ="test", PasswordSalt = "test", Role = "role2" }
         };
 
         mockConnection.Setup(c => c.QueryAsync<UserQuery>(It.IsAny<string>(), null, null, null, null))
@@ -46,14 +46,14 @@ public class UserRepositoryTests
         {
             UserId = 1,
             Username = "user1",
-            PasswordHash = new byte[] { 4, 5, 6 },
-            PasswordSalt = new byte[] { 1, 2, 3 },
+            PasswordHash = "test1",
+            PasswordSalt = "test",
             Role = "role1"
         };
         
 
         // Act
-        var actualUser = userRepository.CreateUser("user1", "hash1", new byte[] { 1, 2, 3 }, "role1");
+        var actualUser = userRepository.CreateUser("user1", "hash1", "test", "role1");
 
         // Assert
         Assert.Equal(expectedUser, actualUser);
@@ -73,8 +73,8 @@ public class UserRepositoryTests
         {
             UserId = 1,
             Username = "user1",
-            PasswordHash = new byte[] { 4, 5, 6 },
-            PasswordSalt = new byte[] { 1, 2, 3 },
+            PasswordHash = "test",
+            PasswordSalt ="test",
             Role = "role1"
         };
 
@@ -124,13 +124,13 @@ public class UserRepositoryTests
         {
             UserId = 1,
             Username = "updatedUser",
-            PasswordHash = new byte[] { 1, 2, 3 },
-            PasswordSalt = new byte[] { 4, 5, 6 },
+            PasswordHash = "test",
+            PasswordSalt = "test",
             Role = "updatedRole"
         };
         
         // Act
-        var actualUser = userRepository.UpdateUser("updatedUser", 1, new byte[] { 1, 2, 3 }, new byte[] { 4, 5, 6 }, "updatedRole");
+        var actualUser = userRepository.UpdateUser("updatedUser", 1, "test", "test", "updatedRole");
 
         // Assert
         Assert.Equal(expectedUser, actualUser);

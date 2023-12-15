@@ -1,7 +1,7 @@
-﻿using infraestructure.DataModels;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using infraestructure;
+using System.Threading.Tasks;
 using infraestructure.Repositories;
 
 public class AuthenticationService
@@ -20,20 +20,22 @@ public class AuthenticationService
         if (user != null)
         {
             string hashedPassword = HashPassword(password, user.PasswordSalt);
-            if (hashedPassword == Convert.ToBase64String(user.PasswordHash))
+
+            // Comparar como cadenas, asumiendo que user.PasswordHash es una cadena.
+            if (hashedPassword == user.PasswordHash)
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public async Task RegisterUserAsync(string username, string password)
     {
-        byte[] salt = GenerateSalt();
+        string salt = Convert.ToBase64String(GenerateSalt());
         string hashedPassword = HashPassword(password, salt);
-        
+     
         userRepository.CreateUser(username, hashedPassword, salt, "user");
     }
 
@@ -47,13 +49,18 @@ public class AuthenticationService
         }
     }
 
-    private string HashPassword(string password, byte[] salt)
+    private string HashPassword(string password, string salt)
     {
+        byte[] saltBytes = Convert.FromBase64String(salt);
+        byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+        byte[] combined = new byte[saltBytes.Length + passwordBytes.Length];
+
+        Buffer.BlockCopy(saltBytes, 0, combined, 0, saltBytes.Length);
+        Buffer.BlockCopy(passwordBytes, 0, combined, saltBytes.Length, passwordBytes.Length);
+
         using (var sha256 = SHA256.Create())
         {
-            byte[] combined = Encoding.UTF8.GetBytes(password + Convert.ToBase64String(salt));
             byte[] hashedBytes = sha256.ComputeHash(combined);
-
             return Convert.ToBase64String(hashedBytes);
         }
     }

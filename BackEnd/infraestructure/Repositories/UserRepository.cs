@@ -28,7 +28,7 @@ FROM public.users;
             return conn.Query<UserQuery>(sql);
         }
     }
-    public User CreateUser(string username, string passwordHash, byte[] passwordSalt, string role)
+    public User CreateUser(string username, string passwordHash, string passwordSalt, string role)
     {
         var sql = $@"
 INSERT INTO ExamProject.Users (Username, PasswordHash, PasswordSalt, Role) 
@@ -55,7 +55,7 @@ RETURNING user_id as {nameof(UserQuery.UserId)},
         }
     }
     
-    public User UpdateUser(string username, int userId, byte[] passwordHash, byte[] passwordSalt, string role)
+    public User UpdateUser(string username, int userId, string passwordHash, string passwordSalt, string role)
     {
         var sql = $@"
 UPDATE ExamProject.Users SET Username = @user_name, PasswordHash = @password_hash, PasswordSalt= @password_salt, Role = @user_role
@@ -81,12 +81,28 @@ SELECT user_id as {nameof(UserQuery.UserId)},
        password_hash as {nameof(UserQuery.PasswordHash)},
        password_salt as {nameof(UserQuery.PasswordSalt)},
        user_role as {nameof(UserQuery.Role)}
-FROM poblic.users
-WHERE Username = @user_name;
+FROM public.users
+WHERE user_name = @UserName;
 ";
         using (var conn = _dataSource.OpenConnection())
         {
             return await conn.QueryFirstOrDefaultAsync<UserQuery>(sql, new { Username = username });
+        }
+    }
+
+    public User GetUserById(int userId)
+    {
+        string sql = $@"SELECT user_id as {nameof(User.UserId)},
+       user_name as {nameof(User.Username)},
+       user_role as {nameof(User.Role)},
+       password_hash as {nameof(User.PasswordHash)},
+       password_salt as {nameof(User.PasswordSalt)}
+FROM public.users
+WHERE user_id = @userId;
+";
+        using (var conn = _dataSource.OpenConnection())
+        {
+            return conn.QueryFirst<User>(sql, new { userId});
         }
     }
 }

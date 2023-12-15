@@ -19,7 +19,7 @@ namespace service;
             return _userRepository.GetUser();
         }
 
-        public User CreateUser(string username, string passwordHash, byte[] passwordSalt, string role)
+        public User CreateUser(string username, string passwordHash, string passwordSalt, string role)
         {
             return _userRepository.CreateUser(username, passwordHash, passwordSalt, role);
         }
@@ -29,7 +29,7 @@ namespace service;
             return _userRepository.DeleteUser(userId);
         }
 
-        public User UpdateUser(string username, int userId, byte[] passwordHash, byte[] passwordSalt, string role)
+        public User UpdateUser(string username, int userId, string passwordHash, string passwordSalt, string role)
         {
             return _userRepository.UpdateUser(username, userId, passwordHash, passwordSalt, role);
         }
@@ -37,5 +37,10 @@ namespace service;
         public async Task<UserQuery> GetUserByUsernameAsync(string username)
         {
             return await _userRepository.GetUserByUsernameAsync(username);
+        }
+        
+        public User GetUserById(int userId)
+        {
+            return _userRepository.GetUserById(userId);
         }
     }

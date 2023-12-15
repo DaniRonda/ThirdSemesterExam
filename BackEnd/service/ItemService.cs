@@ -37,4 +37,9 @@ namespace service;
         {
             return await _itemRepository.GetItemByNameAsync(itemName);
         }
+        
+        public Items GetItemById(int itemId)
+        {
+            return _itemRepository.GetItemsById(itemId);
+        }
     }

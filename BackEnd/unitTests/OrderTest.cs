@@ -52,7 +52,7 @@ public class OrderRepositoryTests
         };
         
         // Act
-        var actualOrder = orderRepository.CreateOrder(new int[] { 1, 2, 3 }, "some date", "some time", false);
+        var actualOrder = orderRepository.CreateOrder("some food", "some date", "some time", false);
 
         // Assert
         Assert.Equal(expectedOrder, actualOrder);
@@ -97,7 +97,7 @@ public class OrderRepositoryTests
         };
 
         // Act
-        var actualOrder = orderRepository.UpdateOrder(1, new int[] { 4, 5, 6 }, "some date", "some time", true);
+        var actualOrder = orderRepository.UpdateOrder(1, "some food", "some date", "some time", true);
 
         // Assert
         Assert.Equal(expectedOrder, actualOrder);

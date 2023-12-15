@@ -15,7 +15,7 @@ public class OrderService
             return _orderRepository.GetOrders();
         }
 
-        public Order CreateOrder(Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
+        public Order CreateOrder(string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             return _orderRepository.CreateOrder(orderItemArrayId, orderDate, orderTime, orderItIsDone);
         }
@@ -25,7 +25,7 @@ public class OrderService
             return _orderRepository.DeleteOrder(orderId);
         }
 
-        public Order UpdateOrder(int orderId, Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
+        public Order UpdateOrder(int orderId, string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             return _orderRepository.UpdateOrder(orderId, orderItemArrayId, orderDate, orderTime, orderItIsDone);
         }

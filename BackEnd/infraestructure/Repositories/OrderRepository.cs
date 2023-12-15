@@ -29,7 +29,7 @@ FROM public.orders;
             }
         }
 
-        public Order CreateOrder(Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
+        public Order CreateOrder(string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"
 INSERT INTO public.orders (order_item, order_date, order_time, order_itsdone) 
@@ -55,7 +55,7 @@ RETURNING order_id as {nameof(Order.OrderId)},
             }
         }
 
-        public Order UpdateOrder(int orderId, Array orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
+        public Order UpdateOrder(int orderId, string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"
 UPDATE ExamProject.Orders 
