@@ -1,4 +1,4 @@
-﻿namespace infraestructure.DataModels;
+﻿namespace api.DataModels;
 
 public class ItemOrder
 {

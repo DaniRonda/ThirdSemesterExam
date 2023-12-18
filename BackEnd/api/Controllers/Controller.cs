@@ -1,6 +1,8 @@
-using infraestructure.DataModels;
+using api.DataModels;
+using api.Model;
 using Microsoft.AspNetCore.Mvc;
 using service;
+using infraestructure.DataModels;
 
 namespace api.Controllers;
 
@@ -238,10 +240,39 @@ public class Controller : ControllerBase
 
         return Ok(item);
     }
-}
-    
+#endregion
 
-    #endregion
+#region Validation
+
+/*[ApiController]
+[Route("api/users/login")]
+public class UserController : ControllerBase
+{
+    private readonly AuthenticationService _authenticationService;
+
+    public UserController(AuthenticationService authenticationService)
+    {
+        _authenticationService = authenticationService;
+    }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        await _authenticationService.RegisterUserAsync(createUserDto.Username, createUserDto.Password);
+
+        return Ok("user created");
+    }
+}*/
+
+
+#endregion
+
+}
 
 
 
