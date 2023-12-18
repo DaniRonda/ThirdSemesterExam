@@ -31,7 +31,7 @@ FROM public.users;
     public User CreateUser(string username, string passwordHash, string passwordSalt, string role)
     {
         var sql = $@"
-INSERT INTO ExamProject.Users (Username, PasswordHash, PasswordSalt, Role) 
+INSERT INTO public.Users (Username, PasswordHash, PasswordSalt, Role) 
 VALUES (@user_name, @password_hash, @password_salt, @password_role)
 RETURNING user_id as {nameof(UserQuery.UserId)},
        user_name as {nameof(UserQuery.Username)},
@@ -48,7 +48,7 @@ RETURNING user_id as {nameof(UserQuery.UserId)},
     
     public bool DeleteUser(int userId)
     {
-        var sql = @"DELETE FROM ExamProject.Users WHERE UserId = @user_id;";
+        var sql = @"DELETE FROM public.Users WHERE UserId = @user_id;";
         using (var conn = _dataSource.OpenConnection())
         {
             return conn.Execute(sql, new { userId }) == 1;
@@ -58,7 +58,7 @@ RETURNING user_id as {nameof(UserQuery.UserId)},
     public User UpdateUser(string username, int userId, string passwordHash, string passwordSalt, string role)
     {
         var sql = $@"
-UPDATE ExamProject.Users SET Username = @user_name, PasswordHash = @password_hash, PasswordSalt= @password_salt, Role = @user_role
+UPDATE public.Users SET Username = @user_name, PasswordHash = @password_hash, PasswordSalt= @password_salt, Role = @user_role
 WHERE UserId = @UserId
 RETURNING user_id as {nameof(UserQuery.UserId)},
        user_name as {nameof(UserQuery.Username)},

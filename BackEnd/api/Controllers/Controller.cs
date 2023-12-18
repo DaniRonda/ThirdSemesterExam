@@ -44,10 +44,12 @@ public class Controller : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Order> CreateOrder([FromBody] Order orderModel)
+    [ValidateModel]
+    [Route("/api/orders")]
+    public ActionResult<Order> CreateOrder([FromBody] CreateOrderDto createOrderDto)
     {
-        var order = _orderService.CreateOrder(orderModel.OrderItemArrayId, orderModel.OrderDate, orderModel.OrderTime,
-            orderModel.OrderItIsDone);
+        var order = _orderService.CreateOrder(createOrderDto.OrderItemArrayId, createOrderDto.OrderDate, createOrderDto.OrderTime,
+            createOrderDto.OrderItIsDone);
         return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
 
     }
@@ -68,7 +70,8 @@ public class Controller : ControllerBase
 
     }
 
-    [HttpDelete("{orderId}")]
+    [HttpDelete]
+    [Route ("/api/orders/{orderId}")]
     public ActionResult DeleteOrder(int orderId)
     {
         var result = _orderService.DeleteOrder(orderId);
@@ -109,19 +112,23 @@ public class Controller : ControllerBase
         return user;
     }
 
-    public IActionResult CreateUser([FromBody] User createUserModel)
+    [HttpPost]
+    [ValidateModel]
+    [Route("/api/users")]
+    public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-        var newUser = _userService.CreateUser(createUserModel.Username, createUserModel.PasswordHash, createUserModel.PasswordSalt, createUserModel.Role);
+        var newUser = _userService.CreateUser(createUserDto.Username, createUserDto.PasswordHash, createUserDto.PasswordSalt, createUserDto.Role);
 
         return CreatedAtAction(nameof(GetUserById), new { userId = newUser.UserId }, newUser);
     }
 
 
-    [HttpDelete("{userId}")]
+    [HttpDelete]
+    [Route("/api/user/id/{userId}")]
     public IActionResult DeleteUser(int userId)
     {
         var result = _userService.DeleteUser(userId);
@@ -134,10 +141,11 @@ public class Controller : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("{userId}")]
-    public IActionResult UpdateUser(int userId, [FromBody] User updateUserModel)
+    [HttpPut]
+    [Route("/api/user/id/{userId}")]
+    public IActionResult UpdateUser(int userId, [FromBody] UpdateUserDto updateUserDto)
     {
-        var updatedUser = _userService.UpdateUser(updateUserModel.Username, userId, updateUserModel.PasswordHash, updateUserModel.PasswordSalt, updateUserModel.Role);
+        var updatedUser = _userService.UpdateUser(updateUserDto.Username, userId, updateUserDto.PasswordHash, updateUserDto.PasswordSalt, updateUserDto.Role);
 
         if (updatedUser == null)
         {
