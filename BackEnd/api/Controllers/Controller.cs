@@ -52,11 +52,12 @@ public class Controller : ControllerBase
 
     }
 
-    [HttpPut("{orderId}")]
-    public ActionResult<Order> UpdateOrder(int orderId, [FromBody] Order orderModel )
+    [HttpPut]
+    [Route ("/api/orders/{orderId}")]
+    public ActionResult<Order> UpdateOrder(int orderId, [FromBody] UpdateOrderDto updateOrderDto )
     {
-        var order = _orderService.UpdateOrder(orderId, orderModel.OrderItemArrayId, orderModel.OrderDate,
-            orderModel.OrderTime, orderModel.OrderItIsDone);
+        var order = _orderService.UpdateOrder(orderId, updateOrderDto.OrderItemArrayId, updateOrderDto.OrderDate,
+            updateOrderDto.OrderTime, updateOrderDto.OrderItIsDone);
 
         if (order == null)
         {

@@ -64,7 +64,7 @@ export class AdminUserScreenComponent {
         userId: userId
       }
     });
-    this.state.currentUser = (await firstValueFrom(this.http.get<any>(environment.baseUrl + '/api/users/' + userId)));
+    this.state.currentUser = (await firstValueFrom(this.http.get<any>(environment.baseUrl + '/api/users/id/' + userId)));
     await modal.present();
   }
 

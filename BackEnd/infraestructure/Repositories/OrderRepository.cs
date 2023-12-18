@@ -58,12 +58,12 @@ RETURNING order_id as {nameof(Order.OrderId)},
         public Order UpdateOrder(int orderId, string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"
-UPDATE ExamProject.Orders 
+UPDATE public.orders 
 SET order_item= @OrderItemArrayId,
     order_date= @OrderDate,
     order_time= @OrderTime,
-    order_itsdone= @OrderItIsDone,
-WHERE order_id = @OrderId
+    order_itsdone= @OrderItIsDone
+WHERE order_id= @OrderId
 RETURNING order_id as {nameof(Order.OrderId)},
        order_item as {nameof(Order.OrderItemArrayId)},
        order_date as {nameof(Order.OrderDate)},
