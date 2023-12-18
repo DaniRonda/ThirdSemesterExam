@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Order} from "../models";
+import {Order, User} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -7,4 +7,7 @@ import {Order} from "../models";
 export class State{
   public orders: Order[] = [];
   public currentOrder: Order = {};
+
+  public users: User[] = [];
+  public currentUser: User = {}
 }

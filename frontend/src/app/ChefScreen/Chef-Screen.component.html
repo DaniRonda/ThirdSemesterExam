@@ -31,11 +31,15 @@
 
 </div>
 <div id="orderContainer">
-
-
-</div>
-<div>
-  <button class="addbtn" (click)="addOrder1()">+</button>
-</div>
+  <div *ngFor="let order of state.orders" class="order" (click)="updateOrder(order.orderId)">
+    <button>✔️</button>
+    <div class="orderHeader">
+      <h1>Order: {{ order.orderTime }}</h1>
+    </div>
+    <ul>
+      <li>{{ order.orderItemArrayId }}</li>
+    </ul>
+  </div>
+  </div>
 </body>
 

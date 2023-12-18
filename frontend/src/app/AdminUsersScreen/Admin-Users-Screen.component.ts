@@ -5,13 +5,12 @@ import {ModalController} from "@ionic/angular";
 import {UserEditComponent} from "../UserEdit/user-edit.component";
 import {UserNewComponent} from "../UserNew/user-new.component";
 import {Router} from "@angular/router";
-interface DataItem {
-  name: string;
-  role: string;
-  username: string;
-  password: string;
-  id: string;
-}
+import {Order, User} from "../../models";
+import {environment} from "../../environments/environment";
+import {firstValueFrom} from "rxjs";
+import {State} from "../state";
+import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   templateUrl: 'Admin-Users-Screen.component.html',
@@ -24,55 +23,12 @@ export class AdminUserScreenComponent {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               public modalController: ModalController,
-              private router: Router,) {}
-  dataUser: DataItem[] = [
-    { "name": "User User", "role": "UserScreen", "username": "user", "password": "user", "id": "12020"},
-    { "name": "Ronald WackDonalds", "role": "UserScreen", "username": "RW", "password": "RWD", "id": "12021"},
-    { "name": "Benjamin Heehee", "role": "UserScreen", "username": "BH", "password": "BHH", "id": "12022"},
-    { "name": "Dani Hoohoo", "role": "UserScreen", "username": "DH", "password": "DHH", "id": "12023"},
-    { "name": "Chef Chef ", "role": "Chef", "username": "chef", "password": "chef", "id": "12030"},
-    { "name": "Rordon Gamsay ", "role": "Chef", "username": "RG", "password": "RGS", "id": "12031"},
-    // Add more data objects as needed
-  ];
+              private router: Router,
+              public state: State,
+              public http: HttpClient) {this.getFeedData();}
 
-  handleItemClick(clickedElement: EventTarget | null, index: number): void {
-    const getFullElement = document.getElementById("getFull");
 
-    if (getFullElement) {
-      getFullElement.style.transform = "translateY(0%)";
-      getFullElement.style.opacity = "1";
-      getFullElement.style.transition = "transform 1s, height 1.5s, opacity 0.7s";
 
-      // This function will be called when an li element is clicked
-      // You can use the index and clickedElement to perform actions
-      const selectedItem = this.dataUser[index];
-
-      // Example: Display the data in the console
-      console.log("Selected Item:", selectedItem);
-
-      // Access the ul.contents element
-      const getFullName = getFullElement.querySelector(".userName");
-      if (getFullName) {
-        getFullName.innerHTML = selectedItem.name;
-      }
-      const getFullId = getFullElement.querySelector("#idText");
-      if (getFullId) {
-        getFullId.innerHTML = selectedItem.id;
-      }
-      // Access the p.time element and set its content to the date
-      let timeElement = getFullElement.querySelector(".time") as HTMLInputElement;
-      timeElement.innerText = selectedItem.role;
-
-      const usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
-      const passwordInput = document.getElementById("passwordInput") as HTMLInputElement;
-
-      // Set the values for username and password
-      if (usernameInput && passwordInput) {
-        usernameInput.value = selectedItem.username;
-        passwordInput.value = selectedItem.password;
-      }
-    }
-  }
   openHistory() {
     this.router.navigate(['AdminHistoryScreen']);
   }
@@ -101,26 +57,15 @@ export class AdminUserScreenComponent {
   }
 
 
-  closeUser() {
-    const getFullElement = document.getElementById("getFull");
-
-    if (getFullElement) {
-      getFullElement.style.transform = "translateY(150%)";
-      getFullElement.style.opacity = "0%";
-      getFullElement.style.transition = "transform 1s, height 1.5s, opacity 0.7s";
-
-      setTimeout(() => {
-        getFullElement.style.transform = "translateY(-150%)";
-      }, 800);
-    }
-  }
-
-
-  async openEditModal() {
+  async openEditModal(userId: string | undefined) {
     const modal = await this.modalController.create({
-      component: UserEditComponent
+      component: UserEditComponent,
+      componentProps: {
+        userId: userId
+      }
     });
-    modal.present();
+    this.state.currentUser = (await firstValueFrom(this.http.get<any>(environment.baseUrl + '/api/users/' + userId)));
+    await modal.present();
   }
 
   protected readonly faXmark = faXmark;
@@ -155,5 +100,9 @@ export class AdminUserScreenComponent {
         }
       }
     }
+  }
+  async getFeedData() {
+    const call = this.http.get<User[]>(environment.baseUrl + '/api/users');
+    this.state.users = await firstValueFrom<User[]>(call);
   }
 }

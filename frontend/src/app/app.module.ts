@@ -19,10 +19,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ReceiptInfoComponent} from "./ReceiptInfo/reciept-info.component";
 import {UserEditComponent} from "./UserEdit/user-edit.component";
 import {HttpClientModule} from "@angular/common/http";
+import {UserNewComponent} from "./UserNew/user-new.component";
 
 
 @NgModule({
@@ -30,14 +31,14 @@ import {HttpClientModule} from "@angular/common/http";
     UserScreenComponent, UserPayScreenComponent,
     AdminUserScreenComponent, AdminScreenComponent,
     AdminHistoryScreenComponent, ReceiptInfoComponent,
-  UserEditComponent],
-  imports: [BrowserModule, IonicModule.forRoot(),
-    AppRoutingModule, FaIconComponent,
-    BrowserAnimationsModule, MatFormFieldModule,
-    MatInputModule, MatDatepickerModule,
-    MatNativeDateModule, FormsModule,
-    HttpClientModule
-  ],
+  UserEditComponent, UserNewComponent],
+    imports: [BrowserModule, IonicModule.forRoot(),
+        AppRoutingModule, FaIconComponent,
+        BrowserAnimationsModule, MatFormFieldModule,
+        MatInputModule, MatDatepickerModule,
+        MatNativeDateModule, FormsModule,
+        HttpClientModule, ReactiveFormsModule
+    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

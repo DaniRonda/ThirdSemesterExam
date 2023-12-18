@@ -6,33 +6,36 @@ import { ActivatedRoute } from "@angular/router";
 
 import {Order} from "../../models";
 import {State} from "../state";
-import {ModalController} from "@ionic/angular";
+import {ModalController, NavParams} from "@ionic/angular";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   styleUrls: ['receipt-info.scss'],
   template: `
 
-    <div id="getFull">
+    <div id="getFull" *ngIf="order">
       <button (click)="closeReciept()"><fa-icon [icon]="faXmark"></fa-icon></button>
-      <h1>Receipt ID: {{"hi"//order.id}}</h1>
+      <h1>Receipt ID: {{order.orderId}}</h1>
       <h3>Contents</h3>
       <div class="contentPane">
         <ul class="contents">
             <li>
-              {{"item"//items in order}}
+              {{order.orderItemArrayId}}
             </li>
         </ul>
       </div>
-      <p class="time">{{"time"//time created}}</p>
+      <p class="time">{{ order.orderTime }} | {{order.orderDate}}</p>
     </div>
    `,
 
 })
-export class ReceiptInfoComponent {
+export class ReceiptInfoComponent implements OnInit{
 
   protected readonly faXmark = faXmark;
   order: Order | undefined;
-  constructor( private activatedRoute: ActivatedRoute,  public state: State, public modalController: ModalController) {
+  constructor( private activatedRoute: ActivatedRoute,  public state: State,
+               public modalController: ModalController, private navParams: NavParams,
+               private http: HttpClient) {
     //this.setId();
   }
   closeReciept() {
@@ -40,14 +43,12 @@ export class ReceiptInfoComponent {
       component: ReceiptInfoComponent
     });
   modal.catch()
-  }/*
-  ngOnInit() {
-    this.loadOrderInfo();
   }
-
-  private async loadOrderInfo() {
-    this.activatedRoute.params.subscribe(async (params) => {
-      const orderId = params['orderId'];
+  ngOnInit() {
+    const orderId = this.navParams.get('orderId');
+    this.loadOrderInfo(orderId);
+  }
+  private async loadOrderInfo(orderId: number | undefined) {
       if (orderId) {
         const call = this.http.get<Order>(environment.baseUrl + '/api/orders/' + orderId);
         this.order = await firstValueFrom<Order>(call);
@@ -55,15 +56,7 @@ export class ReceiptInfoComponent {
       } else {
 
       }
-    });
+
   }
-  async setId() {
-    try{
-      const id = (await firstValueFrom(this.activatedRoute.paramMap)).get('boxId');
-      this.state.currentBox = (await firstValueFrom(this.httpClient.get<any>(environment.baseUrl + '/api/orders/' + id)));
-    } catch (e) {
-      console.log(e);
-      console.log(this.state.currentBox.id);
-    }
-  }*/
+
 }

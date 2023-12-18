@@ -40,8 +40,8 @@
     <div class="hisContainer">
       <div class="recieptContainer">
         <ul id="hisList">
-          <div *ngFor="let item of dataUser; let i = index" (click)="openEditModal()">
-            <li>{{ item.name }}</li>
+          <div *ngFor="let item of state.users; let i = index" (click)="openEditModal(item.userId)">
+            <li>{{ item.username }}</li>
             <p>{{ item.role }}</p>
           </div>
         </ul>

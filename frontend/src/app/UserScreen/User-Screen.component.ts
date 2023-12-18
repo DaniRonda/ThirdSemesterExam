@@ -1,6 +1,13 @@
 import {Component, ElementRef} from '@angular/core';
 import {faCoffee, faMinus, faPlus, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
+import {FormBuilder, Validators} from "@angular/forms";
+import {State} from "../state";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {ToastController} from "@ionic/angular";
+import {Order, ResponseDto} from "../../models";
+import {environment} from "../../environments/environment";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   templateUrl: 'User-Screen.component.html',
@@ -9,7 +16,9 @@ import {Router} from "@angular/router";
 
 export class UserScreenComponent {
 
-  constructor(private el: ElementRef, private router: Router,) {
+  constructor(private el: ElementRef, private router: Router,
+              public fb: FormBuilder, public state: State,
+              public http: HttpClient, public toastController: ToastController) {
 
   }
 
@@ -54,6 +63,13 @@ export class UserScreenComponent {
     setTimeout(() => {
         optionsPane.style.borderColor = "#5f725d";
     }, 450);
+    setTimeout(() => {
+      optionsPane.style.borderColor = "#B33F40";
+    }, 600);
+    setTimeout(() => {
+      optionsPane.style.borderColor = "#5f725d";
+    }, 750);
+
 
   }
   openMenues(): void {
@@ -575,1436 +591,1507 @@ export class UserScreenComponent {
   }
 
   showMenuOptions1(): void {
-    this.baseprice = 75;
+    if (!this.optionsopen) {
+      this.baseprice = 75;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu1.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu1.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackCheese Double Patty Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackCheese Double Patty Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions2(): void {
-    this.baseprice = 89;
+    if (!this.optionsopen) {
+      this.baseprice = 89;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu2.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu2.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "BigWack Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "BigWack Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions3(): void {
-    this.baseprice = 60;
+    if (!this.optionsopen) {
+      this.baseprice = 60;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu3.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu3.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackCheese Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackCheese Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions4(): void {
-    this.baseprice = 79;
+    if (!this.optionsopen) {
+      this.baseprice = 79;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu4.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu4.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackChicken Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeTomatoOption();
+
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Sauce";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackChicken Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeTomatoOption();
-
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
-
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Sauce";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions5(): void {
-    this.baseprice = 89;
+    if (!this.optionsopen) {
+      this.baseprice = 89;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu5.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu5.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackMexico Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackMexico Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions6(): void {
-    this.baseprice = 99;
+    if (!this.optionsopen) {
+      this.baseprice = 99;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu6.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu6.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "DoublePounder  Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "DoublePounder  Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions7(): void {
-    this.baseprice = 99;
+    if (!this.optionsopen) {
+      this.baseprice = 99;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu7.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu7.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "All-In-One  Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "All-In-One  Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions8(): void {
-    this.baseprice = 69;
+    if (!this.optionsopen) {
+      this.baseprice = 69;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu8.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu8.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackNuggets Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackNuggets Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showMenuOptions9(): void {
-    this.baseprice = 89;
+    if (!this.optionsopen) {
+      this.baseprice = 89;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/menu9.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/menu9.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Chicken Box  Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Chicken Box  Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-
     this.showMenuOptions();
   }
   showBurgerOptions1(): void {
-    this.baseprice = 69;
+    if (!this.optionsopen) {
+      this.baseprice = 69;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/burger1.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/burger1.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "All-In-One burger.";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.uncheck();
+
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "All-In-One burger.";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.uncheck();
-
-
     this.showMenuOptions();
   }
   showBurgerOptions2(): void {
-    this.baseprice = 55;
+    if (!this.optionsopen) {
+      this.baseprice = 55;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/burger2.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/burger2.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "BigWack";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.uncheck();
+
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "BigWack";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.uncheck();
-
-
     this.showMenuOptions();
   }
   showBurgerOptions3(): void {
-    this.baseprice = 30;
+    if (!this.optionsopen) {
+      this.baseprice = 30;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/burger3.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/burger3.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackCheese";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.uncheck();
+
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackCheese";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.uncheck();
-
-
     this.showMenuOptions();
   }
   showBurgerOptions4(): void {
-    this.baseprice = 45;
+    if (!this.optionsopen) {
+      this.baseprice = 45;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/burger4.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/burger4.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackChicken";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeMayoOption();
+      this.uncheck();
+
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackChicken";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeMayoOption();
-    this.uncheck();
-
-
     this.showMenuOptions();
   }
   showBurgerOptions5(): void {
-    this.baseprice = 40;
+    if (!this.optionsopen) {
+      this.baseprice = 40;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/burger5.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/burger5.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackCheese Double Patty Menu";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.uncheck();
+
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackCheese Double Patty Menu";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.uncheck();
-
-
     this.showMenuOptions();
   }
   showBurgerOptions6(): void {
-    this.baseprice = 59;
+    if (!this.optionsopen) {
+      this.baseprice = 59;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/burger6.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/burger6.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackBacon";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.uncheck();
+
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackBacon";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.uncheck();
-
-
     this.showMenuOptions();
 
   }
   showSidesOptions1(): void {
-    this.baseprice = 50;
+    if (!this.optionsopen) {
+      this.baseprice = 50;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides1.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides1.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackNuggets Large";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackNuggets Large";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
-
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
-    }
-
     this.showMenuOptions();
   }
   showSidesOptions2(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides2.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides2.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackNuggets";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackNuggets";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
-
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
-    }
-
     this.showMenuOptions();
   }
   showSidesOptions3(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides3.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides3.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackChileCheese";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackChileCheese";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
-
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
-    }
-
     this.showMenuOptions();
   }
   showSidesOptions4(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides4.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides4.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackFries Large";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackFries Large";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
-
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
-    }
-
     this.showMenuOptions();
   }
   showSidesOptions5(): void {
-    this.baseprice = 15;
+    if (!this.optionsopen) {
+      this.baseprice = 15;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides5.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides5.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackFries";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackFries";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
-
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
-    }
-
     this.showMenuOptions();
   }
   showSidesOptions6(): void {
-    this.baseprice = 30;
+    if (!this.optionsopen) {
+      this.baseprice = 30;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides6.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides6.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackSticks";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackSticks";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
-
     this.showMenuOptions();
   }
   showSodaOptions1(): void {
-    this.baseprice = 25;
+    if (!this.optionsopen) {
+      this.baseprice = 25;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/soda1.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/soda1.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "CocaCola";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.removeMayoOption();
+      const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
+
+      if (sodaRadio1) {
+        sodaRadio1.checked = false;
+      }
+
+      const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
+
+      if (sizeOption) {
+        sizeOption.style.width = "100%";
+        sizeOption.style.left = "30%";
+      }
+
+      const sizeOptionTitle = document.getElementById("sizeoptiontitle");
+      if (sizeOptionTitle) {
+        sizeOptionTitle.innerText = "Soda Size";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "CocaCola";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.removeMayoOption();
-    const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
-
-    if (sodaRadio1) {
-      sodaRadio1.checked = false;
-    }
-
-    const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
-
-    if (sizeOption) {
-      sizeOption.style.width = "100%";
-      sizeOption.style.left = "30%";
-    }
-
-    const sizeOptionTitle = document.getElementById("sizeoptiontitle");
-    if (sizeOptionTitle) {
-      sizeOptionTitle.innerText = "Soda Size";
-    }
-
     this.showMenuOptions();
   }
   showSodaOptions2(): void {
-    this.baseprice = 25;
+    if (!this.optionsopen) {
+      this.baseprice = 25;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/soda2.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/soda2.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Pepsi";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.removeMayoOption();
+      const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
+
+      if (sodaRadio1) {
+        sodaRadio1.checked = false;
+      }
+
+      const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
+
+      if (sizeOption) {
+        sizeOption.style.width = "100%";
+        sizeOption.style.left = "30%";
+      }
+
+      const sizeOptionTitle = document.getElementById("sizeoptiontitle");
+      if (sizeOptionTitle) {
+        sizeOptionTitle.innerText = "Soda Size";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Pepsi";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.removeMayoOption();
-    const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
-
-    if (sodaRadio1) {
-      sodaRadio1.checked = false;
-    }
-
-    const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
-
-    if (sizeOption) {
-      sizeOption.style.width = "100%";
-      sizeOption.style.left = "30%";
-    }
-
-    const sizeOptionTitle = document.getElementById("sizeoptiontitle");
-    if (sizeOptionTitle) {
-      sizeOptionTitle.innerText = "Soda Size";
-    }
-
     this.showMenuOptions();
   }
   showSodaOptions3(): void {
-    this.baseprice = 25;
+    if (!this.optionsopen) {
+      this.baseprice = 25;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/soda3.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/soda3.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Sprite";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.removeMayoOption();
+      const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
+
+      if (sodaRadio1) {
+        sodaRadio1.checked = false;
+      }
+
+      const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
+
+      if (sizeOption) {
+        sizeOption.style.width = "100%";
+        sizeOption.style.left = "30%";
+      }
+
+      const sizeOptionTitle = document.getElementById("sizeoptiontitle");
+      if (sizeOptionTitle) {
+        sizeOptionTitle.innerText = "Soda Size";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Sprite";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.removeMayoOption();
-    const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
-
-    if (sodaRadio1) {
-      sodaRadio1.checked = false;
-    }
-
-    const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
-
-    if (sizeOption) {
-      sizeOption.style.width = "100%";
-      sizeOption.style.left = "30%";
-    }
-
-    const sizeOptionTitle = document.getElementById("sizeoptiontitle");
-    if (sizeOptionTitle) {
-      sizeOptionTitle.innerText = "Soda Size";
-    }
-
     this.showMenuOptions();
   }
   showSodaOptions4(): void {
-    this.baseprice = 25;
+    if (!this.optionsopen) {
+      this.baseprice = 25;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/soda4.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/soda4.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Fanta";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.removeMayoOption();
+      const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
+
+      if (sodaRadio1) {
+        sodaRadio1.checked = false;
+      }
+
+      const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
+
+      if (sizeOption) {
+        sizeOption.style.width = "100%";
+        sizeOption.style.left = "30%";
+      }
+
+      const sizeOptionTitle = document.getElementById("sizeoptiontitle");
+      if (sizeOptionTitle) {
+        sizeOptionTitle.innerText = "Soda Size";
+      }
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Fanta";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.removeMayoOption();
-    const sodaRadio1 = document.getElementById("sodaRadio1") as HTMLInputElement | null;
-
-    if (sodaRadio1) {
-      sodaRadio1.checked = false;
-    }
-
-    const sizeOption = document.getElementById("sizeoption") as HTMLElement | null;
-
-    if (sizeOption) {
-      sizeOption.style.width = "100%";
-      sizeOption.style.left = "30%";
-    }
-
-    const sizeOptionTitle = document.getElementById("sizeoptiontitle");
-    if (sizeOptionTitle) {
-      sizeOptionTitle.innerText = "Soda Size";
-    }
-
     this.showMenuOptions();
   }
   showChickenOptions1(): void {
-    this.baseprice = 45;
+    if (!this.optionsopen) {
+      this.baseprice = 45;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/chicken1.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/chicken1.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackChicken";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackChicken";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeMayoOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeMayoOption();
+      this.uncheck();
 
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
 
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showChickenOptions2(): void {
-    this.baseprice = 30;
+    if (!this.optionsopen) {
+      this.baseprice = 30;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/chicken2.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/chicken2.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Chicken Strips";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Chicken Strips";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
 
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
 
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showChickenOptions3(): void {
-    this.baseprice = 50;
+    if (!this.optionsopen) {
+      this.baseprice = 50;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides1.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides1.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackNuggets Large";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackNuggets Large";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
 
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
 
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showChickenOptions4(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides2.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides2.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackNuggets";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackNuggets";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
 
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
 
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showChickenOptions5(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/sides3.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/sides3.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackChiliCheese";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackChiliCheese";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.uncheck();
 
-    const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
+      const ketchupOptionTitle = document.getElementById("ketchupoptiontitle");
 
-    if (ketchupOptionTitle) {
-      ketchupOptionTitle.innerText = "No/Extra Dressing";
+      if (ketchupOptionTitle) {
+        ketchupOptionTitle.innerText = "No/Extra Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showDessertOptions1(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert1.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert1.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Sundeez Caramel";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Sundeez Caramel";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions2(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert2.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert2.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Sundeez Strawberry";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Sundeez Strawberry";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions3(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert3.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert3.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Sundeez Chocolate";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Sundeez Chocolate";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions4(): void {
-    this.baseprice = 25;
+    if (!this.optionsopen) {
+      this.baseprice = 25;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert4.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert4.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackFlurry Chocobits";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackFlurry Chocobits";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions5(): void {
-    this.baseprice = 25;
+    if (!this.optionsopen) {
+      this.baseprice = 25;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert5.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert5.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackFlurry MnM";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackFlurry MnM";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions6(): void {
-    this.baseprice = 30;
+    if (!this.optionsopen) {
+      this.baseprice = 30;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert6.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert6.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Oreo Milkshake";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Oreo Milkshake";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions7(): void {
-    this.baseprice = 15;
+    if (!this.optionsopen) {
+      this.baseprice = 15;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert7.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert7.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Light Cookie";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Light Cookie";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions8(): void {
-    this.baseprice = 15;
+    if (!this.optionsopen) {
+      this.baseprice = 15;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert8.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert8.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Dark Cookie";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Dark Cookie";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions9(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert9.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert9.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Donut";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Donut";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showDessertOptions10(): void {
-    this.baseprice = 20;
+    if (!this.optionsopen) {
+      this.baseprice = 20;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/dessert10.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/dessert10.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Berliner";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Berliner";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeAllOptions();
+      this.uncheck();
     }
-    this.removeAllOptions();
-    this.uncheck();
     this.showMenuOptions();
   }
   showSaladOptions1(): void {
-    this.baseprice = 40;
+    if (!this.optionsopen) {
+      this.baseprice = 40;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/salad1.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/salad1.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Chicken Strip Salad";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Chicken Strip Salad";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.uncheck();
 
-    const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
+      const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
 
-    if (mayoOption) {
-      mayoOption.style.width = "100%";
-      mayoOption.style.left = "33%";
-    }
+      if (mayoOption) {
+        mayoOption.style.width = "100%";
+        mayoOption.style.left = "33%";
+      }
 
-    const mayoOptionTitle = document.getElementById("mayooptiontitle");
+      const mayoOptionTitle = document.getElementById("mayooptiontitle");
 
-    if (mayoOptionTitle) {
-      mayoOptionTitle.innerText = "Salad Dressing";
+      if (mayoOptionTitle) {
+        mayoOptionTitle.innerText = "Salad Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showSaladOptions2(): void {
-    this.baseprice = 30;
+    if (!this.optionsopen) {
+      this.baseprice = 30;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/salad2.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/salad2.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Small Salad";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Small Salad";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.uncheck();
 
-    const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
+      const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
 
-    if (mayoOption) {
-      mayoOption.style.width = "100%";
-      mayoOption.style.left = "33%";
-    }
+      if (mayoOption) {
+        mayoOption.style.width = "100%";
+        mayoOption.style.left = "33%";
+      }
 
-    const mayoOptionTitle = document.getElementById("mayooptiontitle");
+      const mayoOptionTitle = document.getElementById("mayooptiontitle");
 
-    if (mayoOptionTitle) {
-      mayoOptionTitle.innerText = "Salad Dressing";
+      if (mayoOptionTitle) {
+        mayoOptionTitle.innerText = "Salad Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showSaladOptions3(): void {
-    this.baseprice = 40;
+    if (!this.optionsopen) {
+      this.baseprice = 40;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/salad3.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/salad3.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Feta Salad";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Feta Salad";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.uncheck();
 
-    const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
+      const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
 
-    if (mayoOption) {
-      mayoOption.style.width = "100%";
-      mayoOption.style.left = "33%";
-    }
+      if (mayoOption) {
+        mayoOption.style.width = "100%";
+        mayoOption.style.left = "33%";
+      }
 
-    const mayoOptionTitle = document.getElementById("mayooptiontitle");
+      const mayoOptionTitle = document.getElementById("mayooptiontitle");
 
-    if (mayoOptionTitle) {
-      mayoOptionTitle.innerText = "Salad Dressing";
+      if (mayoOptionTitle) {
+        mayoOptionTitle.innerText = "Salad Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showSaladOptions4(): void {
-    this.baseprice = 49;
+    if (!this.optionsopen) {
+      this.baseprice = 49;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/salad4.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/salad4.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Chicken Strip' Salad Supreme";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Chicken Strip' Salad Supreme";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.uncheck();
 
-    const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
+      const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
 
-    if (mayoOption) {
-      mayoOption.style.width = "100%";
-      mayoOption.style.left = "33%";
-    }
+      if (mayoOption) {
+        mayoOption.style.width = "100%";
+        mayoOption.style.left = "33%";
+      }
 
-    const mayoOptionTitle = document.getElementById("mayooptiontitle");
+      const mayoOptionTitle = document.getElementById("mayooptiontitle");
 
-    if (mayoOptionTitle) {
-      mayoOptionTitle.innerText = "Salad Dressing";
+      if (mayoOptionTitle) {
+        mayoOptionTitle.innerText = "Salad Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showSaladOptions5(): void {
-    this.baseprice = 40;
+    if (!this.optionsopen) {
+      this.baseprice = 40;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/salad5.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/salad5.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackSalad";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackSalad";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
+      this.uncheck();
 
-    const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
+      const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
 
-    if (mayoOption) {
-      mayoOption.style.width = "100%";
-      mayoOption.style.left = "33%";
-    }
+      if (mayoOption) {
+        mayoOption.style.width = "100%";
+        mayoOption.style.left = "33%";
+      }
 
-    const mayoOptionTitle = document.getElementById("mayooptiontitle");
+      const mayoOptionTitle = document.getElementById("mayooptiontitle");
 
-    if (mayoOptionTitle) {
-      mayoOptionTitle.innerText = "Salad Dressing";
+      if (mayoOptionTitle) {
+        mayoOptionTitle.innerText = "Salad Dressing";
+      }
     }
     this.showMenuOptions();
   }
   showVeganOptions1(): void {
-    this.baseprice = 69;
+    if (!this.optionsopen) {
+      this.baseprice = 69;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/vegan1.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/vegan1.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackVegan Deluxe";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removeMayoOption();
+      this.removeKetchupOption();
+      this.uncheck();
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackVegan Deluxe";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removeMayoOption();
-    this.removeKetchupOption();
-    this.uncheck();
-
     this.showMenuOptions();
   }
   showVeganOptions2(): void {
-    this.baseprice = 60;
+    if (!this.optionsopen) {
+      this.baseprice = 60;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/vegan2.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/vegan2.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackVegan";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removeMayoOption();
+      this.removeKetchupOption();
+      this.uncheck();
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackVegan";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removeMayoOption();
-    this.removeKetchupOption();
-    this.uncheck();
-
     this.showMenuOptions();
   }
   showVeganOptions3(): void {
-    this.baseprice = 69;
+    if (!this.optionsopen) {
+      this.baseprice = 69;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/vegan3.png";
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/vegan3.png";
+      }
+
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "WackVegan Supreme";
+      }
+
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removeMayoOption();
+      this.removeKetchupOption();
+      this.uncheck();
     }
-
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "WackVegan Supreme";
-    }
-
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removeMayoOption();
-    this.removeKetchupOption();
-    this.uncheck();
-
     this.showMenuOptions();
   }
   showVeganOptions4(): void {
-    this.baseprice = 30;
+    if (!this.optionsopen) {
+      this.baseprice = 30;
 
-    const image = document.getElementById("optionImg") as HTMLImageElement;
-    if (image) {
-      image.src = "assets/salad2.png";
-    }
+      const image = document.getElementById("optionImg") as HTMLImageElement;
+      if (image) {
+        image.src = "assets/salad2.png";
+      }
 
-    const title = document.getElementById("optionTitle");
-    if (title) {
-      title.innerHTML = "Small Salad";
-    }
+      const title = document.getElementById("optionTitle");
+      if (title) {
+        title.innerHTML = "Small Salad";
+      }
 
-    const pricetext = document.getElementById("priceTitle");
-    if (pricetext) {
-      pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
-    }
-    this.removeSizeOption();
-    this.removeSodaOption();
-    this.removeCheeseOption();
-    this.removeBaconOption();
-    this.removePickleOption();
-    this.removeOnionOption();
-    this.removeTomatoOption();
-    this.removeLettuceOption();
-    this.removeKetchupOption();
-    this.uncheck();
+      const pricetext = document.getElementById("priceTitle");
+      if (pricetext) {
+        pricetext.innerHTML = "Price: " + this.baseprice + "DKK";
+      }
+      this.removeSizeOption();
+      this.removeSodaOption();
+      this.removeCheeseOption();
+      this.removeBaconOption();
+      this.removePickleOption();
+      this.removeOnionOption();
+      this.removeTomatoOption();
+      this.removeLettuceOption();
+      this.removeKetchupOption();
 
-    const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
+      this.uncheck();
 
-    if (mayoOption) {
-      mayoOption.style.width = "100%";
-      mayoOption.style.left = "33%";
-    }
+      const mayoOption = document.getElementById("mayooption") as HTMLElement | null;
 
-    const mayoOptionTitle = document.getElementById("mayooptiontitle");
+      if (mayoOption) {
+        mayoOption.style.width = "100%";
+        mayoOption.style.left = "33%";
+      }
 
-    if (mayoOptionTitle) {
-      mayoOptionTitle.innerText = "Salad Dressing";
+      const mayoOptionTitle = document.getElementById("mayooptiontitle");
+
+      if (mayoOptionTitle) {
+        mayoOptionTitle.innerText = "Salad Dressing";
+      }
     }
     this.showMenuOptions();
   }
@@ -2087,7 +2174,7 @@ export class UserScreenComponent {
 
     if (myRadio1 && priceTitle) {
       if (myRadio1.checked) {
-        this.newprice = -3;
+        this.cheeseprice = -3;
       }
 
       const printprice =
@@ -2112,7 +2199,7 @@ export class UserScreenComponent {
 
     if (myRadio3 && priceTitle) {
       if (myRadio3.checked) {
-        this.newprice = 3;
+        this.cheeseprice = 3;
       }
 
       const printprice =
@@ -2136,7 +2223,7 @@ export class UserScreenComponent {
 
     if (baconRadio1 && priceTitle) {
       if (baconRadio1.checked) {
-        this.newprice = -5;
+        this.baconprice = -5;
       }
 
       const printprice =
@@ -2161,7 +2248,7 @@ export class UserScreenComponent {
 
     if (baconRadio3 && priceTitle) {
       if (baconRadio3.checked) {
-        this.newprice = 5;
+        this.baconprice = 5;
       }
 
       const printprice =
@@ -2185,7 +2272,7 @@ export class UserScreenComponent {
 
     if (pickleRadio1 && priceTitle) {
       if (pickleRadio1.checked) {
-        this.newprice = -2;
+        this.pickleprice = -2;
       }
 
       const printprice =
@@ -2210,7 +2297,7 @@ export class UserScreenComponent {
 
     if (pickleRadio3 && priceTitle) {
       if (pickleRadio3.checked) {
-        this.newprice = 2;
+        this.pickleprice = 2;
       }
 
       const printprice =
@@ -2234,7 +2321,7 @@ export class UserScreenComponent {
 
     if (onionRadio1 && priceTitle) {
       if (onionRadio1.checked) {
-        this.newprice = -2;
+        this.onionprice = -2;
       }
 
       const printprice =
@@ -2259,7 +2346,7 @@ export class UserScreenComponent {
 
     if (onionRadio3 && priceTitle) {
       if (onionRadio3.checked) {
-        this.newprice = 2;
+        this.onionprice = 2;
       }
 
       const printprice =
@@ -2283,7 +2370,7 @@ export class UserScreenComponent {
 
     if (tomatoRadio1 && priceTitle) {
       if (tomatoRadio1.checked) {
-        this.newprice = -2;
+        this.tomatoprice = -2;
       }
 
       const printprice =
@@ -2308,7 +2395,7 @@ export class UserScreenComponent {
 
     if (tomatoRadio3 && priceTitle) {
       if (tomatoRadio3.checked) {
-        this.newprice = 2;
+        this.tomatoprice = 2;
       }
 
       const printprice =
@@ -2332,7 +2419,7 @@ export class UserScreenComponent {
 
     if (lettuceRadio1 && priceTitle) {
       if (lettuceRadio1.checked) {
-        this.newprice = -2;
+        this.lettuceprice = -2;
       }
 
       const printprice =
@@ -2357,7 +2444,7 @@ export class UserScreenComponent {
 
     if (lettuceRadio3 && priceTitle) {
       if (lettuceRadio3.checked) {
-        this.newprice = 2;
+        this.lettuceprice = 2;
       }
 
       const printprice =
@@ -2381,7 +2468,7 @@ export class UserScreenComponent {
 
     if (ketchupRadio1 && priceTitle) {
       if (ketchupRadio1.checked) {
-        this.newprice = -5;
+        this.ketchupprice = -5;
       }
 
       const printprice =
@@ -2406,7 +2493,7 @@ export class UserScreenComponent {
 
     if (ketchupRadio3 && priceTitle) {
       if (ketchupRadio3.checked) {
-        this.newprice = 5;
+        this.ketchupprice = 5;
       }
 
       const printprice =
@@ -2430,7 +2517,7 @@ export class UserScreenComponent {
 
     if (mayoRadio1 && priceTitle) {
       if (mayoRadio1.checked) {
-        this.newprice = -5;
+        this.mayoprice = -5;
       }
 
       const printprice =
@@ -2455,7 +2542,7 @@ export class UserScreenComponent {
 
     if (mayoRadio3 && priceTitle) {
       if (mayoRadio3.checked) {
-        this.newprice = 5;
+        this.mayoprice = 5;
       }
 
       const printprice =
@@ -2553,19 +2640,93 @@ export class UserScreenComponent {
     this.closeOptions();
   }
 
+
+
   getRadioValue(radioName: string): string {
     const radioButtons = document.getElementsByName(radioName);
     const selectedRadio = Array.from(radioButtons).find((radio) => (radio as HTMLInputElement).checked);
     return selectedRadio ? (selectedRadio as HTMLInputElement).value : "";
   }
+  finalFinalString: string = "";
 
+  getCurrentDate(): string {
+    const currentDate = new Date();
+
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Months are zero-based
+    const year = currentDate.getFullYear();
+
+    // Add leading zeros if needed
+    const formattedDay = (day < 10) ? `0${day}` : day;
+    const formattedMonth = (month < 10) ? `0${month}` : month;
+
+    // Format: dd-mm-yyyy
+    return `${formattedDay}-${formattedMonth}-${year}`;
+  }
+  getCurrentTime(): string {
+    const currentTime = new Date();
+
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    // Add leading zeros if needed
+    const formattedHours = (hours < 10) ? `0${hours}` : hours;
+    const formattedMinutes = (minutes < 10) ? `0${minutes}` : minutes;
+    const formattedSeconds = (seconds < 10) ? `0${seconds}` : seconds;
+
+    // Format: hh:mm:ss
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  }
+
+  createNewOrderForm = this.fb.group({
+    orderIsDone: [false, [Validators.required]],
+    orderDate: ['', [Validators.required]],
+    orderTime: ['', Validators.pattern(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)],
+    orderItemArrayId: ['', Validators.minLength(1)],
+  })
     openPayScreen() {
+      this.finalFinalString = this.data.toString();
         if (this.data.length > 0) {
+          this.submit();
           this.router.navigate(['UserPayScreen']);
         } else {
             alert("Please add items to your order before proceeding to payment.");
         }
         return false;
+    }
+
+    async submit() {
+    console.log("hithere" + this.finalFinalString)
+      try {
+        this.createNewOrderForm.setValue({
+
+          orderDate: this.getCurrentDate(),
+          orderItemArrayId: this.finalFinalString,
+          orderTime: this.getCurrentTime(),
+          orderIsDone: false});
+        const call = this.http.post<ResponseDto<Order>>(environment.baseUrl + '/api/orders', this.createNewOrderForm.getRawValue())
+
+        const response = await firstValueFrom(call);
+        console.log(this.createNewOrderForm.getRawValue())
+        this.state.orders.push(response.responseData!);
+
+
+        const toast = await this.toastController.create({
+          message: 'Box was created!',
+          duration: 1233,
+          color: "success"
+        })
+        await toast.present();
+      } catch (e) {
+        if (e instanceof HttpErrorResponse) {
+          const toast = await this.toastController.create({
+            message: e.error.messageToClient,
+            color: "danger"
+          });
+          await toast.present();
+        }
+      }
     }
 
   removeItem(item: string) {
@@ -2580,7 +2741,15 @@ export class UserScreenComponent {
   }
 
 
+  private formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
 
+    return date.toLocaleDateString('en-GB', options);
+  }
 
   protected readonly faMinus = faMinus;
   protected readonly faPlus = faPlus;

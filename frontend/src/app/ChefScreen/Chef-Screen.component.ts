@@ -1,5 +1,12 @@
 import {Component, ElementRef, Renderer2} from '@angular/core';
 import {Router} from "@angular/router";
+import {Order} from "../../models";
+import {environment} from "../../environments/environment";
+import {firstValueFrom} from "rxjs";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {State} from "../state";
+import {FormBuilder, Validators} from "@angular/forms";
+import {ToastController} from "@ionic/angular";
 
 @Component({
   templateUrl: 'Chef-Screen.component.html',
@@ -11,68 +18,87 @@ export class ChefScreenComponent {
   hours: string = '';
   minutes: string = '';
   seconds: string = '';
-  constructor(private el: ElementRef, private renderer: Renderer2, private router: Router,) {}
+  order : Order | undefined;
+  constructor(private el: ElementRef, private renderer: Renderer2,
+              private router: Router, public http: HttpClient,
+              public state: State, public fb: FormBuilder,
+              public toastController: ToastController) {this.getFeedData();}
 
   logout() {
     this.router.navigate(['home']);
   }
 
-  addOrder1() {
-    var newOrderData = {
-      title: "some new time",
-      description: "WackCheese Double Patty Menu: Price: 75DKK Size: Medium- Soda: Cola- ;BigWack Menu: Price: 89DKK Size: Medium- Soda: Cola- ;"
-    };
 
-// Assuming you are inside the component class
-    this.addOrder(newOrderData.title, newOrderData.description);
-  }
-  addOrder(orderNumber: string, description: string){
-    const orderContainer = this.el.nativeElement.querySelector('#orderContainer');
 
-    // Step 2: Create a new div element for the order using Renderer2
-    const newOrder = this.renderer.createElement('div');
-    this.renderer.addClass(newOrder, 'order');
-
-    // Step 3: Create a button with (click) event
-    const button = this.renderer.createElement('button');
-    this.renderer.setProperty(button, 'textContent', '✔️');
-    this.renderer.listen(button, 'click', () => this.removeOrder(newOrder));
-    this.renderer.appendChild(newOrder, button);
-
-    // Step 4: Add order header to the new order
-    const orderHeader = this.renderer.createElement('div');
-    this.renderer.addClass(orderHeader, 'orderHeader');
-    const h1 = this.renderer.createElement('h1');
-    this.renderer.setProperty(h1, 'textContent', 'Order: ' + orderNumber);
-    this.renderer.appendChild(orderHeader, h1);
-    this.renderer.appendChild(newOrder, orderHeader);
-
-    // Step 4: Split the description into items using ";"
-    const descriptionItems = description.split(";");
-
-    // Step 5: Create an unordered list and add list items
-    const ul = this.renderer.createElement('ul');
-    descriptionItems.forEach(item => {
-      const li = this.renderer.createElement('li');
-      this.renderer.setProperty(li, 'textContent', item.trim());
-      this.renderer.appendChild(ul, li);
-    });
-
-    // Step 6: Append the unordered list to the new order
-    this.renderer.appendChild(newOrder, ul);
-
-    // Step 7: Append the new order to the orderContainer
-    this.renderer.appendChild(orderContainer, newOrder);
-  }
-
-  removeOrder(orderElement: HTMLElement): void {
+  async updateOrder(orderId: number | undefined): Promise<void> {
     // Your logic to remove the order goes here
-    orderElement.remove();
-  }
+    this.updateOrderForm.patchValue({orderIsDone: true});
 
+    try {
+      this.state.currentOrder = (await firstValueFrom(this.http.get<any>(environment.baseUrl + '/api/orders/' + orderId)));
+      console.log("lol" + this.state.currentOrder.orderId)
+    } catch (e) {
+      console.log(e);
+      console.log(this.state.currentOrder.orderId);
+    }
+    await this.submit();
+  }
+  updateOrderForm = this.fb.group({
+    orderIsDone: [this.state.currentOrder.orderIsDone, [Validators.required]],
+    orderDate: [this.state.currentOrder.orderDate, [Validators.required]],
+    orderTime: [this.state.currentOrder.orderTime, [Validators.required]],
+    orderItemArrayId: [this.state.currentOrder.orderItemArrayId, [Validators.required]],
+  });
+  async submit() {
+    console.log("lol2 " + this.state.currentOrder.orderId)
+    try {
+      const existingData = {
+       orderDate: this.state.currentOrder.orderDate,
+        orderTime: this.state.currentOrder.orderTime,
+        orderItemArrayId: this.state.currentOrder.orderItemArrayId
+      };
+      this.updateOrderForm.patchValue({ orderIsDone: true });
+
+      const updatedData = { ...this.updateOrderForm.value, ...existingData };
+      console.log("here" + existingData)
+      const call = this.http.put<Order>(environment.baseUrl + '/api/orders/' + this.state.currentOrder.orderId, updatedData);
+      const result = await firstValueFrom<Order>(call);
+      let index = this.state.orders.findIndex(b => b.orderId == this.state.currentOrder.orderId)
+      this.state.orders[index] = result;
+      this.state.currentOrder = result;
+      const toast = await this.toastController.create({
+        message: 'successfully updated',
+        duration: 1000,
+        color: 'success'
+      })
+      toast.present();
+
+    } catch (error: any) {
+      console.log(error);
+      let errorMessage = 'Error';
+
+      if (error instanceof HttpErrorResponse) {
+        // The backend returned an unsuccessful response code.
+        errorMessage = error.error?.message || 'Server error';
+      } else if (error.error instanceof ErrorEvent) {
+        // A client-side or network error occurred.
+        errorMessage = error.error.message;
+      }
+
+      const toast = await this.toastController.create({
+        color: 'danger',
+        duration: 2000,
+        message: errorMessage
+      });
+
+      toast.present();
+    }
+
+  }
   ngOnInit() {
     setInterval(() => {
       const currentTime = new Date();
+      console.log(currentTime)
       const hrs = this.el.nativeElement.querySelector('#hrs');
       const min = this.el.nativeElement.querySelector('#min');
       const sec = this.el.nativeElement.querySelector('#sec');
@@ -83,10 +109,12 @@ export class ChefScreenComponent {
         this.renderer.setProperty(sec, 'innerHTML', currentTime.getSeconds());
       }
 
-      console.log(currentTime);
     }, 1000);
   }
 
-
+  async getFeedData() {
+    const call = this.http.get<Order[]>(environment.baseUrl + '/api/orders');
+    this.state.orders = await firstValueFrom<Order[]>(call);
+  }
 
 }

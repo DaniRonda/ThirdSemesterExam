@@ -26,7 +26,6 @@ interface DataItem {
     <script src="https://kit.fontawesome.com/6cff64fb2c.js" crossorigin="anonymous"></script>
 
 
-
   </head>
   <body>
   <div class="header">
@@ -35,9 +34,15 @@ interface DataItem {
         <img src="assets/mcdlogo.png" alt="">
       </div>
       <ul class="navigation">
-        <a (click)="openUsers()"><li>Users</li></a>
-        <a (click)="openAdmin()"><li>Main Screen</li></a>
-        <a (click)="logout()"><li>Log out</li></a>
+        <a (click)="openUsers()">
+          <li>Users</li>
+        </a>
+        <a (click)="openAdmin()">
+          <li>Main Screen</li>
+        </a>
+        <a (click)="logout()">
+          <li>Log out</li>
+        </a>
       </ul>
     </div>
   </div>
@@ -47,9 +52,9 @@ interface DataItem {
     <div class="hisContainer">
       <div class="recieptContainer">
         <ul id="hisList">
-          <div *ngFor="let item of state.orders; let i = index" (click)="openModal()">
-            <li>{{ item.OrderDate }}</li>
-            <p>{{ item.OrderTime }}</p>
+          <div *ngFor="let item of state.orders; let i = index" (click)="openModal(item.orderId)">
+            <li>{{ item.orderItemArrayId }}</li>
+            <p>{{ item.orderTime }} | {{item.orderDate}}</p>
           </div>
         </ul>
       </div>
@@ -117,12 +122,17 @@ export class AdminHistoryScreenComponent  {
   logout() {
     this.router.navigate(['home']);
   }
-  async openModal() {
+  async openModal(orderId: number | undefined) {
     const modal = await this.modalController.create({
-      component: ReceiptInfoComponent
+      component: ReceiptInfoComponent,
+      componentProps: {
+        orderId: orderId
+      }
     });
-    modal.present();
+
+    await modal.present();
   }
+
   protected readonly faXmark = faXmark;
 
   async getFeedData() {
