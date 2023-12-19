@@ -14,6 +14,10 @@ public class OrderService
         {
             return _orderRepository.GetOrders();
         }
+        public IEnumerable<Order> GetOrdersByItIsDone()
+        {
+            return _orderRepository.GetOrdersByItIsDone();
+        }
 
         public Order CreateOrder(string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {

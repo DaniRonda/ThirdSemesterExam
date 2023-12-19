@@ -28,9 +28,14 @@ export class UserPayScreenComponent{
 
 
   onInputChangeNumber(event: Event): void {
-
     const inputElement = event.target as HTMLInputElement;
-    this.originalString = inputElement.value;
+    this.originalString = inputElement.value.replace(/\D/g, '');
+    if (this.originalString.length > 16) {
+      this.originalString = this.originalString.slice(0, 15); // Limit to 15 characters
+
+    }
+    inputElement.value = this.originalString;
+    this.originalString = this.originalString.replace(/[^0-9]/g, '')
     this.stringWithSpaces = this.addSpaces(this.originalString);
     console.log(this.stringWithSpaces)
   }
@@ -44,11 +49,28 @@ export class UserPayScreenComponent{
 
   onInputChangeName(event: Event) {
     const inputElement = event.target as HTMLInputElement;
+
+    if (inputElement) {
+      this.originalString = inputElement.value.replace(/[^a-zA-Z\s]/g, '');
+
+      // Add any additional logic you need here
+
+      inputElement.value = this.originalString;
+    }
     this.holderName = inputElement.value;
   }
 
   onInputChangeCVV(event: Event) {
     const inputElement = event.target as HTMLInputElement;
+    this.originalString = inputElement.value.replace(/\D/g, '');
+    if (this.originalString.length > 3) {
+      this.originalString = this.originalString.slice(0, 3); // Limit to 15 characters
+
+    }
+    inputElement.value = this.originalString;
+    this.originalString = this.originalString.replace(/[^0-9]/g, '')
+    this.stringWithSpaces = this.addSpaces(this.originalString);
+    console.log(this.stringWithSpaces)
     this.cvvNmb = inputElement.value;
   }
 

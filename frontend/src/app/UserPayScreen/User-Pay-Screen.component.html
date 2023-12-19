@@ -31,6 +31,7 @@
           <span>expires</span>
           <div class="expiration">
             <span class="exp-month">{{expM}}</span>
+            <span class="exp-month">:</span>
             <span class="exp-year">{{expY}}</span>
           </div>
         </div>
@@ -52,7 +53,7 @@
   <form action="">
     <div class="inputBox">
       <span>card number</span>
-      <input type="number" id="numericInput" pattern="[0-9]*" class="card-number-input" maxlength="16" (input)="onInputChangeNumber($event)">
+      <input type="text" id="numericInput" pattern="[0-9]*" class="card-number-input" maxlength="16" (input)="onInputChangeNumber($event)">
     </div>
     <div class="inputBox">
       <span>card holder</span>

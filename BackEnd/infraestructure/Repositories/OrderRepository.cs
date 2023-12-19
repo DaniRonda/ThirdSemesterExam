@@ -29,6 +29,22 @@ FROM public.orders;
             }
         }
 
+public IEnumerable<Order> GetOrdersByItIsDone()
+{
+    string sql = $@"SELECT order_id as {nameof(Order.OrderId)},
+       order_item as {nameof(Order.OrderItemArrayId)},
+       order_date as {nameof(Order.OrderDate)},
+       order_time as {nameof(Order.OrderTime)},
+       order_itsdone as {nameof(Order.OrderItIsDone)}
+FROM public.orders
+WHERE order_itsdone = false;
+";
+    using (var conn = _dataSource.OpenConnection())
+    {
+        return conn.Query<Order>(sql).ToList();
+    }
+}
+
         public Order CreateOrder(string orderItemArrayId, string orderDate, string orderTime, bool orderItIsDone)
         {
             var sql = $@"

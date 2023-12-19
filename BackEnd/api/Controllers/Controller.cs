@@ -33,6 +33,12 @@ public class Controller : ControllerBase
     {
         return _orderService.GetOrders();
     }
+    [HttpGet]
+    [Route("/api/orders/notDone")]
+    public object GetByDone()
+    {
+        return _orderService.GetOrdersByItIsDone();
+    }
 
     [HttpGet]
     [Route("/api/orders/{orderId}")]
