@@ -39,6 +39,12 @@ public class Controller : ControllerBase
     {
         return _orderService.GetOrdersByItIsDone();
     }
+    [HttpGet]
+    [Route("/api/orders/{orderDate}")]
+    public object GetOrdersByDate()
+    {
+        return _orderService.GetOrdersByDate();
+    }
 
     [HttpGet]
     [Route("/api/orders/{orderId}")]
