@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Globalization;
+using Dapper;
 using Npgsql;
 using infraestructure.DataModels;
 namespace infraestructure.Repositories;

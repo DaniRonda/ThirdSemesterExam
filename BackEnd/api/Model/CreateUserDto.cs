@@ -11,6 +11,10 @@ public class CreateUserDto
         ErrorMessage = "The password must contain at least one uppercase letter, one number, and be at least 6 characters long")]
     public string Password { get; set; }
     
+    public string PasswordHash { get; set; }
+        
+    public string PasswordSalt { get; set; }
+    
     
     [Required]
     [ValueIsOneOf(new string[] {"Employee", "Chef", "Admin"},

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using service;
 using infraestructure.DataModels;
 
+
 namespace api.Controllers;
 
 [ApiController]
@@ -41,9 +42,9 @@ public class Controller : ControllerBase
     }
     [HttpGet]
     [Route("/api/orders/{orderDate}")]
-    public object GetOrdersByDate()
+    public object GetOrdersByDate(string targetDate)
     {
-        return _orderService.GetOrdersByDate();
+        return _orderService.GetOrdersByDate(targetDate);
     }
 
     [HttpGet]
@@ -56,7 +57,6 @@ public class Controller : ControllerBase
     }
 
     [HttpPost]
-    [ValidateModel]
     [Route("/api/orders")]
     public ActionResult<Order> CreateOrder([FromBody] CreateOrderDto createOrderDto)
     {
@@ -125,7 +125,6 @@ public class Controller : ControllerBase
     }
 
     [HttpPost]
-    [ValidateModel]
     [Route("/api/users")]
     public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
     {
