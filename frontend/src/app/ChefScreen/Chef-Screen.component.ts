@@ -98,7 +98,6 @@ export class ChefScreenComponent {
   ngOnInit() {
     setInterval(() => {
       const currentTime = new Date();
-      console.log(currentTime)
       const hrs = this.el.nativeElement.querySelector('#hrs');
       const min = this.el.nativeElement.querySelector('#min');
       const sec = this.el.nativeElement.querySelector('#sec');

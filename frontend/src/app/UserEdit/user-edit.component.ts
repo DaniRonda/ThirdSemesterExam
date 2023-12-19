@@ -75,7 +75,7 @@ export class UserEditComponent implements OnInit{
       console.log("currentsalt" + this.state.currentUser.passwordSalt)
       const updatedData = { ...this.editUserForm.value, ...existingData };
       console.log("here" + existingData)
-      const call = this.http.put<User>(environment.baseUrl + 'api/user/id/' + this.state.currentUser.userId, updatedData);
+      const call = this.http.put<User>(environment.baseUrl + '/api/user/id/' + this.state.currentUser.userId, updatedData);
       const result = await firstValueFrom<User>(call);
       let index = this.state.users.findIndex(b => b.userId == this.state.currentUser.userId)
       this.state.users[index] = result;
@@ -128,7 +128,7 @@ export class UserEditComponent implements OnInit{
 
 
   async deleteUser(userId: string | undefined) {
-    const call = this.http.delete(environment.baseUrl + 'api/user/id/' + userId);
+    const call = this.http.delete(environment.baseUrl + '/api/user/id/' + userId);
     const result = await firstValueFrom(call);
 
     this.state.users = this.state.users.filter(a => a.userId != userId)
@@ -142,7 +142,7 @@ export class UserEditComponent implements OnInit{
   }
   private async loadUserInfo(userId: number | undefined) {
     if (userId) {
-      const call = this.http.get<User>(environment.baseUrl + 'api/user/id/' + userId);
+      const call = this.http.get<User>(environment.baseUrl + '/api/user/id/' + userId);
       this.user = await firstValueFrom<User>(call);
       console.log(this.user)
     } else {

@@ -47,6 +47,7 @@ app.UseCors(options =>
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
+        
 });
 
 app.UseSpaStaticFiles();
