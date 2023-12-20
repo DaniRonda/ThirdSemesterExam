@@ -1,12 +1,9 @@
-﻿using System.Net;
-using Newtonsoft.Json;
-using Assert = NUnit.Framework.Assert;
-namespace unitTests;
+﻿namespace infraestructure.DataModels;
 
 public class tests
 {
     [TestFixture]
-    public class ObjectTests{
+    public class objectTests{
     [SetUp]
     public void Setup()
     {

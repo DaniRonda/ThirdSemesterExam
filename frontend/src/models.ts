@@ -11,8 +11,7 @@ export class Order{
 export class User{
   userId?: string;
   username?: string;
-  passwordHash?: Uint8Array;
-  passwordSalt?: Uint8Array
+  password?: string;
   role?: string;
 }
 export class Item{
