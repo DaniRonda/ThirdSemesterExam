@@ -24,7 +24,7 @@ jobs:
         env:
           pgconn: ${{secrets.PGCONN}}
 
-      - name: Run tests
+      - name: Run tests 
         run: cd BackEnd && cd unitTests && sleep 60 && dotnet test
         env:
           pgconn: ${{secrets.PGCONN}}
