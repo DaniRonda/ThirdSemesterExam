@@ -47,8 +47,7 @@ export class UserEditComponent implements OnInit{
 
   editUserForm = this.fb.group({
     username: [this.state.currentUser.username, [Validators.required]],
-    passwordHash: [this.state.currentUser.passwordHash, [Validators.required]],
-    passwordSalt: [this.state.currentUser.passwordSalt, [Validators.required]],
+    passwordHash: [this.state.currentUser.password, [Validators.required]],
     role: [this.state.currentUser.role, [Validators.required]],
 
 
@@ -68,11 +67,11 @@ export class UserEditComponent implements OnInit{
     console.log("current2" + this.state.currentUser.userId)
     try {
       const existingData = {
-        passwordSalt: this.state.currentUser.passwordSalt,
+        password: this.state.currentUser.password,
         role: this.state.currentUser.role,
 
       };
-      console.log("currentsalt" + this.state.currentUser.passwordSalt)
+      console.log("currentsalt" + this.state.currentUser.password)
       const updatedData = { ...this.editUserForm.value, ...existingData };
       console.log("here" + existingData)
       const call = this.http.put<User>(environment.baseUrl + '/api/user/id/' + this.state.currentUser.userId, updatedData);
