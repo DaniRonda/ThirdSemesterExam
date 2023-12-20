@@ -224,7 +224,7 @@ public class tests
         editedOrder.username.Should().Be("rardon gamsay");
         editedOrder.passwordHash.Should().Be("hashLol");
         editedOrder.passwordSalt.Should().Be("saltMm");
-        editedOrder.role.Should().Be("admin")
+        editedOrder.role.Should().Be("admin");
     }
     
     [Test]
