@@ -80,7 +80,7 @@ public class tests
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
         
-        createdorder.orderItIsDone = true;
+        createdOrder.orderItIsDone = true;
 
         var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/orders/{createdOrder.orderId}", createdOrder);
         editResponse.EnsureSuccessStatusCode();
@@ -91,7 +91,7 @@ public class tests
         editedOrder.orderDate.Should().Be("12-12-2001");
         editedOrder.orderTime.Should().Be("16:44");
         editedOrder.orderItIsDone.Should().Be(true);
-        editedOrder.orderItemArrayId.Should().Be("hamburber")
+        editedOrder.orderItemArrayId.Should().Be("hamburber");
     }
     [Test]
     public async Task ShouldSuccessfullyEditUser()
@@ -193,10 +193,10 @@ public class tests
         var readOrder = JsonConvert.DeserializeObject<Order>(await readResponse.Content.ReadAsStringAsync());
 
         readOrder.Should().NotBeNull();
-        editedOrder.orderDate.Should().Be("26-12-2001");
-        editedOrder.orderTime.Should().Be("19:44");
-        editedOrder.orderItIsDone.Should().Be(false);
-        editedOrder.orderItemArrayId.Should().Be("large boke")
+        readOrder.orderDate.Should().Be("26-12-2001");
+        readOrder.orderTime.Should().Be("19:44");
+        readOrder.orderItIsDone.Should().Be(false);
+        readOrder.orderItemArrayId.Should().Be("large boke");
     }
     
     [Test]
