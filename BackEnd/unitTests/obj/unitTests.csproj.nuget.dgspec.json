@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj": {}
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unittests\\unitTests.csproj": {}
   },
   "projects": {
     "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj": {
@@ -67,14 +67,14 @@
         }
       }
     },
-    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj": {
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unittests\\unitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj",
+        "projectUniqueName": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unittests\\unitTests.csproj",
         "projectName": "unitTests",
-        "projectPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj",
+        "projectPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unittests\\unitTests.csproj",
         "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\obj\\",
+        "outputPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unittests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config"

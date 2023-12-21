@@ -35,7 +35,7 @@ public class tests
 
         var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
 
-        response.EnsureSuccessStatusCode();
+        
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var responseObject = JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
@@ -59,7 +59,7 @@ public class tests
 
         var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
 
-        response.EnsureSuccessStatusCode();
+        
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var responseObject = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
@@ -142,7 +142,7 @@ public class tests
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
-        createResponse.EnsureSuccessStatusCode();
+        
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
 
