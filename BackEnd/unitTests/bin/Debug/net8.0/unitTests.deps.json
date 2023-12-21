@@ -9,6 +9,7 @@
       "unitTests/1.0.0": {
         "dependencies": {
           "Dapper": "2.1.24",
+          "FluentAssertions": "7.0.0-alpha.3",
           "Microsoft.NET.Test.Sdk": "17.6.0",
           "Microsoft.Playwright.NUnit": "1.40.0",
           "Moq": "4.20.70",
@@ -17,8 +18,7 @@
           "NUnit3TestAdapter": "4.2.1",
           "Npgsql": "8.0.1",
           "coverlet.collector": "6.0.0",
-          "infraestructure": "1.0.0",
-          "xunit": "2.6.2"
+          "infraestructure": "1.0.0"
         },
         "runtime": {
           "unitTests.dll": {}
@@ -41,6 +41,17 @@
           "lib/net7.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.1.24.50284"
+          }
+        }
+      },
+      "FluentAssertions/7.0.0-alpha.3": {
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "4.4.0"
+        },
+        "runtime": {
+          "lib/net6.0/FluentAssertions.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.0.0"
           }
         }
       },
@@ -430,6 +441,17 @@
       "NUnit.Analyzers/3.6.1": {},
       "NUnit3TestAdapter/4.2.1": {},
       "System.ComponentModel.Annotations/5.0.0": {},
+      "System.Configuration.ConfigurationManager/4.4.0": {
+        "dependencies": {
+          "System.Security.Cryptography.ProtectedData": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.25519.3"
+          }
+        }
+      },
       "System.Diagnostics.EventLog/6.0.0": {
         "runtime": {
           "lib/net6.0/System.Diagnostics.EventLog.dll": {
@@ -454,6 +476,22 @@
       },
       "System.Reflection.Metadata/1.6.0": {},
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "System.Security.Cryptography.ProtectedData/4.4.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.6.25519.3"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.6.25519.3"
+          }
+        }
+      },
       "System.Text.Encodings.Web/6.0.0": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
@@ -463,60 +501,6 @@
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encodings.Web": "6.0.0"
-        }
-      },
-      "xunit/2.6.2": {
-        "dependencies": {
-          "xunit.analyzers": "1.6.0",
-          "xunit.assert": "2.6.2",
-          "xunit.core": "2.6.2"
-        }
-      },
-      "xunit.abstractions/2.0.3": {
-        "runtime": {
-          "lib/netstandard2.0/xunit.abstractions.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
-          }
-        }
-      },
-      "xunit.analyzers/1.6.0": {},
-      "xunit.assert/2.6.2": {
-        "runtime": {
-          "lib/net6.0/xunit.assert.dll": {
-            "assemblyVersion": "2.6.2.0",
-            "fileVersion": "2.6.2.0"
-          }
-        }
-      },
-      "xunit.core/2.6.2": {
-        "dependencies": {
-          "xunit.extensibility.core": "2.6.2",
-          "xunit.extensibility.execution": "2.6.2"
-        }
-      },
-      "xunit.extensibility.core/2.6.2": {
-        "dependencies": {
-          "NETStandard.Library": "2.0.0",
-          "xunit.abstractions": "2.0.3"
-        },
-        "runtime": {
-          "lib/netstandard1.1/xunit.core.dll": {
-            "assemblyVersion": "2.6.2.0",
-            "fileVersion": "2.6.2.0"
-          }
-        }
-      },
-      "xunit.extensibility.execution/2.6.2": {
-        "dependencies": {
-          "NETStandard.Library": "2.0.0",
-          "xunit.extensibility.core": "2.6.2"
-        },
-        "runtime": {
-          "lib/netstandard1.1/xunit.execution.dotnet.dll": {
-            "assemblyVersion": "2.6.2.0",
-            "fileVersion": "2.6.2.0"
-          }
         }
       },
       "infraestructure/1.0.0": {
@@ -556,6 +540,13 @@
       "sha512": "sha512-/2t2vsdJyZRsk13AsWigZpsuFvEwK+o3v862cEULXoww905gyKhJFSuwmZI/4Ui9COX9ZCFCI09UHyH4wVYl3A==",
       "path": "dapper/2.1.24",
       "hashPath": "dapper.2.1.24.nupkg.sha512"
+    },
+    "FluentAssertions/7.0.0-alpha.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c5HCYKAW0vhxx8qJ6s8o683GqjfKD7HCJPGA9IOcnZVvqa8atkG0mYhHEpkp/hnC4IVhRPmX+wHjBXDyZVn+3g==",
+      "path": "fluentassertions/7.0.0-alpha.3",
+      "hashPath": "fluentassertions.7.0.0-alpha.3.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
       "type": "package",
@@ -697,6 +688,13 @@
       "path": "system.componentmodel.annotations/5.0.0",
       "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
     },
+    "System.Configuration.ConfigurationManager/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gWwQv/Ug1qWJmHCmN17nAbxJYmQBM/E94QxKLksvUiiKB1Ld3Sc/eK1lgmbSjDFxkQhVuayI/cGFZhpBSodLrg==",
+      "path": "system.configuration.configurationmanager/4.4.0",
+      "hashPath": "system.configuration.configurationmanager.4.4.0.nupkg.sha512"
+    },
     "System.Diagnostics.EventLog/6.0.0": {
       "type": "package",
       "serviceable": true,
@@ -718,6 +716,13 @@
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     },
+    "System.Security.Cryptography.ProtectedData/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cJV7ScGW7EhatRsjehfvvYVBvtiSMKgN8bOVI0bQhnF5bU7vnHVIsH49Kva7i7GWaWYvmEzkYVk1TC+gZYBEog==",
+      "path": "system.security.cryptography.protecteddata/4.4.0",
+      "hashPath": "system.security.cryptography.protecteddata.4.4.0.nupkg.sha512"
+    },
     "System.Text.Encodings.Web/6.0.0": {
       "type": "package",
       "serviceable": true,
@@ -731,55 +736,6 @@
       "sha512": "sha512-zaJsHfESQvJ11vbXnNlkrR46IaMULk/gHxYsJphzSF+07kTjPHv+Oc14w6QEOfo3Q4hqLJgStUaYB9DBl0TmWg==",
       "path": "system.text.json/6.0.0",
       "hashPath": "system.text.json.6.0.0.nupkg.sha512"
-    },
-    "xunit/2.6.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-sErOyzTZBfgeLcdu5y3CkhCirZikCe9GwEv56jbQRjSa4FyI2tIHjfBRvlWqg7M78bfAGajrreH0IHnxrUOpVA==",
-      "path": "xunit/2.6.2",
-      "hashPath": "xunit.2.6.2.nupkg.sha512"
-    },
-    "xunit.abstractions/2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-pot1I4YOxlWjIb5jmwvvQNbTrZ3lJQ+jUGkGjWE3hEFM0l5gOnBWS+H3qsex68s5cO52g+44vpGzhAt+42vwKg==",
-      "path": "xunit.abstractions/2.0.3",
-      "hashPath": "xunit.abstractions.2.0.3.nupkg.sha512"
-    },
-    "xunit.analyzers/1.6.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-b/Wbrqr/bFvcjqAbYdJyCCvjz+PjjKMnoK/K6sbcCBu94pqAkB2vBAHFo87wNq2awsLPAuq5MA7q0XexyQ3mJQ==",
-      "path": "xunit.analyzers/1.6.0",
-      "hashPath": "xunit.analyzers.1.6.0.nupkg.sha512"
-    },
-    "xunit.assert/2.6.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JOj2+zWS08M59bCk3MkZFcKj2Izb2zwkHSPIKJLvnZYLR2Nw6HifjvBCpa8XhMF3mxDuGwZ0+ncmlhE9WoEaZw==",
-      "path": "xunit.assert/2.6.2",
-      "hashPath": "xunit.assert.2.6.2.nupkg.sha512"
-    },
-    "xunit.core/2.6.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-LxJ06D9uTDyvHY52+Lym2TUlq3ObgAKSTuzM9gniau8qI1fd/CPag4PFaGs0RJfunUJtYHg9+XrS5EcW/5dxGA==",
-      "path": "xunit.core/2.6.2",
-      "hashPath": "xunit.core.2.6.2.nupkg.sha512"
-    },
-    "xunit.extensibility.core/2.6.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-T8CmshbP1EeaDibLwgU/aEe53zrW0+x+mEz5aKxexS5vVyj1UwgDUjcTK/+prMF/9KgMHkgx1vIe7wv58wO6RQ==",
-      "path": "xunit.extensibility.core/2.6.2",
-      "hashPath": "xunit.extensibility.core.2.6.2.nupkg.sha512"
-    },
-    "xunit.extensibility.execution/2.6.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kKo7XqyLF8blXGqQHlqKQ+AzST42kpB7oG81Km/kFEzWVfeDMgaEquOLAr/ZiR4tnkUbbWYrY6CJPTavFqGn6Q==",
-      "path": "xunit.extensibility.execution/2.6.2",
-      "hashPath": "xunit.extensibility.execution.2.6.2.nupkg.sha512"
     },
     "infraestructure/1.0.0": {
       "type": "project",
