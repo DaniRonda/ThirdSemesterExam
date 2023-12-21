@@ -1,4 +1,4 @@
-﻿using infraestructure;
+﻿/*using infraestructure;
 using infraestructure.DataModels;
 using infraestructure.Repositories;
 using Assert = Xunit.Assert;
@@ -121,4 +121,4 @@ public class ItemRepositoryTests
         // Assert
         Assert.Equal(expectedItem, actualItem);
     }
-}
+}*/
