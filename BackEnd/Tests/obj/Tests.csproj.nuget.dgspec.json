@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\BackEnd\\Tests\\Tests.csproj": {}
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\tests\\Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\BackEnd\\Tests\\Tests.csproj": {
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\BackEnd\\Tests\\Tests.csproj",
+        "projectUniqueName": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\BackEnd\\Tests\\Tests.csproj",
-        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\BackEnd\\Tests\\obj\\",
+        "projectPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\tests\\Tests.csproj",
+        "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -75,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23455.8/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
