@@ -21,7 +21,7 @@ public class AuthenticationService
         {
             string hashedPassword = HashPassword(password, user.PasswordSalt);
 
-            // Comparar como cadenas, asumiendo que user.PasswordHash es una cadena.
+            
             if (hashedPassword == user.PasswordHash)
             {
                 return true;
@@ -49,7 +49,7 @@ public class AuthenticationService
         }
     }
 
-    private string HashPassword(string password, string salt)
+    public static string HashPassword(string password, string salt)
     {
         byte[] saltBytes = Convert.FromBase64String(salt);
         byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
