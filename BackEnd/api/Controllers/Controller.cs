@@ -264,7 +264,7 @@ public class Controller : ControllerBase
 
 #region Validation
 
-/*[ApiController]
+[ApiController]
 [Route("api/users/login")]
 public class UserController : ControllerBase
 {
@@ -275,7 +275,7 @@ public class UserController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost("create")]
+    [HttpPost("api/users/register")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         if (!ModelState.IsValid)
@@ -287,7 +287,7 @@ public class UserController : ControllerBase
 
         return Ok("user created");
     }
-}*/
+}
 
 
 #endregion
