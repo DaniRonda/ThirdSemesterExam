@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\benja\\ThirdSemesterExam\\backend\\unitTests\\unitTests.csproj": {}
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\benja\\ThirdSemesterExam\\backend\\infraestructure\\infraestructure.csproj": {
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\infraestructure\\infraestructure.csproj",
+        "projectUniqueName": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj",
         "projectName": "infraestructure",
-        "projectPath": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\infraestructure\\infraestructure.csproj",
+        "projectPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj",
         "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\infraestructure\\obj\\",
+        "outputPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -67,14 +67,14 @@
         }
       }
     },
-    "C:\\Users\\benja\\ThirdSemesterExam\\backend\\unitTests\\unitTests.csproj": {
+    "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\unitTests\\unitTests.csproj",
+        "projectUniqueName": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj",
         "projectName": "unitTests",
-        "projectPath": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\unitTests\\unitTests.csproj",
+        "projectPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj",
         "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\unitTests\\obj\\",
+        "outputPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -89,8 +89,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\benja\\ThirdSemesterExam\\backend\\infraestructure\\infraestructure.csproj": {
-                "projectPath": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\infraestructure\\infraestructure.csproj"
+              "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj": {
+                "projectPath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj"
               }
             }
           }
@@ -108,6 +108,10 @@
             "Dapper": {
               "target": "Package",
               "version": "[2.1.24, )"
+            },
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[7.0.0-alpha.3, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -140,10 +144,6 @@
             "coverlet.collector": {
               "target": "Package",
               "version": "[6.0.0, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.6.2, )"
             }
           },
           "imports": [

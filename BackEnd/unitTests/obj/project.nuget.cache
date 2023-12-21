@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Uwx+Tt41tFGRYy+ZXl8omDmUsGtLjUk/egpz6SqUqpiCATbGNi8lVIl1uTVFNddNPSZTAXz6qc6rKXt0apNzrA==",
+  "dgSpecHash": "gLdrEWBdf5NpatbfL2cCT0uA1f4WQ/LbCVG0yZ0MAK8eyoewlyXr+/9aQzh+VjgN/q+FEX3IrZlOL8vYgIEFzQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\benja\\ThirdSemesterExam\\backend\\unitTests\\unitTests.csproj",
+  "projectFilePath": "C:\\Users\\benja\\RiderProjects\\ThirdSemesterExam\\BackEnd\\unitTests\\unitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\benja\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\dapper\\2.1.24\\dapper.2.1.24.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\fluentassertions\\7.0.0-alpha.3\\fluentassertions.7.0.0-alpha.3.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\microsoft.codecoverage\\17.6.0\\microsoft.codecoverage.17.6.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
@@ -27,18 +28,13 @@
     "C:\\Users\\benja\\.nuget\\packages\\nunit.analyzers\\3.6.1\\nunit.analyzers.3.6.1.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\nunit3testadapter\\4.2.1\\nunit3testadapter.4.2.1.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.0\\system.configuration.configurationmanager.4.4.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.4.0\\system.security.cryptography.protecteddata.4.4.0.nupkg.sha512",
     "C:\\Users\\benja\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit\\2.6.2\\xunit.2.6.2.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit.analyzers\\1.6.0\\xunit.analyzers.1.6.0.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit.assert\\2.6.2\\xunit.assert.2.6.2.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit.core\\2.6.2\\xunit.core.2.6.2.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit.extensibility.core\\2.6.2\\xunit.extensibility.core.2.6.2.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\xunit.extensibility.execution\\2.6.2\\xunit.extensibility.execution.2.6.2.nupkg.sha512"
+    "C:\\Users\\benja\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,9 +1,16 @@
-﻿namespace infraestructure.DataModels;
+﻿using System.Net;
+using System.Net.Http.Json;
+using FluentAssertions;
+using Newtonsoft.Json;
+using NUnit.Framework;
+
+namespace unitTests;
 
 public class tests
 {
     [TestFixture]
     public class objectTests{
+        private HttpClient _httpClient;
     [SetUp]
     public void Setup()
     {
@@ -20,10 +27,10 @@ public class tests
     {
         var order = new Order()
         {
-            orderDate = "10-12-2001",
-            orderTime = "15:44",
-            orderItisDone = false,
-            orderItemArrayId = "brench bries"
+            OrderDate = "10-12-2001",
+            OrderTime = "15:44",
+            OrderItIsDone = false,
+            OrderItemArrayId = "brench bries"
         };
 
         var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
@@ -34,20 +41,20 @@ public class tests
         var responseObject = JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
 
         responseObject.Should().NotBeNull();
-        responseObject.orderDate.Should().Be(order.orderDate);
-        responseObject.orderTime.Should().Be(order.orderTime);
-        responseObject.orderItIsDone.Should().Be(order.orderItIsDone);
-        responseObject.orderItemArrayId.Should().Be(order.orderItemArrayId);
+        responseObject.OrderDate.Should().Be(order.OrderDate);
+        responseObject.OrderTime.Should().Be(order.OrderTime);
+        responseObject.OrderItIsDone.Should().Be(order.OrderItIsDone);
+        responseObject.OrderItemArrayId.Should().Be(order.OrderItemArrayId);
     }
     [Test]
     public async Task ShouldSuccessfullyCreateUser()
     {
         var user = new User()
         {
-            username = "rardon gamsay",
-            passwordHash = "hashLol",
-            passwordSalt = "saltMm",
-            role = "Admin"
+            Username = "rardon gamsay",
+            PasswordHash = "hashLol",
+            PasswordSalt = "saltMm",
+            Role = "Admin"
         };
 
         var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
@@ -55,13 +62,13 @@ public class tests
         response.EnsureSuccessStatusCode();
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        var responseObject = JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
+        var responseObject = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
 
         responseObject.Should().NotBeNull();
-        responseObject.username.Should().Be(user.username);
-        responseObject.passwordHash.Should().Be(user.passwordHash);
-        responseObject.passwordSalt.Should().Be(user.passwordSalt);
-        responseObject.role.Should().Be(user.role);
+        responseObject.Username.Should().Be(user.Username);
+        responseObject.PasswordHash.Should().Be(user.PasswordHash);
+        responseObject.PasswordSalt.Should().Be(user.PasswordSalt);
+        responseObject.Role.Should().Be(user.Role);
     }
     
     [Test]
@@ -69,10 +76,10 @@ public class tests
     {
         var order = new Order()
         {
-            orderDate = "12-12-2001",
-            orderTime = "16:44",
-            orderItisDone = false,
-            orderItemArrayId = "hamburber"
+            OrderDate = "12-12-2001",
+            OrderTime = "16:44",
+            OrderItIsDone = false,
+            OrderItemArrayId = "hamburber"
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
@@ -80,28 +87,28 @@ public class tests
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
         
-        createdOrder.orderItIsDone = true;
+        createdOrder.OrderItIsDone = true;
 
-        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/orders/{createdOrder.orderId}", createdOrder);
+        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}", createdOrder);
         editResponse.EnsureSuccessStatusCode();
 
         var editedOrder = JsonConvert.DeserializeObject<Order>(await editResponse.Content.ReadAsStringAsync());
 
         editedOrder.Should().NotBeNull();
-        editedOrder.orderDate.Should().Be("12-12-2001");
-        editedOrder.orderTime.Should().Be("16:44");
-        editedOrder.orderItIsDone.Should().Be(true);
-        editedOrder.orderItemArrayId.Should().Be("hamburber");
+        editedOrder.OrderDate.Should().Be("12-12-2001");
+        editedOrder.OrderTime.Should().Be("16:44");
+        editedOrder.OrderItIsDone.Should().Be(true);
+        editedOrder.OrderItemArrayId.Should().Be("hamburber");
     }
     [Test]
     public async Task ShouldSuccessfullyEditUser()
     {
         var user = new User()
         {
-            username = "rardon gamsay",
-            passwordHash = "hashLol",
-            passwordSalt = "saltMm",
-            role = "admin"
+            Username = "rardon gamsay",
+            PasswordHash = "hashLol",
+            PasswordSalt = "saltMm",
+            Role = "admin"
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
@@ -109,18 +116,18 @@ public class tests
 
         var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
         
-        createdUser.role = "chef";
+        createdUser.Role = "chef";
 
-        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/users/{createdUser.userId}", createdUser);
+        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/users/{createdUser.UserId}", createdUser);
         editResponse.EnsureSuccessStatusCode();
 
         var editedUser = JsonConvert.DeserializeObject<User>(await editResponse.Content.ReadAsStringAsync());
 
         editedUser.Should().NotBeNull();
-        editedUser.username.Should().Be("rardon gamsay");
-        editedUser.passwordHash.Should().Be("hashLol");
-        editedUser.passwordSalt.Should().Be("saltMm");
-        editedUser.role.Should().Be("chef");
+        editedUser.Username.Should().Be("rardon gamsay");
+        editedUser.PasswordHash.Should().Be("hashLol");
+        editedUser.PasswordSalt.Should().Be("saltMm");
+        editedUser.Role.Should().Be("chef");
     }
     
     [Test]
@@ -128,10 +135,10 @@ public class tests
     {
         var order = new Order()
         {
-            orderDate = "24-12-2001",
-            orderTime = "18:44",
-            orderItisDone = false,
-            orderItemArrayId = "bidnuggis"
+            OrderDate = "24-12-2001",
+            OrderTime = "18:44",
+            OrderItIsDone = false,
+            OrderItemArrayId = "bidnuggis"
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
@@ -139,7 +146,7 @@ public class tests
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
 
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/orders/{createdOrder.orderId}");
+        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
         deleteResponse.EnsureSuccessStatusCode();
 
         var deletedOrder = JsonConvert.DeserializeObject<Order>(await deleteResponse.Content.ReadAsStringAsync());
@@ -152,10 +159,10 @@ public class tests
     {
         var user = new User()
         {
-            username = "rardon gamsay",
-            passwordHash = "hashLol",
-            passwordSalt = "saltMm",
-            role = "admin"
+            Username = "rardon gamsay",
+            PasswordHash = "hashLol",
+            PasswordSalt = "saltMm",
+            Role = "admin"
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
@@ -163,7 +170,7 @@ public class tests
 
         var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
 
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/{createdUser.userId}");
+        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/{createdUser.UserId}");
         deleteResponse.EnsureSuccessStatusCode();
 
         var deletedUser = JsonConvert.DeserializeObject<User>(await deleteResponse.Content.ReadAsStringAsync());
@@ -176,10 +183,10 @@ public class tests
     {
         var order = new Order()
         {
-            orderDate = "26-12-2001",
-            orderTime = "19:44",
-            orderItisDone = false,
-            orderItemArrayId = "large boke"
+            OrderDate = "26-12-2001",
+            OrderTime = "19:44",
+            OrderItIsDone = false,
+            OrderItemArrayId = "large boke"
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
@@ -187,16 +194,16 @@ public class tests
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
 
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{createdOrder.orderId}");
+        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
         readResponse.EnsureSuccessStatusCode();
 
         var readOrder = JsonConvert.DeserializeObject<Order>(await readResponse.Content.ReadAsStringAsync());
 
         readOrder.Should().NotBeNull();
-        readOrder.orderDate.Should().Be("26-12-2001");
-        readOrder.orderTime.Should().Be("19:44");
-        readOrder.orderItIsDone.Should().Be(false);
-        readOrder.orderItemArrayId.Should().Be("large boke");
+        readOrder.OrderDate.Should().Be("26-12-2001");
+        readOrder.OrderTime.Should().Be("19:44");
+        readOrder.OrderItIsDone.Should().Be(false);
+        readOrder.OrderItemArrayId.Should().Be("large boke");
     }
     
     [Test]
@@ -204,10 +211,10 @@ public class tests
     {
         var user = new User()
         {
-            username = "rardon gamsay",
-            passwordHash = "hashLol",
-            passwordSalt = "saltMm",
-            role = "admin"
+            Username = "rardon gamsay",
+            PasswordHash = "hashLol",
+            PasswordSalt = "saltMm",
+            Role = "admin"
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
@@ -215,16 +222,16 @@ public class tests
 
         var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
 
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/{createdUser.userId}");
+        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/{createdUser.UserId}");
         readResponse.EnsureSuccessStatusCode();
 
-        var readOrder = JsonConvert.DeserializeObject<Order>(await readResponse.Content.ReadAsStringAsync());
+        var readOrder = JsonConvert.DeserializeObject<User>(await readResponse.Content.ReadAsStringAsync());
 
         readOrder.Should().NotBeNull();
-        editedOrder.username.Should().Be("rardon gamsay");
-        editedOrder.passwordHash.Should().Be("hashLol");
-        editedOrder.passwordSalt.Should().Be("saltMm");
-        editedOrder.role.Should().Be("admin");
+        readOrder.Username.Should().Be("rardon gamsay");
+        readOrder.PasswordSalt.Should().Be("hashLol");
+        readOrder.PasswordSalt.Should().Be("saltMm");
+        readOrder.Role.Should().Be("admin");
     }
     
     [Test]
