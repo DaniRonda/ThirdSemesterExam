@@ -118,7 +118,7 @@ public class tests
         
         createdUser.Role = "chef";
 
-        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/users/{createdUser.UserId}", createdUser);
+        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}", createdUser);
         editResponse.EnsureSuccessStatusCode();
 
         var editedUser = JsonConvert.DeserializeObject<User>(await editResponse.Content.ReadAsStringAsync());
@@ -170,7 +170,7 @@ public class tests
 
         var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
 
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/{createdUser.UserId}");
+        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}");
         deleteResponse.EnsureSuccessStatusCode();
 
         var deletedUser = JsonConvert.DeserializeObject<User>(await deleteResponse.Content.ReadAsStringAsync());
@@ -217,12 +217,12 @@ public class tests
             Role = "admin"
         };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
+        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/id/users", user);
         createResponse.EnsureSuccessStatusCode();
 
         var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
 
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/{createdUser.UserId}");
+        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}");
         readResponse.EnsureSuccessStatusCode();
 
         var readOrder = JsonConvert.DeserializeObject<User>(await readResponse.Content.ReadAsStringAsync());
@@ -248,7 +248,7 @@ public class tests
     {
         // Attempt to delete an Order that doesn't exist
         var nonExistentUserId = 9999;
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/{nonExistentUserId}");
+        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/id/{nonExistentUserId}");
 
         deleteResponse.IsSuccessStatusCode.Should().BeFalse();
     }
@@ -266,7 +266,7 @@ public class tests
     {
         // Attempt to read an order that doesn't exist
         var nonExistentUserId = 9999;
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/{nonExistentUserId}");
+        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/id/{nonExistentUserId}");
 
         readResponse.IsSuccessStatusCode.Should().BeFalse();
     }
