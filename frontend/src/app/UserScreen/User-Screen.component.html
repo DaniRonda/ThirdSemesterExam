@@ -172,11 +172,11 @@
         <div class="anoption" id="sizeoption">
           <p id="sizeoptiontitle">Menu size</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Size: Small| " name="menuRadio" id="sizeRadio1" data-price="-10" (click)="smallClicked()">
+            <input class="radio__input" type="radio" value="|Size: Small| " name="menuRadio" id="sizeRadio1" data-price="-10" (click)="onSizeClicked(-10)">
             <label class="radio__label" for="sizeRadio1">Small</label>
-            <input class="radio__input" type="radio" value="|Size: Medium| " name="menuRadio" id="sizeRadio2" data-price="0" (click)="mediumClicked()" checked>
+            <input class="radio__input" type="radio" value="|Size: Medium| " name="menuRadio" id="sizeRadio2" data-price="0" (click)="onSizeClicked(0)" checked>
             <label class="radio__label" for="sizeRadio2">Medium</label>
-            <input class="radio__input" type="radio" value="|Size: Large| " name="menuRadio" id="sizeRadio3" data-price="10" (click)="largeClicked()">
+            <input class="radio__input" type="radio" value="|Size: Large| " name="menuRadio" id="sizeRadio3" data-price="10" (click)="onSizeClicked(10)">
             <label class="radio__label" for="sizeRadio3">Large</label>
           </div>
         </div>
@@ -198,10 +198,10 @@
         <div class="anoption" id="cheeseoption">
           <p id="cheeseoptiontitle">No/Extra Cheese</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Cheese: None| " name="myRadio" id="myRadio1" (click)="noCheeseClicked()">
+            <input class="radio__input" type="radio" value="|Cheese: None| " name="myRadio" id="myRadio1" (click)="onCheeseClicked(-3)">
             <label class="radio__label" for="myRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Cheese: Extra| " name="myRadio" id="myRadio3" (click)="extraCheeseClicked()">
+            <input class="radio__input" type="radio" value="|Cheese: Extra| " name="myRadio" id="myRadio3" (click)="onCheeseClicked(3)">
             <label class="radio__label" for="myRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
@@ -211,10 +211,10 @@
         <div class="anoption" id="baconoption">
           <p id="baconoptiontitle">No/Extra Bacon</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Bacon: None| " name="baconRadio" id="baconRadio1" (click)="noBaconClicked()">
+            <input class="radio__input" type="radio" value="|Bacon: None| " name="baconRadio" id="baconRadio1" (click)="onBaconClicked(-5)">
             <label class="radio__label" for="baconRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Bacon: Extra| " name="baconRadio" id="baconRadio3" (click)="extraBaconClicked()">
+            <input class="radio__input" type="radio" value="|Bacon: Extra| " name="baconRadio" id="baconRadio3" (click)="onBaconClicked(5)">
             <label class="radio__label" for="baconRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
@@ -222,60 +222,60 @@
         <div class="anoption" id="picklesoption">
           <p id="picklesoptiontitle">No/Extra Pickles</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Pickles: None| " name="pickleRadio" id="pickleRadio1" (click)="noPickleClicked()">
+            <input class="radio__input" type="radio" value="|Pickles: None| " name="pickleRadio" id="pickleRadio1" (click)="onPickleClicked(-2)">
             <label class="radio__label" for="pickleRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Pickles: Extra| " name="pickleRadio" id="pickleRadio3" (click)="extraPickleClicked()">
+            <input class="radio__input" type="radio" value="|Pickles: Extra| " name="pickleRadio" id="pickleRadio3" (click)="onPickleClicked(2)">
             <label class="radio__label" for="pickleRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
         <div class="anoption" id="onionsoption">
           <p id="onionsoptiontitle">No/Extra Onions</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Onions: None| " name="onionRadio" id="onionRadio1" (click)="noOnionClicked()">
+            <input class="radio__input" type="radio" value="|Onions: None| " name="onionRadio" id="onionRadio1" (click)="onOnionClicked(-2)">
             <label class="radio__label" for="onionRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Onions: Extra| " name="onionRadio" id="onionRadio3" (click)="extraOnionClicked()">
+            <input class="radio__input" type="radio" value="|Onions: Extra| " name="onionRadio" id="onionRadio3" (click)="onOnionClicked(2)">
             <label class="radio__label" for="onionRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
         <div class="anoption" id="tomatooption">
           <p id="tomatooptiontitle">No/Extra Tomatos</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Tomato: None| " name="tomatoRadio" id="tomatoRadio1" (click)="noTomatoClicked()">
+            <input class="radio__input" type="radio" value="|Tomato: None| " name="tomatoRadio" id="tomatoRadio1" (click)="onTomatoClicked(-2)">
             <label class="radio__label" for="tomatoRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Tomato: Extra| " name="tomatoRadio" id="tomatoRadio3" (click)="extraTomatoClicked()">
+            <input class="radio__input" type="radio" value="|Tomato: Extra| " name="tomatoRadio" id="tomatoRadio3" (click)="onTomatoClicked(2)">
             <label class="radio__label" for="tomatoRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
         <div class="anoption" id="lettuceoption">
           <p id="lettuceoptiontitle">No/Extra Lettuce</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Lettuce: None| " name="lettuceRadio" id="lettuceRadio1" (click)="noLettuceClicked()">
+            <input class="radio__input" type="radio" value="|Lettuce: None| " name="lettuceRadio" id="lettuceRadio1" (click)="onLettuceClicked(-2)">
             <label class="radio__label" for="lettuceRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Lettuce: Extra| " name="lettuceRadio" id="lettuceRadio3" (click)="extraLettuceClicked()">
+            <input class="radio__input" type="radio" value="|Lettuce: Extra| " name="lettuceRadio" id="lettuceRadio3" (click)="onLettuceClicked(2)">
             <label class="radio__label" for="lettuceRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
         <div class="anoption" id="ketchupoption">
           <p id="ketchupoptiontitle">No/Extra Ketchup</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Ketchup: None| " name="ketchupRadio" id="ketchupRadio1" (click)="noKetchupClicked()">
+            <input class="radio__input" type="radio" value="|Ketchup: None| " name="ketchupRadio" id="ketchupRadio1" (click)="onKetchupClicked(-5)">
             <label class="radio__label" for="ketchupRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Ketchup: Extra| " name="ketchupRadio" id="ketchupRadio3" (click)="extraKetchupClicked()">
+            <input class="radio__input" type="radio" value="|Ketchup: Extra| " name="ketchupRadio" id="ketchupRadio3" (click)="onKetchupClicked(5)">
             <label class="radio__label" for="ketchupRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
         </div>
         <div class="anoption" id="mayooption">
           <p id="mayooptiontitle">No/Extra Mayonnaise</p>
           <div class="radio">
-            <input class="radio__input" type="radio" value="|Mayo: None| " name="mayoRadio" id="mayoRadio1" (click)="noMayoClicked()">
+            <input class="radio__input" type="radio" value="|Mayo: None| " name="mayoRadio" id="mayoRadio1" (click)="onMayoClicked(-5)">
             <label class="radio__label" for="mayoRadio1"><fa-icon [icon]="faMinus"></fa-icon></label>
 
-            <input class="radio__input" type="radio" value="|Mayo: Extra| " name="mayoRadio" id="mayoRadio3" (click)="extraMayoClicked()">
+            <input class="radio__input" type="radio" value="|Mayo: Extra| " name="mayoRadio" id="mayoRadio3" (click)="onMayoClicked(5)">
             <label class="radio__label" for="mayoRadio3"><fa-icon [icon]="faPlus"></fa-icon></label>
           </div>
 
