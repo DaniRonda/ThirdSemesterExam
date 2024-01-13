@@ -34,9 +34,9 @@ namespace service;
             return _userRepository.UpdateUser(username, userId, passwordHash, passwordSalt, role);
         }
 
-        public async Task<UserQuery> GetUserByUsernameAsync(string username)
+        public User GetUserByUsername(string username)
         {
-            return await _userRepository.GetUserByUsernameAsync(username);
+            return _userRepository.GetUserByUsername(username);
         }
         
         public User GetUserById(int userId)

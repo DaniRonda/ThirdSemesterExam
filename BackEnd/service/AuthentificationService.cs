@@ -1,42 +1,60 @@
 ﻿using System;
+using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using infraestructure.DataModels;
 using infraestructure.Repositories;
+using Microsoft.Extensions.Logging;
+using Konscious.Security.Cryptography;
+using service;
 
-public class AuthenticationService
+public class AuthenticationService : PasswordHashAlgorithm
 {
-    private readonly UserRepository userRepository;
+    private readonly UserRepository _userRepository;
+    private readonly ILogger<AuthenticationService> _logger;
 
-    public AuthenticationService(UserRepository userRepository)
+    public AuthenticationService(UserRepository userRepository, ILogger<AuthenticationService> logger)
     {
-        this.userRepository = userRepository;
+        this._userRepository = userRepository;
+        _logger = logger;
     }
 
-    public async Task<bool> AuthenticateUserAsync(string username, string password)
+    public User? AuthenticateUser(string username, string password)
     {
-        var user = await userRepository.GetUserByUsernameAsync(username);
-
-        if (user != null)
+        try
         {
-            string hashedPassword = HashPassword(password, user.PasswordSalt);
+            var user = _userRepository.GetUserByUsername(username);
 
-            
-            if (hashedPassword == user.PasswordHash)
+
+            if (user != null)
             {
-                return true;
+                string hashedPassword = HashPassword(password, user.PasswordSalt);
+
+                if (hashedPassword == user.PasswordHash)
+                {
+                    Console.WriteLine(hashedPassword);
+                    return user;
+                }
             }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
-        return false;
+        // Authentication failed
+        throw new InvalidCredentialException("sad trumpet sound");
     }
+
 
     public async Task RegisterUserAsync(string username, string password)
     {
-        string salt = Convert.ToBase64String(GenerateSalt());
-        string hashedPassword = HashPassword(password, salt);
+        var salt = Convert.ToBase64String(GenerateSalt());
+        var hashedPassword = HashPassword(password, salt);
      
-        userRepository.CreateUser(username, hashedPassword, salt, "user");
+        _userRepository.CreateUser(username, hashedPassword, salt, "user");
     }
 
     private byte[] GenerateSalt()
@@ -49,7 +67,7 @@ public class AuthenticationService
         }
     }
 
-    public static string HashPassword(string password, string salt)
+    /*public static string HashPassword(string password, string salt)
     {
         byte[] saltBytes = Convert.FromBase64String(salt);
         byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -63,5 +81,28 @@ public class AuthenticationService
             byte[] hashedBytes = sha256.ComputeHash(combined);
             return Convert.ToBase64String(hashedBytes);
         }
+    }*/
+    
+    public override string HashPassword(string password, string salt)
+    {
+        using var hashAlgo = new Argon2id(Encoding.UTF8.GetBytes(password))
+        {
+            Salt = Decode(salt),
+            MemorySize = 12288,
+            Iterations = 3,
+            DegreeOfParallelism = 1,
+        };
+        return Encode(hashAlgo.GetBytes(128));
     }
+    
+    public override bool VerifyHashedPassword(string email, string password, string hash, string salt)
+    {
+        return HashPassword(password, salt).SequenceEqual(hash);
+    }
+    
+    public User? Get (SessionData data)
+    {
+        return _userRepository.GetUserById(data.UserId);
+    }
+    
 }

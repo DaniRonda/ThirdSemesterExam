@@ -1,0 +1,13 @@
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\bin\Release\net8.0\infraestructure.deps.json
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\bin\Release\net8.0\infraestructure.dll
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\bin\Release\net8.0\infraestructure.pdb
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.csproj.AssemblyReference.cache
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.AssemblyInfoInputs.cache
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.AssemblyInfo.cs
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.sourcelink.json
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.dll
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\refint\infraestructure.dll
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\infraestructure.pdb
+C:\Users\danie\Desktop\ThirdSemesterExam\BackEnd\infraestructure\obj\Release\net8.0\ref\infraestructure.dll

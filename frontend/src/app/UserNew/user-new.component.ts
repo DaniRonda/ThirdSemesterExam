@@ -63,12 +63,13 @@ export class UserNewComponent {
   async addUser() {
     console.log("add")
     try {
-      const call = this.http.post<ResponseDto<User>>(environment.baseUrl + '/api/users', this.createNewUserForm.getRawValue())
+      const call = this.http.post<ResponseDto<User>>(environment.baseUrl + "/api/users/", this.createNewUserForm.getRawValue())
       console.log(this.createNewUserForm.getRawValue())
       const response = await firstValueFrom(call);
 
       this.state.users.push(response.responseData!);
 
+      console.log("hey listen")
 
       const toast = await this.toastController.create({
         message: 'User was created!',

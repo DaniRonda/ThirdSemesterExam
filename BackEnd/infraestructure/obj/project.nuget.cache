@@ -1,13 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "Dk0Q8Ij5alxxYE0mHeDEc6qg516kDwAPuKoa++H9POvW3TvG9tOnwYCKgT0Qot2qjmxf5wXWF7eHO7cO2F41dg==",
+  "dgSpecHash": "XZeIJVNKLrdcV+Bv46pyq4+TNKP+sBmlPFJWlPk7W48PJN6cQC2amVvFPIcnjdnHA8eOpKfMPqrWr7QG+yeW/A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\backend\\infraestructure\\infraestructure.csproj",
+  "projectFilePath": "C:\\Users\\danie\\Desktop\\ThirdSemesterExam\\BackEnd\\infraestructure\\infraestructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\dapper\\2.1.21\\dapper.2.1.21.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\microsoft.data.sqlite\\8.0.1\\microsoft.data.sqlite.8.0.1.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.1\\microsoft.data.sqlite.core.8.0.1.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0-rc.2.23479.6\\microsoft.extensions.dependencyinjection.abstractions.8.0.0-rc.2.23479.6.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0-rc.2.23479.6\\microsoft.extensions.logging.abstractions.8.0.0-rc.2.23479.6.nupkg.sha512",
-    "C:\\Users\\danie\\.nuget\\packages\\npgsql\\8.0.0-rc.2\\npgsql.8.0.0-rc.2.nupkg.sha512"
+    "C:\\Users\\danie\\.nuget\\packages\\npgsql\\8.0.0-rc.2\\npgsql.8.0.0-rc.2.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.6\\sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\sqlitepclraw.core\\2.1.6\\sqlitepclraw.core.2.1.6.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.6\\sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.6\\sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }

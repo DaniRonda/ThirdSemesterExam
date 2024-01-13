@@ -1,8 +1,11 @@
+using System.Runtime.CompilerServices;
 using api.DataModels;
+using api.Filters;
 using api.Model;
 using Microsoft.AspNetCore.Mvc;
 using service;
 using infraestructure.DataModels;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 
 namespace api.Controllers;
@@ -14,19 +17,21 @@ public class Controller : ControllerBase
     private readonly OrderService _orderService;
     private readonly UserService _userService;
     private readonly ItemService _itemService;
+    private readonly AuthenticationService _authenticationService;
+    private readonly JwtService _jwtService;
 
     private readonly ILogger<Controller> _logger;
 
    
-    public Controller(ILogger<Controller> logger, OrderService orderService, UserService userService, ItemService itemService)
+    public Controller(ILogger<Controller> logger, OrderService orderService, UserService userService, ItemService itemService, AuthenticationService authenticationService)
     {
         _logger = logger;
         _orderService = orderService;
         _userService = userService;
         _itemService = itemService;
+        _authenticationService = authenticationService;
     }
-
-   // #region Orders
+    #region Orders
 
     [HttpGet]
     [Route("/api/orders")]
@@ -41,7 +46,7 @@ public class Controller : ControllerBase
         return _orderService.GetOrdersByItIsDone();
     }
     [HttpGet]
-    [Route("/api/orders/{orderDate}")]
+    [Route("/api/orders/date/{orderDate}")]
     public object GetOrdersByDate(string targetDate)
     {
         return _orderService.GetOrdersByDate(targetDate);
@@ -98,7 +103,7 @@ public class Controller : ControllerBase
 
     
     
-   // #endregion
+   #endregion
     
     #region Users
     
@@ -125,7 +130,7 @@ public class Controller : ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/users")]
+    //[Route("/api/users")]
     public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
     {
         if (!ModelState.IsValid)
@@ -170,7 +175,7 @@ public class Controller : ControllerBase
     [Route("/api/user/username/{username}")]
     public async Task<IActionResult> GetUserByUsernameAsync(string username)
     {
-        var user = await _userService.GetUserByUsernameAsync(username);
+        var user = _userService.GetUserByUsername(username);
 
         if (user == null)
         {
@@ -181,8 +186,7 @@ public class Controller : ControllerBase
     }
     
     #endregion
-
-
+    
     #region Items
     
     [HttpGet]
@@ -262,10 +266,31 @@ public class Controller : ControllerBase
     }
 #endregion
 
-#region Validation
+    #region Validation
 
-[ApiController]
-[Route("api/users/login")]
+    [HttpPost]
+    [Route("/api/users/login")]
+    public IActionResult Login([FromBody] LogInDto dto)
+    {
+        var user = _authenticationService.AuthenticateUser(dto.Username, dto.Password);
+      /*  var token = _jwtService.IssueToken(SessionData.FromUser(user!));
+        return new ResponseDto()
+        {
+            MessageToClient = "Yay",
+            ResponseData = new {token},
+        };*/
+      if (user == null)
+      {
+          return Unauthorized("invalid credentials");
+      }
+      else
+      {
+          {
+              var token = _jwtService.IssueToken(SessionData.FromUser(user!));
+              return Ok(new { token });
+          }
+      }
+    }
 public class UserController : ControllerBase
 {
     private readonly AuthenticationService _authenticationService;
@@ -275,7 +300,8 @@ public class UserController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost("api/users/register")]
+    [HttpPost]
+    [Route ("/api/users")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         if (!ModelState.IsValid)
@@ -287,6 +313,22 @@ public class UserController : ControllerBase
 
         return Ok("user created");
     }
+
+    [RequireAuthentication]
+    [HttpGet]
+    [Route("/api/user/whoami")]
+    public ResponseDto WhoAmI()
+    {
+        var data = HttpContext.GetSessionData();
+        var user = _authenticationService.Get(data);
+        return new ResponseDto()
+            {
+                ResponseData = user
+            }
+            ;
+    }
+    
+    
 }
 
 

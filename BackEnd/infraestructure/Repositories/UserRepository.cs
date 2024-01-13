@@ -73,7 +73,7 @@ FROM public.users;";
         }
     }
     
-    public async Task<UserQuery> GetUserByUsernameAsync(string username)
+    public User GetUserByUsername(string username)
     {
         string sql = $@"
 SELECT user_id as {nameof(UserQuery.UserId)},
@@ -86,7 +86,7 @@ WHERE user_name = @UserName;
 ";
         using (var conn = _dataSource.OpenConnection())
         {
-            return await conn.QueryFirstOrDefaultAsync<UserQuery>(sql, new { Username = username });
+            return conn.QueryFirst<User>(sql, new { Username = username });
         }
     }
 
