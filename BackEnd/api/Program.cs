@@ -1,3 +1,5 @@
+using api;
+using api.Middleware;
 using infraestructure.Repositories;
 using service;
 using infraestructure;
@@ -6,6 +8,7 @@ using infraestructure;
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddSqLiteDataSource();
 
 // Add services to the container.
 if (builder.Environment.IsDevelopment())
@@ -25,10 +28,13 @@ builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<ItemRepository>();
 builder.Services.AddSingleton<ItemService>();
+builder.Services.AddSingleton<AuthenticationService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddJwtService();
+builder.Services.AddSwaggerGenWithBearerJWT();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSpaStaticFiles(conf => conf.RootPath = "../frontend/www/");
 
@@ -41,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseCors(options =>
 {
     options.SetIsOriginAllowed(origin => true)
@@ -49,6 +57,8 @@ app.UseCors(options =>
         .AllowCredentials();
         
 });
+
+app.UseSecurityHeaders();
 
 app.UseSpaStaticFiles();
 app.UseSpa(conf =>
@@ -61,5 +71,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<JwtBearerHandler>();
 
 app.Run();
