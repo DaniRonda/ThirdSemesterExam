@@ -54,7 +54,9 @@ public class AuthenticationService : PasswordHashAlgorithm
         var salt = Convert.ToBase64String(GenerateSalt());
         var hashedPassword = HashPassword(password, salt);
      
-        _userRepository.CreateUser(username, hashedPassword, salt, "user");
+        _userRepository.CreateUser(username, hashedPassword, salt, Role.User);
+        Console.Out.WriteLine(hashedPassword);
+        Console.Out.WriteLine(salt);
     }
 
     private byte[] GenerateSalt()

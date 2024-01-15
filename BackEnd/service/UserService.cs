@@ -19,7 +19,7 @@ namespace service;
             return _userRepository.GetUser();
         }
 
-        public User CreateUser(string username, string passwordHash, string passwordSalt, string role)
+        public User CreateUser(string username, string passwordHash, string passwordSalt, Role role)
         {
             return _userRepository.CreateUser(username, passwordHash, passwordSalt, role);
         }

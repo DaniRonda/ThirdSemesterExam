@@ -1,4 +1,6 @@
-﻿namespace infraestructure;
+﻿using infraestructure.DataModels;
+
+namespace infraestructure;
 
 public class UserQuery
 {
@@ -7,5 +9,5 @@ public class UserQuery
     
     public string PasswordHash { get; set; }
     public string? PasswordSalt { get; set; }
-    public string Role { get; set; }
+    public Role Role { get; set; }
 }

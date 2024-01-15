@@ -129,9 +129,9 @@ public class Controller : ControllerBase
         return user;
     }
 
-    [HttpPost]
-    //[Route("/api/users")]
-    public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
+    /*[HttpPost]
+    [Route("/api/users")]
+    public IActionResult CreateUsers([FromBody] CreateUserDto createUserDto)
     {
         if (!ModelState.IsValid)
         {
@@ -140,6 +140,24 @@ public class Controller : ControllerBase
         var newUser = _userService.CreateUser(createUserDto.Username, createUserDto.PasswordHash, createUserDto.PasswordSalt, createUserDto.Role);
 
         return CreatedAtAction(nameof(GetUserById), new { userId = newUser.UserId }, newUser);
+    }*/
+    
+    [HttpPost]
+    [Route ("/api/users/register")]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+    {
+        
+        /*var user = _authenticationService.RegisterUserAsync(createUserDto.Username, createUserDto.Password);
+        return CreatedAtAction(nameof(GetUserById), new { userId = user.UserId }, user);*/
+        Console.WriteLine("heythere");
+        if (!ModelState.IsValid)
+        {
+            return BadRequest("tooteloo");
+        }
+
+        await _authenticationService.RegisterUserAsync(createUserDto.Username, createUserDto.Password);
+
+        return Ok("user created");
     }
 
 
@@ -300,19 +318,7 @@ public class UserController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost]
-    [Route ("/api/users")]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        await _authenticationService.RegisterUserAsync(createUserDto.Username, createUserDto.Password);
-
-        return Ok("user created");
-    }
+    
 
     [RequireAuthentication]
     [HttpGet]

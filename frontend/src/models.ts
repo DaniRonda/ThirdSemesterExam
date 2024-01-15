@@ -12,7 +12,7 @@ export class User{
   userId?: string;
   username?: string;
   password?: string;
-  role?: string;
+  role?: Role;
 }
 export class Item{
   ItemId?: number;
@@ -26,4 +26,10 @@ export class ResponseDto<T>{
   messageToClient?: string;
 
 
+}
+enum Role
+{
+  Admin,
+  Chef,
+  User
 }

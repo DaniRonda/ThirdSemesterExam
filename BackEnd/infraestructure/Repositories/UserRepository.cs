@@ -28,7 +28,7 @@ FROM public.users;
             return conn.Query<UserQuery>(sql);
         }
     }
-    public User CreateUser(string username, string passwordHash, string passwordSalt, string role)
+    public User CreateUser(string username, string passwordHash, string passwordSalt, Role role)
     {
         var sql = $@"
 INSERT INTO public.Users (Username, PasswordHash, PasswordSalt, Role) 
