@@ -32,7 +32,7 @@ FROM public.users;
     {
         var sql = $@"
 INSERT INTO public.users (user_name, password_hash, password_salt, user_role) 
-VALUES (@Username, @PassowrdHash, @PasswordSalt, @Role)
+VALUES (@Username, @PasswordHash, @PasswordSalt, @Role)
 RETURNING user_id as {nameof(UserQuery.UserId)},
        user_name as {nameof(UserQuery.Username)},
        password_hash as {nameof(UserQuery.PasswordHash)},
