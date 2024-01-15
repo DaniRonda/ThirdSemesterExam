@@ -31,13 +31,13 @@ FROM public.users;
     public User CreateUser(string username, string passwordHash, string passwordSalt, Role role)
     {
         var sql = $@"
-INSERT INTO public.Users (Username, PasswordHash, PasswordSalt, Role) 
-VALUES (@user_name, @password_hash, @password_salt, @password_role)
+INSERT INTO public.users (user_name, password_hash, password_salt, user_role) 
+VALUES (@Username, @PassowrdHash, @PasswordSalt, @Role)
 RETURNING user_id as {nameof(UserQuery.UserId)},
        user_name as {nameof(UserQuery.Username)},
        password_hash as {nameof(UserQuery.PasswordHash)},
         password_salt as {nameof(UserQuery.PasswordSalt)},
-        user_role as {nameof(UserQuery.Role)},
+        user_role as {nameof(UserQuery.Role)}
 ";
         using (var conn = _dataSource.OpenConnection())
         {
@@ -58,7 +58,7 @@ RETURNING user_id as {nameof(UserQuery.UserId)},
     public User UpdateUser(string username, int userId, string passwordHash, string passwordSalt, string role)
     {
         var sql = $@"
-UPDATE public.Users SET Username = @user_name, PasswordHash = @password_hash, PasswordSalt= @password_salt, Role = @user_role
+UPDATE public.users SET Username = @user_name, PasswordHash = @password_hash, PasswordSalt= @password_salt, Role = @user_role
 WHERE UserId = @UserId
 RETURNING user_id as {nameof(UserQuery.UserId)},
        user_name as {nameof(UserQuery.Username)},
