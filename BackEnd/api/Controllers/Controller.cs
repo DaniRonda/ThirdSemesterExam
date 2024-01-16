@@ -23,13 +23,14 @@ public class Controller : ControllerBase
     private readonly ILogger<Controller> _logger;
 
    
-    public Controller(ILogger<Controller> logger, OrderService orderService, UserService userService, ItemService itemService, AuthenticationService authenticationService)
+    public Controller(ILogger<Controller> logger, OrderService orderService, UserService userService, ItemService itemService, AuthenticationService authenticationService, JwtService jwtService)
     {
         _logger = logger;
         _orderService = orderService;
         _userService = userService;
         _itemService = itemService;
         _authenticationService = authenticationService;
+        _jwtService = jwtService;
     }
     #region Orders
 
@@ -291,23 +292,33 @@ public class Controller : ControllerBase
     public IActionResult Login([FromBody] LogInDto dto)
     {
         var user = _authenticationService.AuthenticateUser(dto.Username, dto.Password);
-      /*  var token = _jwtService.IssueToken(SessionData.FromUser(user!));
-        return new ResponseDto()
+        if (user == null)
+         
         {
+            Console.WriteLine("invalid");
+            return Unauthorized("iiinvalid credentials");
+        }
+        Console.WriteLine($"User ID: {user.UserId}, Username: {user.Username} - valid");
+        var token = _jwtService.IssueToken(SessionData.FromUser(user!));
+        Console.WriteLine(token + " here token");
+        return Ok(new { token });
+      /*  {
             MessageToClient = "Yay",
             ResponseData = new {token},
-        };*/
+        };
       if (user == null)
+         
       {
           return Unauthorized("invalid credentials");
       }
       else
       {
           {
-              var token = _jwtService.IssueToken(SessionData.FromUser(user!));
+              Console.WriteLine(user + "user here");
+              var token = _jwtService.IssueToken(SessionData.FromUser(user));
               return Ok(new { token });
           }
-      }
+      }*/
     }
 public class UserController : ControllerBase
 {

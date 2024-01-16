@@ -22,8 +22,11 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ReceiptInfoComponent} from "./ReceiptInfo/reciept-info.component";
 import {UserEditComponent} from "./UserEdit/user-edit.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {UserNewComponent} from "./UserNew/user-new.component";
+import {TokenService} from "../services/token.service";
+import {AuthHttpInterceptor} from "../interceptors/auth-http-interceptor";
+import {ErrorHttpInterceptor} from "../interceptors/error-http-interceptor";
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import {UserNewComponent} from "./UserNew/user-new.component";
         MatNativeDateModule, FormsModule,
         HttpClientModule, ReactiveFormsModule
     ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorHttpInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},
+    TokenService,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
