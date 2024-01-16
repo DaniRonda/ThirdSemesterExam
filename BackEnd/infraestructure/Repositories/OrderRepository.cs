@@ -67,7 +67,7 @@ WHERE order_date = @parsedDate;
         {
             var sql = $@"
 INSERT INTO public.orders (order_item, order_date, order_time, order_itsdone) 
-VALUES (@OrderItemArray, @OrderDate, @OrderTime, @OrderItIsDone)
+VALUES (@OrderItemArrayId, @OrderDate, @OrderTime, @OrderItIsDone)
 RETURNING order_id as {nameof(Order.OrderId)},
        order_item as {nameof(Order.OrderItemArrayId)},
        order_date as {nameof(Order.OrderDate)},

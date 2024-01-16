@@ -5,11 +5,18 @@ import {ModalController} from "@ionic/angular";
 import {UserEditComponent} from "../UserEdit/user-edit.component";
 import {UserNewComponent} from "../UserNew/user-new.component";
 import {Router} from "@angular/router";
-import {Order, User} from "../../models";
+import {Item, Order, User} from "../../models";
 import {environment} from "../../environments/environment";
 import {firstValueFrom} from "rxjs";
 import {State} from "../state";
 import {HttpClient} from "@angular/common/http";
+
+enum Role {
+  Admin,
+  Chef,
+  User
+}
+
 
 
 @Component({
@@ -104,5 +111,18 @@ export class AdminUserScreenComponent {
   async getFeedData() {
     const call = this.http.get<User[]>(environment.baseUrl + '/api/users');
     this.state.users = await firstValueFrom<User[]>(call);
+  }
+
+  getRoleText(role: Role): string {
+    switch (role) {
+      case Role.Admin:
+        return 'Admin';
+      case Role.Chef:
+        return 'Chef';
+      case Role.User:
+        return 'User';
+      default:
+        return 'Unknown';
+    }
   }
 }
