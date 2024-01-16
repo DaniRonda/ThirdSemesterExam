@@ -164,7 +164,7 @@ public class tests
             var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
 
             // Assert - Ensure the order is created successfully
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            createResponse.StatusCode.Should().Be(HttpStatusCode.Created);
             createdOrder.Should().NotBeNull();
 
             // Act - Delete the order
