@@ -1,5 +1,4 @@
-﻿
-namespace unitTests;
+﻿namespace unitTests;
 
 public class Order
 {

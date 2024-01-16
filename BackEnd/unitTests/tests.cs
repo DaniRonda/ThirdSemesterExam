@@ -2,272 +2,312 @@
 using System.Net.Http.Json;
 using FluentAssertions;
 using infraestructure.DataModels;
+using infraestructure.Repositories;
+
 using Newtonsoft.Json;
+using Npgsql;
 using NUnit.Framework;
 
 namespace unitTests;
 
 public class tests
 {
+
     [TestFixture]
-    public class objectTests{
+
+    public class objectTests
+    {
         private HttpClient _httpClient;
-    [SetUp]
-    public void Setup()
-    {
-        _httpClient = new HttpClient();
-    }
+        private OrderRepository _orderRepository;
 
-    [Test]
-    public void Test1()
-    {
-        Assert.Pass();
-    }
-    [Test]
-    public async Task ShouldSuccessfullyCreateOrder()
-    {
-        var order = new Order()
+        [SetUp]
+        public void Setup()
         {
-            OrderItemArrayId = "brench bries",
-            OrderDate = "10-12-2001",
-            OrderTime = "15:44:56",
-            OrderItIsDone = false
-            
-        };
+            _httpClient = new HttpClient();
+        }
 
-        var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
-        Console.WriteLine(order);
-        
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
 
-        var responseObject = JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
 
-        responseObject.Should().NotBeNull();
-        responseObject.OrderDate.Should().Be(order.OrderDate);
-        responseObject.OrderTime.Should().Be(order.OrderTime);
-        responseObject.OrderItIsDone.Should().Be(order.OrderItIsDone);
-        responseObject.OrderItemArrayId.Should().Be(order.OrderItemArrayId);
-    }
-    [Test]
-    public async Task ShouldSuccessfullyCreateUser()
-    {
-        var user = new User()
+
+
+        [Test]
+        public async Task ShouldSuccessfullyCreateOrder()
         {
-            Username = "rardon gamsay",
-            Password = "Eyyy1234",
-            Role = 0
-        };
+            var order = new Order()
+            {
+                OrderItemArrayId = "brench bries",
+                OrderDate = "10-12-2001",
+                OrderTime = "15:44:56",
+                OrderItIsDone = false
 
-        var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/register", user);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(jsonResponse + "User heeerer");
-        
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-        
-    }
-    
-    [Test]
-    public async Task ShouldSuccessfullyEditOrder()
-    {
-        var order = new Order()
+            };
+
+            var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
+            Console.WriteLine(order);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var responseObject = JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
+
+            responseObject.Should().NotBeNull();
+            responseObject.OrderDate.Should().Be(order.OrderDate);
+            responseObject.OrderTime.Should().Be(order.OrderTime);
+            responseObject.OrderItIsDone.Should().Be(order.OrderItIsDone);
+            responseObject.OrderItemArrayId.Should().Be(order.OrderItemArrayId);
+
+        }
+
+
+        [Test]
+        public async Task ShouldSuccessfullyCreateUser()
         {
-            OrderItemArrayId = "hamburber",
-            OrderDate = "12-12-2001",
-            OrderTime = "16:44:56",
-            OrderItIsDone = false
-            
-        };
+            var user = new User()
+            {
+                Username = "rardon gamsay",
+                Password = "Eyyy1234",
+                Role = 0
+            };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
-        
-        var jsonResponse = await createResponse.Content.ReadAsStringAsync();
-        Console.WriteLine(jsonResponse + "heeerer");
-        var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
-        
-        createdOrder.OrderItIsDone = true;
+            var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/register", user);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonResponse + "User heeerer");
 
-        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}", createdOrder);
-        editResponse.EnsureSuccessStatusCode();
+            response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
 
-        var editedOrder = JsonConvert.DeserializeObject<Order>(await editResponse.Content.ReadAsStringAsync());
+        }
 
-        editedOrder.Should().NotBeNull();
-        editedOrder.OrderItemArrayId.Should().Be("hamburber");
-        editedOrder.OrderDate.Should().Be("12-12-2001");
-        editedOrder.OrderTime.Should().Be("16:44:56");
-        editedOrder.OrderItIsDone.Should().Be(true);
-        
-    }
-    [Test]
-    public async Task ShouldSuccessfullyEditUser()
-    {
-        var user = new User()
+        [Test]
+        public async Task ShouldSuccessfullyEditOrder()
         {
-            Username = "rardon gamsay",
-            Password = "hashLol1234",
-            Role = Role.Admin
-        };
+            var order = new Order()
+            {
+                OrderItemArrayId = "hamburber",
+                OrderDate = "12-12-2001",
+                OrderTime = "16:44:56",
+                OrderItIsDone = false
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
-        //createResponse.EnsureSuccessStatusCode();
+            };
 
-        var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
-        var jsonResponse = await createResponse.Content.ReadAsStringAsync();
-        Console.WriteLine(jsonResponse + "ediiit user");
-        createdUser.Role = Role.Chef;
+            Console.WriteLine(order.OrderTime + order.OrderDate + order.OrderItemArrayId + order.OrderItIsDone);
 
-        var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}", createdUser);
-        editResponse.EnsureSuccessStatusCode();
 
-        var editedUser = JsonConvert.DeserializeObject<User>(await editResponse.Content.ReadAsStringAsync());
+            var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
 
-        editedUser.Should().NotBeNull();
-        editedUser.Username.Should().Be("rardon gamsay");
-        editedUser.Role.Should().Be(Role.Chef);
-    }
-    
-    [Test]
-    public async Task ShouldSuccessfullyDeleteOrder()
-    {
-        var order = new Order()
+            var jsonResponse = await createResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonResponse + "heeerer");
+
+            var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
+
+            createdOrder.OrderItIsDone = true;
+            Console.WriteLine(createdOrder);
+            var editResponse =
+                await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}",
+                    createdOrder);
+
+
+            var editedOrder = JsonConvert.DeserializeObject<Order>(await editResponse.Content.ReadAsStringAsync());
+
+            editedOrder.Should().NotBeNull();
+            editedOrder.OrderItemArrayId.Should().Be("hamburber");
+            editedOrder.OrderDate.Should().Be("12-12-2001");
+            editedOrder.OrderTime.Should().Be("16:44:56");
+            editedOrder.OrderItIsDone.Should().Be(true);
+
+        }
+
+        [Test]
+        public async Task ShouldSuccessfullyEditUser()
         {
-            OrderItemArrayId = "bidnuggis",
-            OrderDate = "24-12-2001",
-            OrderTime = "18:44:56",
-            OrderItIsDone = false
-            
-        };
+            var user = new User()
+            {
+                Username = "rardon gamsay",
+                Password = "hashLol1234",
+                Role = Role.Admin
+            };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
-        
+            var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users", user);
+            //createResponse.EnsureSuccessStatusCode();
 
-        var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
+            var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
+            var jsonResponse = await createResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonResponse + "ediiit user");
+            createdUser.Role = Role.Chef;
 
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
-        deleteResponse.EnsureSuccessStatusCode();
+            var editResponse =
+                await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}",
+                    createdUser);
+            editResponse.EnsureSuccessStatusCode();
 
-        var deletedOrder = JsonConvert.DeserializeObject<Order>(await deleteResponse.Content.ReadAsStringAsync());
+            var editedUser = JsonConvert.DeserializeObject<User>(await editResponse.Content.ReadAsStringAsync());
 
-        deletedOrder.Should().BeNull();
-    }
-    
-    [Test]
-    public async Task ShouldSuccessfullyDeleteUser()
-    {
-        var user = new User()
+            editedUser.Should().NotBeNull();
+            editedUser.Username.Should().Be("rardon gamsay");
+            editedUser.Role.Should().Be(Role.Chef);
+        }
+
+        [Test]
+        public async Task ShouldSuccessfullyDeleteOrder()
         {
-            Username = "rardongamsay",
-            Password = "hashLol1234",
-            Role = 0
-        };
+            // Arrange
+            var order = new Order()
+            {
+                OrderItemArrayId = "bidnuggis",
+                OrderDate = "24-12-2001",
+                OrderTime = "18:44:56",
+                OrderItIsDone = false
+            };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users/register", user);
-        
-        Console.WriteLine(createResponse.Content + "create r3es");
-        
-        var jsonResponse = await createResponse.Content.ReadAsStringAsync();
-        Console.WriteLine(jsonResponse + "del user");
-        
-        var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
-        Console.WriteLine(createdUser + "create user");
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}");
-        deleteResponse.EnsureSuccessStatusCode();
+            // Act
+            var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
+            createResponse.EnsureSuccessStatusCode();
 
-        var deletedUser = JsonConvert.DeserializeObject<User>(await deleteResponse.Content.ReadAsStringAsync());
+            var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
 
-        deletedUser.Should().BeNull();
-    }
-    
-    [Test]
-    public async Task ShouldSuccessfullyReadOrder()
-    {
-        var order = new Order()
+            // Assert - Ensure the order is created successfully
+            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            createdOrder.Should().NotBeNull();
+
+            // Act - Delete the order
+            var deleteResponse =
+                await _httpClient.DeleteAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
+            deleteResponse.EnsureSuccessStatusCode();
+
+            // Assert - Ensure the delete operation returns a NoContent status code
+            deleteResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
+
+            // Act - Try to retrieve the deleted order (it should not exist)
+            var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
+
+            // Assert - Ensure that attempting to read the deleted order returns a failure status code
+            readResponse.IsSuccessStatusCode.Should().BeFalse();
+            readResponse.StatusCode.Should().NotBe(HttpStatusCode.OK);
+        }
+
+
+        [Test]
+        public async Task ShouldSuccessfullyDeleteUser()
         {
-            OrderItemArrayId = "large boke",
-            OrderDate = "26-12-2001",
-            OrderTime = "19:44:56",
-            OrderItIsDone = false
-           
-        };
+            var user = new User()
+            {
+                Username = "rardongamsay",
+                Password = "hashLol1234",
+                Role = 0
+            };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
-        createResponse.EnsureSuccessStatusCode();
+            var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users/register", user);
 
-        var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
+            Console.WriteLine(createResponse.Content + "create r3es");
 
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
-        readResponse.EnsureSuccessStatusCode();
+            var jsonResponse = await createResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonResponse + "del user");
 
-        var readOrder = JsonConvert.DeserializeObject<Order>(await readResponse.Content.ReadAsStringAsync());
+            var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
+            Console.WriteLine(createdUser + "create user");
+            var deleteResponse =
+                await _httpClient.DeleteAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}");
+            deleteResponse.EnsureSuccessStatusCode();
 
-        readOrder.Should().NotBeNull();
-        readOrder.OrderItemArrayId.Should().Be("large boke");
-        readOrder.OrderDate.Should().Be("26-12-2001");
-        readOrder.OrderTime.Should().Be("19:44:56");
-        readOrder.OrderItIsDone.Should().Be(false);
-       
-    }
-    
-    [Test]
-    public async Task ShouldSuccessfullyReadUser()
-    {
-        var user = new User()
+            var deletedUser = JsonConvert.DeserializeObject<User>(await deleteResponse.Content.ReadAsStringAsync());
+
+            deletedUser.Should().BeNull();
+        }
+
+        [Test]
+        public async Task ShouldSuccessfullyReadOrder()
         {
-            Username = "rardon gamsay",
-            Password = "hashLol1234",
-            Role = 0
-        };
+            var order = new Order()
+            {
+                OrderItemArrayId = "large boke",
+                OrderDate = "26-12-2001",
+                OrderTime = "19:44:56",
+                OrderItIsDone = false
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users/register", user);
-        createResponse.EnsureSuccessStatusCode();
+            };
 
-        var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
+            var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
+            createResponse.EnsureSuccessStatusCode();
 
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}");
-        readResponse.EnsureSuccessStatusCode();
+            var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
 
-        var readOrder = JsonConvert.DeserializeObject<User>(await readResponse.Content.ReadAsStringAsync());
+            var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}");
+            readResponse.EnsureSuccessStatusCode();
 
-        readOrder.Should().NotBeNull();
-        readOrder.Username.Should().Be("rardon gamsay");
-        readOrder.Role.Should().Be(0);
-    }
-    
-    [Test]
-    public async Task ShouldFailToDeleteNonExistentOrder()
-    {
-        // Attempt to delete an Order that doesn't exist
-        var nonExistentOrderId = 9999;
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/orders/{nonExistentOrderId}");
+            var readOrder = JsonConvert.DeserializeObject<Order>(await readResponse.Content.ReadAsStringAsync());
 
-        deleteResponse.IsSuccessStatusCode.Should().BeFalse();
-    }
-    [Test]
-    public async Task ShouldFailToDeleteNonExistentUser()
-    {
-        // Attempt to delete an Order that doesn't exist
-        var nonExistentUserId = 9999;
-        var deleteResponse = await _httpClient.DeleteAsync($"http://localhost:5000/api/users/id/{nonExistentUserId}");
+            readOrder.Should().NotBeNull();
+            readOrder.OrderItemArrayId.Should().Be("large boke");
+            readOrder.OrderDate.Should().Be("26-12-2001");
+            readOrder.OrderTime.Should().Be("19:44:56");
+            readOrder.OrderItIsDone.Should().Be(false);
 
-        deleteResponse.IsSuccessStatusCode.Should().BeFalse();
-    }
-    [Test]
-    public async Task ShouldFailToReadNonExistentOrder()
-    {
-        // Attempt to read an order that doesn't exist
-        var nonExistentOrderId = 9999;
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{nonExistentOrderId}");
+        }
 
-        readResponse.IsSuccessStatusCode.Should().BeFalse();
-    }
-   [Test]
-    public async Task ShouldFailToReadNonExistentUser()
-    {
-        // Attempt to read an order that doesn't exist
-        var nonExistentUserId = 9999;
-        var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/id/{nonExistentUserId}");
+        [Test]
+        public async Task ShouldSuccessfullyReadUser()
+        {
+            var user = new User()
+            {
+                Username = "rardon gamsay",
+                Password = "hashLol1234",
+                Role = 0
+            };
 
-        readResponse.IsSuccessStatusCode.Should().BeFalse();
-    }
+            var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/users/register", user);
+            createResponse.EnsureSuccessStatusCode();
+
+            var createdUser = JsonConvert.DeserializeObject<User>(await createResponse.Content.ReadAsStringAsync());
+
+            var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/id/{createdUser.UserId}");
+            readResponse.EnsureSuccessStatusCode();
+
+            var readOrder = JsonConvert.DeserializeObject<User>(await readResponse.Content.ReadAsStringAsync());
+
+            readOrder.Should().NotBeNull();
+            readOrder.Username.Should().Be("rardon gamsay");
+            readOrder.Role.Should().Be(0);
+        }
+
+        [Test]
+        public async Task ShouldFailToDeleteNonExistentOrder()
+        {
+            // Attempt to delete an Order that doesn't exist
+            var nonExistentOrderId = 9999;
+            var deleteResponse =
+                await _httpClient.DeleteAsync($"http://localhost:5000/api/orders/{nonExistentOrderId}");
+
+            deleteResponse.IsSuccessStatusCode.Should().BeFalse();
+        }
+
+        [Test]
+        public async Task ShouldFailToDeleteNonExistentUser()
+        {
+            // Attempt to delete an Order that doesn't exist
+            var nonExistentUserId = 9999;
+            var deleteResponse =
+                await _httpClient.DeleteAsync($"http://localhost:5000/api/users/id/{nonExistentUserId}");
+
+            deleteResponse.IsSuccessStatusCode.Should().BeFalse();
+        }
+
+        [Test]
+        public async Task ShouldFailToReadNonExistentOrder()
+        {
+            // Attempt to read an order that doesn't exist
+            var nonExistentOrderId = 9999;
+            var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/orders/{nonExistentOrderId}");
+
+            readResponse.IsSuccessStatusCode.Should().BeFalse();
+        }
+
+        [Test]
+        public async Task ShouldFailToReadNonExistentUser()
+        {
+            // Attempt to read an order that doesn't exist
+            var nonExistentUserId = 9999;
+            var readResponse = await _httpClient.GetAsync($"http://localhost:5000/api/users/id/{nonExistentUserId}");
+
+            readResponse.IsSuccessStatusCode.Should().BeFalse();
+        }
     }
 }
+    
