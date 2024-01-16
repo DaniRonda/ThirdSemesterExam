@@ -1,6 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using api.Model;
 using FluentAssertions;
+using infraestructure.DataModels;
+using infraestructure.Repositories;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -11,6 +14,7 @@ public class tests
     [TestFixture]
     public class objectTests{
         private HttpClient _httpClient;
+        private OrderRepository _orderRepository;
     [SetUp]
     public void Setup()
     {
@@ -22,7 +26,31 @@ public class tests
     {
         Assert.Pass();
     }
+    
     [Test]
+    public async Task ShouldSuccessfullyCreateOrder()
+    {
+        // Arrange
+        string orderItemArrayId = "TestOrderItem";
+        string orderDate = "2024-01-16";
+        string orderTime = "12:00 PM";
+        bool orderItIsDone = false;
+
+        // Act
+        Order addedOrder = _orderRepository.CreateOrder(orderItemArrayId, orderDate, orderTime, orderItIsDone);
+
+        // Assert
+        Order retrievedOrder = _orderRepository.GetOrderByOrderIdAsync(addedOrder.OrderId);
+
+        // Use FluentAssertions for a more readable assertion
+        retrievedOrder.Should().BeEquivalentTo(addedOrder, "it should be the same");
+        _orderRepository.DeleteOrder(retrievedOrder.OrderId);
+        Assert.Pass("Order creation test passed!");
+    }
+
+    
+    
+   /* [Test]
     public async Task ShouldSuccessfullyCreateOrder()
     {
         var order = new Order()
@@ -46,7 +74,7 @@ public class tests
         responseObject.OrderTime.Should().Be(order.OrderTime);
         responseObject.OrderItIsDone.Should().Be(order.OrderItIsDone);
         responseObject.OrderItemArrayId.Should().Be(order.OrderItemArrayId);
-    }
+    }*/
     /*[Test]
     public async Task ShouldSuccessfullyCreateUser()
     {
