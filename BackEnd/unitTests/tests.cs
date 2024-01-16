@@ -4,27 +4,26 @@ using api.Model;
 using FluentAssertions;
 using infraestructure.DataModels;
 using infraestructure.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Newtonsoft.Json;
+using Npgsql;
 using NUnit.Framework;
 
 namespace unitTests;
 
 public class tests
 {
+    
     [TestFixture]
+    
     public class objectTests{
         private HttpClient _httpClient;
         private OrderRepository _orderRepository;
+
     [SetUp]
     public void Setup()
     {
         _httpClient = new HttpClient();
-    }
-
-    [Test]
-    public void Test1()
-    {
-        Assert.Pass();
     }
     
     [Test]
@@ -33,12 +32,12 @@ public class tests
         // Arrange
         string orderItemArrayId = "TestOrderItem";
         string orderDate = "2024-01-16";
-        string orderTime = "12:00 PM";
+        string orderTime = "12:00:56";
         bool orderItIsDone = false;
 
         // Act
         Order addedOrder = _orderRepository.CreateOrder(orderItemArrayId, orderDate, orderTime, orderItIsDone);
-
+        Console.WriteLine(addedOrder);
         // Assert
         Order retrievedOrder = _orderRepository.GetOrderByOrderIdAsync(addedOrder.OrderId);
 
@@ -114,11 +113,11 @@ public class tests
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
         createResponse.EnsureSuccessStatusCode();
-
+        Console.WriteLine(order);
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
         
         createdOrder.OrderItIsDone = true;
-
+        Console.WriteLine(createdOrder);
         var editResponse = await _httpClient.PutAsJsonAsync($"http://localhost:5000/api/orders/{createdOrder.OrderId}", createdOrder);
         editResponse.EnsureSuccessStatusCode();
 
@@ -127,7 +126,7 @@ public class tests
         editedOrder.Should().NotBeNull();
         editedOrder.OrderItemArrayId.Should().Be("hamburber");
         editedOrder.OrderDate.Should().Be("12-12-2001");
-        editedOrder.OrderTime.Should().Be("16:44");
+        editedOrder.OrderTime.Should().Be("16:44:56");
         editedOrder.OrderItIsDone.Should().Be(true);
         
     }
