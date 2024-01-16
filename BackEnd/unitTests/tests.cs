@@ -27,10 +27,11 @@ public class tests
     {
         var order = new Order()
         {
+            OrderItemArrayId = "brench bries",
             OrderDate = "10-12-2001",
             OrderTime = "15:44:56",
-            OrderItIsDone = false,
-            OrderItemArrayId = "brench bries"
+            OrderItIsDone = false
+            
         };
 
         var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
@@ -76,10 +77,11 @@ public class tests
     {
         var order = new Order()
         {
+            OrderItemArrayId = "hamburber",
             OrderDate = "12-12-2001",
             OrderTime = "16:44:56",
-            OrderItIsDone = false,
-            OrderItemArrayId = "hamburber"
+            OrderItIsDone = false
+            
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
@@ -95,10 +97,11 @@ public class tests
         var editedOrder = JsonConvert.DeserializeObject<Order>(await editResponse.Content.ReadAsStringAsync());
 
         editedOrder.Should().NotBeNull();
+        editedOrder.OrderItemArrayId.Should().Be("hamburber");
         editedOrder.OrderDate.Should().Be("12-12-2001");
         editedOrder.OrderTime.Should().Be("16:44");
         editedOrder.OrderItIsDone.Should().Be(true);
-        editedOrder.OrderItemArrayId.Should().Be("hamburber");
+        
     }
     /*[Test]
     public async Task ShouldSuccessfullyEditUser()
@@ -135,10 +138,11 @@ public class tests
     {
         var order = new Order()
         {
+            OrderItemArrayId = "bidnuggis",
             OrderDate = "24-12-2001",
             OrderTime = "18:44:56",
-            OrderItIsDone = false,
-            OrderItemArrayId = "bidnuggis"
+            OrderItIsDone = false
+            
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
@@ -183,10 +187,11 @@ public class tests
     {
         var order = new Order()
         {
+            OrderItemArrayId = "large boke",
             OrderDate = "26-12-2001",
             OrderTime = "19:44:56",
-            OrderItIsDone = false,
-            OrderItemArrayId = "large boke"
+            OrderItIsDone = false
+           
         };
 
         var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
@@ -200,10 +205,11 @@ public class tests
         var readOrder = JsonConvert.DeserializeObject<Order>(await readResponse.Content.ReadAsStringAsync());
 
         readOrder.Should().NotBeNull();
+        readOrder.OrderItemArrayId.Should().Be("large boke");
         readOrder.OrderDate.Should().Be("26-12-2001");
         readOrder.OrderTime.Should().Be("19:44:56");
         readOrder.OrderItIsDone.Should().Be(false);
-        readOrder.OrderItemArrayId.Should().Be("large boke");
+       
     }
     
    /* [Test]
