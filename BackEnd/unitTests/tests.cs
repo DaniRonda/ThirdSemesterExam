@@ -28,12 +28,12 @@ public class tests
         var order = new Order()
         {
             OrderDate = "10-12-2001",
-            OrderTime = "15:44",
+            OrderTime = "15:44:56",
             OrderItIsDone = false,
             OrderItemArrayId = "brench bries"
         };
 
-        var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
+        var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
 
         
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -77,12 +77,12 @@ public class tests
         var order = new Order()
         {
             OrderDate = "12-12-2001",
-            OrderTime = "16:44",
+            OrderTime = "16:44:56",
             OrderItIsDone = false,
             OrderItemArrayId = "hamburber"
         };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
+        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
         createResponse.EnsureSuccessStatusCode();
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
@@ -136,12 +136,12 @@ public class tests
         var order = new Order()
         {
             OrderDate = "24-12-2001",
-            OrderTime = "18:44",
+            OrderTime = "18:44:56",
             OrderItIsDone = false,
             OrderItemArrayId = "bidnuggis"
         };
 
-        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders", order);
+        var createResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/api/orders/", order);
         
 
         var createdOrder = JsonConvert.DeserializeObject<Order>(await createResponse.Content.ReadAsStringAsync());
@@ -184,7 +184,7 @@ public class tests
         var order = new Order()
         {
             OrderDate = "26-12-2001",
-            OrderTime = "19:44",
+            OrderTime = "19:44:56",
             OrderItIsDone = false,
             OrderItemArrayId = "large boke"
         };
@@ -201,7 +201,7 @@ public class tests
 
         readOrder.Should().NotBeNull();
         readOrder.OrderDate.Should().Be("26-12-2001");
-        readOrder.OrderTime.Should().Be("19:44");
+        readOrder.OrderTime.Should().Be("19:44:56");
         readOrder.OrderItIsDone.Should().Be(false);
         readOrder.OrderItemArrayId.Should().Be("large boke");
     }
