@@ -1,4 +1,6 @@
-﻿namespace unitTests;
+﻿using infraestructure.DataModels;
+
+namespace unitTests;
 
 public class User
 {
@@ -9,5 +11,6 @@ public class User
     public string? PasswordSalt { get; set; }
     
     public string? Password { get; set; }
-    public string Role { get; set; }
+    
+    public Role Role { get; set; }
 }
